@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom|center_horizontal"
+    tools:parentTag="android.widget.LinearLayout"
+    >
+
+    <ImageView
+        android:id="@+id/third_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/colon_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_colon"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_colon"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/second_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/second_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/colon_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_colon"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_colon"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/first_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/first_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/small_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+
+    <ImageView
+        android:id="@+id/small_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_num"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_0"
+        tools:ignore="ContentDescription"
+        />
+</merge>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Fullscreen Timer</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="label_clock">clock</string>
+    <string name="label_stopwatch">stopwatch</string>
+    <string name="label_timer">timer</string>
+
+    <string name="menu_title_foreground_color">Foreground color</string>
+    <string name="menu_description_foreground_color">Set the color of the clock text</string>
+    <string name="menu_title_volume">SE Volume</string>
+    <string name="menu_title_hour_enabled">Display of \"hour\"</string>
+    <string name="menu_description_hour_enabled_on">Display \"hour\"</string>
+    <string name="menu_description_hour_enabled_off">Do not display \"hour\"</string>
+    <string name="menu_title_fullscreen">Full screen view of the main screen</string>
+    <string name="menu_description_fullscreen_on">Full screen view</string>
+    <string name="menu_description_fullscreen_off">Do not display full screen</string>
+    <string name="menu_title_version">Version</string>
+
+    <string name="hour_initial">H</string>
+    <string name="minute_initial">M</string>
+
+    <string name="options_menu_license">Open source licenses</string>
+    <string name="options_menu_source_code">Source code</string>
+    <string name="options_menu_privacy_policy">Privacy policy</string>
+    <string name="options_menu_play_store">Google Play store</string>
+    <string name="options_menu_relevant_ads">Relevant Ads</string>
+</resources>

@@ -1,0 +1,53 @@
+<resources>
+    <style name="ThemeBase.Timer" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/blue_500</item>
+        <item name="colorSecondaryVariant">@color/blue_500</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/black</item>
+
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/gray_500</item>
+
+        <item name="colorControlNormal">@color/white</item>
+        <item name="borderColorPrimary">@color/white_33</item>
+        <item name="rippleColorDefault">@color/white_33</item>
+
+        <item name="alertDialogTheme">@style/Theme.Timer.Dialog</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.Timer" parent="ThemeBase.Timer" />
+
+    <style name="Theme.Timer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Timer.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
+    <style name="Theme.Timer.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorSurface">@color/black</item>
+    </style>
+
+    <style name="Theme.Timer.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorSecondary">@color/blue_500</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="android:windowBackground">@color/gray_900</item>
+    </style>
+
+    <style name="TextAppearance.Timer.Title" parent="TextAppearance.Material3.BodyLarge">
+    </style>
+    <style name="TextAppearance.Timer.Label" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="TextAppearance.Timer.SubTitle" parent="TextAppearance.Material3.BodySmall">
+    </style>
+</resources>
