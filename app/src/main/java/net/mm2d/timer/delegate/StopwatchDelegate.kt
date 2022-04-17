@@ -58,6 +58,8 @@ class StopwatchDelegate(
             if (!it.started) return@observeOnce
             delegateViewModel.updateState(StopwatchRunningState(started = false))
             if (!enabled) return@observeOnce
+            val count = (it.milestone + System.currentTimeMillis() - it.start)
+            if (count > max) return@observeOnce
             prepareStart()
             start = it.start
             milestone = it.milestone
