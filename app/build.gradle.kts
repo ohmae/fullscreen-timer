@@ -7,6 +7,8 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.github.ben-manes.versions")
+
+    // for release
 }
 
 val applicationName = "Timer"
@@ -79,6 +81,8 @@ dependencies {
     implementation("net.mm2d.color-chooser:color-chooser:0.4.1")
 
     testImplementation("junit:junit:4.13.2")
+
+    // for release
 }
 
 fun isStable(version: String): Boolean {
