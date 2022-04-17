@@ -16,7 +16,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 object Launcher {
     private const val PACKAGE_NAME = "net.mm2d.timer"
     private const val PRIVACY_POLICY_URL =
-        "https://github.com/ohmae/timer/blob/develop/PRIVACY-POLICY.md"
+        "https://ohmae.github.io/app/fullscreen-timer/privacy-policy.html"
     private const val GITHUB_URL =
         "https://github.com/ohmae/timer/"
 
