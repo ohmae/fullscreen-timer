@@ -19,6 +19,7 @@ val versionPatch = 1
 android {
     compileSdk = 31
 
+    namespace = "net.mm2d.timer"
     defaultConfig {
         applicationId = "net.mm2d.timer"
         minSdk = 26
@@ -73,10 +74,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.4.0")
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.6.0")
 
-    implementation("com.google.dagger:hilt-android:2.41")
-    kapt("com.google.dagger:hilt-android-compiler:2.41")
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-android-compiler:2.42")
 
     implementation("net.mm2d.color-chooser:color-chooser:0.4.1")
 
