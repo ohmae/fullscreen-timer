@@ -26,258 +26,267 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="net.mm2d.timer.view.NestedScrollingWebView$Behavior"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             >
 
-            <LinearLayout
-                android:id="@+id/mode_clock"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_mode"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingStart="8dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toStartOf="@id/mode_stopwatch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:contentDescription="@string/label_clock"
-                    app:srcCompat="@drawable/ic_clock"
-                    tools:ignore="ContentDescription"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeMinTextSize="9sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:text="@string/label_clock"
-                    android:textAppearance="@style/TextAppearance.Timer.Label"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mode_stopwatch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_mode"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingStart="8dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toStartOf="@id/mode_timer"
-                app:layout_constraintStart_toEndOf="@id/mode_clock"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:contentDescription="@string/label_stopwatch"
-                    app:srcCompat="@drawable/ic_stopwatch"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeMinTextSize="9sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:text="@string/label_stopwatch"
-                    android:textAppearance="@style/TextAppearance.Timer.Label"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mode_timer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_mode"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingStart="8dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mode_stopwatch"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:contentDescription="@string/label_timer"
-                    app:srcCompat="@drawable/ic_timer"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="12sp"
-                    android:autoSizeMinTextSize="9sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:text="@string/label_timer"
-                    android:textAppearance="@style/TextAppearance.Timer.Label"
-                    />
-            </LinearLayout>
-
-            <net.mm2d.timer.view.ColorMenuView
-                android:id="@+id/foreground_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                app:description="@string/menu_description_foreground_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mode_clock"
-                app:title="@string/menu_title_foreground_color"
-                />
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/volume"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/foreground_color"
                 >
 
-                <TextView
-                    android:id="@+id/volume_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_menu_horizontal"
-                    android:layout_marginTop="@dimen/margin_menu_vertical"
-                    android:text="@string/menu_title_volume"
-                    android:textAppearance="@style/TextAppearance.Timer.Title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <SeekBar
-                    android:id="@+id/volume_bar"
+                <LinearLayout
+                    android:id="@+id/mode_clock"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_menu_horizontal"
-                    android:layout_marginBottom="@dimen/margin_menu_vertical"
-                    android:max="10"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/volume_value"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/volume_title"
-                    tools:progress="5"
-                    />
-
-                <TextView
-                    android:id="@+id/volume_value"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_menu_horizontal"
-                    android:layout_marginBottom="@dimen/margin_menu_vertical"
-                    android:gravity="end"
-                    android:textAppearance="@style/TextAppearance.Timer.SubTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/volume_title"
-                    tools:text="5"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <net.mm2d.timer.view.SwitchMenuView
-                android:id="@+id/hour_enabled"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:checked="false"
-                app:descriptionOff="@string/menu_description_hour_enabled_off"
-                app:descriptionOn="@string/menu_description_hour_enabled_on"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/volume"
-                app:title="@string/menu_title_hour_enabled"
-                />
-
-            <net.mm2d.timer.view.SwitchMenuView
-                android:id="@+id/fullscreen"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:checked="false"
-                app:descriptionOff="@string/menu_description_fullscreen_off"
-                app:descriptionOn="@string/menu_description_fullscreen_on"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hour_enabled"
-                app:title="@string/menu_title_fullscreen"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/version"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fullscreen"
-                >
-
-                <TextView
-                    android:id="@+id/version_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_menu_horizontal"
-                    android:layout_marginTop="@dimen/margin_menu_vertical"
-                    android:text="@string/menu_title_version"
-                    android:textAppearance="@style/TextAppearance.Timer.Title"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_mode"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/mode_stopwatch"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    />
+                    >
 
-                <TextView
-                    android:id="@+id/version_description"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="@string/label_clock"
+                        app:srcCompat="@drawable/ic_clock"
+                        tools:ignore="ContentDescription"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="12sp"
+                        android:autoSizeMinTextSize="9sp"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/label_clock"
+                        android:textAppearance="@style/TextAppearance.Timer.Label"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mode_stopwatch"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_menu_horizontal"
-                    android:layout_marginBottom="@dimen/margin_menu_vertical"
-                    android:textAppearance="@style/TextAppearance.Timer.SubTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_mode"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/mode_timer"
+                    app:layout_constraintStart_toEndOf="@id/mode_clock"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="@string/label_stopwatch"
+                        app:srcCompat="@drawable/ic_stopwatch"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="12sp"
+                        android:autoSizeMinTextSize="9sp"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/label_stopwatch"
+                        android:textAppearance="@style/TextAppearance.Timer.Label"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mode_timer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_mode"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mode_stopwatch"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:contentDescription="@string/label_timer"
+                        app:srcCompat="@drawable/ic_timer"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="12sp"
+                        android:autoSizeMinTextSize="9sp"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:text="@string/label_timer"
+                        android:textAppearance="@style/TextAppearance.Timer.Label"
+                        />
+                </LinearLayout>
+
+                <net.mm2d.timer.view.ColorMenuView
+                    android:id="@+id/foreground_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    app:description="@string/menu_description_foreground_color"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/version_title"
-                    tools:text="1.1.1"
+                    app:layout_constraintTop_toBottomOf="@id/mode_clock"
+                    app:title="@string/menu_title_foreground_color"
                     />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/volume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foreground_color"
+                    >
+
+                    <TextView
+                        android:id="@+id/volume_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginTop="@dimen/margin_menu_vertical"
+                        android:text="@string/menu_title_volume"
+                        android:textAppearance="@style/TextAppearance.Timer.Title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <SeekBar
+                        android:id="@+id/volume_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:max="10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/volume_value"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/volume_title"
+                        tools:progress="5"
+                        />
+
+                    <TextView
+                        android:id="@+id/volume_value"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_menu_horizontal"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.Timer.SubTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/volume_title"
+                        tools:text="5"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <net.mm2d.timer.view.SwitchMenuView
+                    android:id="@+id/hour_enabled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    app:descriptionOff="@string/menu_description_hour_enabled_off"
+                    app:descriptionOn="@string/menu_description_hour_enabled_on"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/volume"
+                    app:title="@string/menu_title_hour_enabled"
+                    />
+
+                <net.mm2d.timer.view.SwitchMenuView
+                    android:id="@+id/fullscreen"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    app:descriptionOff="@string/menu_description_fullscreen_off"
+                    app:descriptionOn="@string/menu_description_fullscreen_on"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hour_enabled"
+                    app:title="@string/menu_title_fullscreen"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/version"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fullscreen"
+                    >
+
+                    <TextView
+                        android:id="@+id/version_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginTop="@dimen/margin_menu_vertical"
+                        android:text="@string/menu_title_version"
+                        android:textAppearance="@style/TextAppearance.Timer.Title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/version_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:textAppearance="@style/TextAppearance.Timer.SubTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/version_title"
+                        tools:text="1.1.1"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

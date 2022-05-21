@@ -36,6 +36,10 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setUpView()
+    }
+
+    private fun setUpView() {
         singleSelectMediator = SingleSelectMediator { id ->
             when (id) {
                 binding.modeClock.id -> Mode.CLOCK
