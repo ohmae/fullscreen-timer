@@ -39,67 +39,6 @@ class SettingsActivity : AppCompatActivity() {
         setUpView()
     }
 
-    private fun setUpView() {
-        singleSelectMediator = SingleSelectMediator { id ->
-            when (id) {
-                binding.modeClock.id -> Mode.CLOCK
-                binding.modeStopwatch.id -> Mode.STOPWATCH
-                binding.modeTimer.id -> Mode.TIMER
-                else -> null
-            }?.let {
-                viewModel.updateMode(it)
-            }
-        }
-        singleSelectMediator.add(binding.modeClock)
-        singleSelectMediator.add(binding.modeStopwatch)
-        singleSelectMediator.add(binding.modeTimer)
-        viewModel.uiStateLiveData.observe(this) { uiState ->
-            uiState ?: return@observe
-            when (uiState.mode) {
-                Mode.CLOCK -> binding.modeClock
-                Mode.STOPWATCH -> binding.modeStopwatch
-                Mode.TIMER -> binding.modeTimer
-            }.let {
-                singleSelectMediator.onSelect(it)
-            }
-            binding.foregroundColor.setColor(uiState.foregroundColor)
-            binding.hourEnabled.isChecked = uiState.hourEnabled
-            binding.volumeBar.progress = uiState.volume
-            binding.volumeValue.text = uiState.volume.toString()
-            binding.fullscreen.isChecked = uiState.fullscreen
-        }
-        binding.foregroundColor.setOnClickListener {
-            ColorChooserDialog.show(
-                this,
-                REQUEST_KEY_FOREGROUND,
-                binding.foregroundColor.getColor(),
-                false
-            )
-        }
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_FOREGROUND) {
-            viewModel.updateForegroundColor(it)
-        }
-        binding.hourEnabled.setOnClickListener {
-            viewModel.updateHourEnabled(!binding.hourEnabled.isChecked)
-        }
-        binding.volumeBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (!fromUser) return
-                viewModel.updateVolume(progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
-        binding.fullscreen.setOnClickListener {
-            viewModel.updateFullscreen(!binding.fullscreen.isChecked)
-        }
-        binding.versionDescription.text = BuildConfig.VERSION_NAME
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.settings, menu)
         return super.onCreateOptionsMenu(menu)
@@ -127,6 +66,71 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    private fun setUpView() {
+        ColorChooserDialog.registerListener(this, REQUEST_KEY_FOREGROUND) {
+            viewModel.updateForegroundColor(it)
+        }
+        binding.foregroundColor.setOnClickListener {
+            ColorChooserDialog.show(
+                this,
+                REQUEST_KEY_FOREGROUND,
+                binding.foregroundColor.getColor(),
+                false
+            )
+        }
+        binding.hourEnabled.setOnClickListener {
+            viewModel.updateHourEnabled(!binding.hourEnabled.isChecked)
+        }
+        binding.volumeBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (!fromUser) return
+                viewModel.updateVolume(progress)
+            }
+        })
+        binding.fullscreen.setOnClickListener {
+            viewModel.updateFullscreen(!binding.fullscreen.isChecked)
+        }
+        binding.versionDescription.text = BuildConfig.VERSION_NAME
+        setUpSingleSelectMediator()
+        setUpObserver()
+    }
+
+    private fun setUpSingleSelectMediator() {
+        singleSelectMediator = SingleSelectMediator { id ->
+            when (id) {
+                binding.modeClock.id -> Mode.CLOCK
+                binding.modeStopwatch.id -> Mode.STOPWATCH
+                binding.modeTimer.id -> Mode.TIMER
+                else -> null
+            }?.let {
+                viewModel.updateMode(it)
+            }
+        }
+        singleSelectMediator.add(binding.modeClock)
+        singleSelectMediator.add(binding.modeStopwatch)
+        singleSelectMediator.add(binding.modeTimer)
+    }
+
+    private fun setUpObserver() {
+        viewModel.uiStateLiveData.observe(this) { uiState ->
+            uiState ?: return@observe
+            when (uiState.mode) {
+                Mode.CLOCK -> binding.modeClock
+                Mode.STOPWATCH -> binding.modeStopwatch
+                Mode.TIMER -> binding.modeTimer
+            }.let {
+                singleSelectMediator.onSelect(it)
+            }
+            binding.foregroundColor.setColor(uiState.foregroundColor)
+            binding.hourEnabled.isChecked = uiState.hourEnabled
+            binding.volumeBar.progress = uiState.volume
+            binding.volumeValue.text = uiState.volume.toString()
+            binding.fullscreen.isChecked = uiState.fullscreen
+        }
     }
 
     private class SingleSelectMediator(
