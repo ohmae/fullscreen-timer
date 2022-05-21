@@ -12,14 +12,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
+import net.mm2d.timer.constants.Constants
 
 object Launcher {
-    private const val PACKAGE_NAME = "net.mm2d.timer"
-    private const val PRIVACY_POLICY_URL =
-        "https://ohmae.github.io/app/fullscreen-timer/privacy-policy.html"
-    private const val GITHUB_URL =
-        "https://github.com/ohmae/timer/"
-
     private fun openUri(context: Context, uri: String): Boolean = runCatching {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
@@ -53,13 +48,13 @@ object Launcher {
             openCustomTabs(context, "https://play.google.com/store/apps/details?id=$packageName")
 
     fun openGooglePlay(context: Context): Boolean =
-        openGooglePlay(context, PACKAGE_NAME)
+        openGooglePlay(context, Constants.PACKAGE_NAME)
 
     fun openPrivacyPolicy(context: Context) {
-        openCustomTabs(context, PRIVACY_POLICY_URL)
+        openCustomTabs(context, Constants.PRIVACY_POLICY_URL)
     }
 
     fun openSourceCode(context: Context) {
-        openCustomTabs(context, GITHUB_URL)
+        openCustomTabs(context, Constants.GITHUB_URL)
     }
 }
