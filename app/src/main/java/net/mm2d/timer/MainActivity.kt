@@ -17,6 +17,7 @@ import net.mm2d.timer.delegate.ModeDelegate
 import net.mm2d.timer.delegate.StopwatchDelegate
 import net.mm2d.timer.delegate.TimerDelegate
 import net.mm2d.timer.util.FullscreenHelper
+import net.mm2d.timer.util.Updater
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             binding.clock.setColor(uiState.foregroundColor)
             fullscreenHelper.start(uiState.fullscreen)
         }
+        Updater.startUpdateIfAvailable(this)
     }
 
     override fun onStop() {
