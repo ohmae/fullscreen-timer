@@ -12,7 +12,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
-import net.mm2d.timer.constants.Constants
+import net.mm2d.timer.constant.Constants
 
 object Launcher {
     private fun openUri(context: Context, uri: String): Boolean = runCatching {
