@@ -17,13 +17,13 @@ val versionMinor = 0
 val versionPatch = 2
 
 android {
-    compileSdk = 31
+    compileSdk = 33
 
     namespace = "net.mm2d.timer"
     defaultConfig {
         applicationId = "net.mm2d.timer"
         minSdk = 26
-        targetSdk = 31
+        targetSdk = 33
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
         base.archivesName.set("${applicationName}-${versionName}")
