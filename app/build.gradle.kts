@@ -38,11 +38,12 @@ android {
         }
     }
     buildTypes {
-        getByName("debug") {
+        debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
+            isTestCoverageEnabled = true
         }
-        getByName("release") {
+        release {
             isShrinkResources = true
             isMinifyEnabled = true
             proguardFiles(
@@ -51,9 +52,6 @@ android {
             )
         }
     }
-    buildFeatures {
-        viewBinding = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,16 +59,25 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
+    lint {
+        abortOnError = true
+    }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.activity:activity-ktx:1.5.0")
     implementation("androidx.browser:browser:1.4.0")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-process:2.4.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.5.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.4.0")
@@ -81,7 +88,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.42")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
-    implementation("net.mm2d.color-chooser:color-chooser:0.4.1")
+    implementation("net.mm2d.color-chooser:color-chooser:0.5.0")
 
     testImplementation("junit:junit:4.13.2")
 

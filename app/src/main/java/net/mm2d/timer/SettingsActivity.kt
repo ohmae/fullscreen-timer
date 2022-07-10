@@ -44,11 +44,13 @@ class SettingsActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-            }
             R.id.license -> {
                 LicenseActivity.start(this)
             }

@@ -12,7 +12,6 @@ import android.media.ToneGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.SettingsRepository
 import javax.inject.Inject

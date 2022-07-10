@@ -25,8 +25,11 @@ object Updater {
             .addOnSuccessListener {
                 if (it.isAvailable()) {
                     runCatching {
-                        manager.startUpdateFlow(it, activity, AppUpdateOptions.defaultOptions(
-                            AppUpdateType.IMMEDIATE))
+                        manager.startUpdateFlow(
+                            it, activity, AppUpdateOptions.defaultOptions(
+                                AppUpdateType.IMMEDIATE
+                            )
+                        )
                     }
                 }
             }
