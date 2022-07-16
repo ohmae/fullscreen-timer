@@ -71,9 +71,12 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setUpView() {
-        ColorChooserDialog.registerListener(this, REQUEST_KEY_FOREGROUND) {
-            viewModel.updateForegroundColor(it)
-        }
+        ColorChooserDialog.registerListener(
+            this,
+            REQUEST_KEY_FOREGROUND,
+            { viewModel.updateForegroundColor(it) },
+            null
+        )
         binding.foregroundColor.setOnClickListener {
             ColorChooserDialog.show(
                 this,
