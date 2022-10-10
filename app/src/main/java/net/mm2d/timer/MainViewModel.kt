@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.SettingsRepository
+import net.mm2d.timer.util.shouldUseDarkForeground
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +27,8 @@ class MainViewModel @Inject constructor(
             UiState(
                 mode = it.mode,
                 foregroundColor = it.foregroundColor,
+                backgroundColor = it.backgroundColor,
+                shouldUseDarkForeground = it.backgroundColor.shouldUseDarkForeground(),
                 fullscreen = it.fullscreen,
             )
         }
@@ -35,6 +38,8 @@ class MainViewModel @Inject constructor(
     data class UiState(
         val mode: Mode,
         val foregroundColor: Int,
+        val backgroundColor: Int,
+        val shouldUseDarkForeground: Boolean,
         val fullscreen: Boolean,
     )
 }

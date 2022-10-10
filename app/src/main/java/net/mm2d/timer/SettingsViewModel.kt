@@ -28,6 +28,7 @@ class SettingsViewModel @Inject constructor(
             UiState(
                 mode = it.mode,
                 foregroundColor = it.foregroundColor,
+                backgroundColor = it.backgroundColor,
                 hourEnabled = it.hourEnabled,
                 volume = it.soundVolume,
                 fullscreen = it.fullscreen,
@@ -39,6 +40,7 @@ class SettingsViewModel @Inject constructor(
     data class UiState(
         val mode: Mode,
         val foregroundColor: Int,
+        val backgroundColor: Int,
         val hourEnabled: Boolean,
         val volume: Int,
         val fullscreen: Boolean,
@@ -53,6 +55,12 @@ class SettingsViewModel @Inject constructor(
     fun updateForegroundColor(color: Int) {
         viewModelScope.launch {
             settingsRepository.updateForegroundColor(color)
+        }
+    }
+
+    fun updateBackgroundColor(color: Int) {
+        viewModelScope.launch {
+            settingsRepository.updateBackgroundColor(color)
         }
     }
 

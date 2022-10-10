@@ -7,6 +7,8 @@
 
 package net.mm2d.timer
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import net.mm2d.timer.delegate.StopwatchDelegate
 import net.mm2d.timer.delegate.TimerDelegate
 import net.mm2d.timer.util.FullscreenHelper
 import net.mm2d.timer.util.Updater
+import net.mm2d.timer.util.resolveColor
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -51,6 +54,18 @@ class MainActivity : AppCompatActivity() {
         viewModel.uiStateLiveData.observe(this) { uiState ->
             uiState ?: return@observe
             binding.clock.setColor(uiState.foregroundColor)
+            window.setBackgroundDrawable(ColorDrawable(uiState.backgroundColor))
+            val (backgroundResource, foregroundTint) = if (uiState.shouldUseDarkForeground) {
+                R.drawable.bg_button_dark to ColorStateList.valueOf(resolveColor(R.attr.colorControlDark))
+            } else {
+                R.drawable.bg_button_light to ColorStateList.valueOf(resolveColor(R.attr.colorControlLight))
+            }
+            binding.button1.setBackgroundResource(backgroundResource)
+            binding.button1.imageTintList = foregroundTint
+            binding.button2.setBackgroundResource(backgroundResource)
+            binding.button2.imageTintList = foregroundTint
+            binding.settings.setBackgroundResource(backgroundResource)
+            binding.settings.imageTintList = foregroundTint
             fullscreenHelper.start(uiState.fullscreen)
         }
         Updater.startUpdateIfAvailable(this)

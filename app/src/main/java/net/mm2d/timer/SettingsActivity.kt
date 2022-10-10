@@ -77,11 +77,25 @@ class SettingsActivity : AppCompatActivity() {
             { viewModel.updateForegroundColor(it) },
             null
         )
+        ColorChooserDialog.registerListener(
+            this,
+            REQUEST_KEY_BACKGROUND,
+            { viewModel.updateBackgroundColor(it) },
+            null
+        )
         binding.foregroundColor.setOnClickListener {
             ColorChooserDialog.show(
                 this,
                 REQUEST_KEY_FOREGROUND,
                 binding.foregroundColor.getColor(),
+                false
+            )
+        }
+        binding.backgroundColor.setOnClickListener {
+            ColorChooserDialog.show(
+                this,
+                REQUEST_KEY_BACKGROUND,
+                binding.backgroundColor.getColor(),
                 false
             )
         }
@@ -131,6 +145,7 @@ class SettingsActivity : AppCompatActivity() {
                 singleSelectMediator.onSelect(it)
             }
             binding.foregroundColor.setColor(uiState.foregroundColor)
+            binding.backgroundColor.setColor(uiState.backgroundColor)
             binding.hourEnabled.isChecked = uiState.hourEnabled
             binding.volumeBar.progress = uiState.volume
             binding.volumeValue.text = uiState.volume.toString()
@@ -171,6 +186,7 @@ class SettingsActivity : AppCompatActivity() {
     companion object {
         private const val PREFIX = "SettingsActivity."
         private const val REQUEST_KEY_FOREGROUND = PREFIX + "REQUEST_KEY_FOREGROUND"
+        private const val REQUEST_KEY_BACKGROUND = PREFIX + "REQUEST_KEY_BACKGROUND"
 
         fun start(context: Context) {
             context.startActivity(Intent(context, SettingsActivity::class.java))

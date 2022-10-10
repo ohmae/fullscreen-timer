@@ -13,6 +13,7 @@ data class Settings(
     val versionBeforeUpdate: Int,
     val mode: Mode,
     val foregroundColor: Int,
+    val backgroundColor: Int,
     val hourEnabled: Boolean,
     val timerTime: Long,
     val soundVolume: Int,

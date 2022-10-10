@@ -172,6 +172,18 @@
                     app:title="@string/menu_title_foreground_color"
                     />
 
+                <net.mm2d.timer.view.ColorMenuView
+                    android:id="@+id/background_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    app:description="@string/menu_description_background_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foreground_color"
+                    app:title="@string/menu_title_background_color"
+                    />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/volume"
                     android:layout_width="0dp"
@@ -179,7 +191,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foreground_color"
+                    app:layout_constraintTop_toBottomOf="@id/background_color"
                     >
 
                     <TextView

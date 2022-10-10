@@ -34,6 +34,7 @@ sealed interface Key {
         VERSION_BEFORE_UPDATE_INT,
         MODE_STRING,
         FOREGROUND_COLOR_INT,
+        BACKGROUND_COLOR_INT,
         HOUR_ENABLED_BOOLEAN,
         TIMER_TIME_LONG,
         SOUND_VOLUME_INT,

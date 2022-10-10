@@ -57,6 +57,7 @@ class SettingsRepository @Inject constructor(
                 versionBeforeUpdate = it[VERSION_BEFORE_UPDATE] ?: 0,
                 mode = Mode.of(it[MODE]),
                 foregroundColor = it[FOREGROUND_COLOR] ?: Color.WHITE,
+                backgroundColor = it[BACKGROUND_COLOR] ?: Color.BLACK,
                 hourEnabled = it[HOUR_ENABLED] ?: false,
                 timerTime = it[TIMER_TIME] ?: TIMER_TIME_DEFAULT,
                 soundVolume = it[SOUND_VOLUME] ?: 5,
@@ -74,6 +75,12 @@ class SettingsRepository @Inject constructor(
     suspend fun updateForegroundColor(color: Int) {
         dataStore.edit {
             it[FOREGROUND_COLOR] = color
+        }
+    }
+
+    suspend fun updateBackgroundColor(color: Int) {
+        dataStore.edit {
+            it[BACKGROUND_COLOR] = color
         }
     }
 
@@ -148,6 +155,8 @@ class SettingsRepository @Inject constructor(
             Key.Main.MODE_STRING.stringKey()
         private val FOREGROUND_COLOR =
             Key.Main.FOREGROUND_COLOR_INT.intKey()
+        private val BACKGROUND_COLOR =
+            Key.Main.BACKGROUND_COLOR_INT.intKey()
         private val HOUR_ENABLED =
             Key.Main.HOUR_ENABLED_BOOLEAN.booleanKey()
         private val TIMER_TIME =
