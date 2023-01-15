@@ -13,7 +13,7 @@ plugins {
 
 val applicationName = "Timer"
 val versionMajor = 0
-val versionMinor = 2
+val versionMinor = 3
 val versionPatch = 0
 
 android {
