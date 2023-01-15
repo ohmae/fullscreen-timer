@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <queries>
         <intent>
@@ -31,6 +32,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|smallestScreenSize|screenSize"
             android:exported="false"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.Timer.NoActionBar"
             />
 

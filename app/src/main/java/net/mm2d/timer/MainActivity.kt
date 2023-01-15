@@ -7,6 +7,7 @@
 
 package net.mm2d.timer
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,6 +19,7 @@ import net.mm2d.timer.delegate.ClockDelegate
 import net.mm2d.timer.delegate.ModeDelegate
 import net.mm2d.timer.delegate.StopwatchDelegate
 import net.mm2d.timer.delegate.TimerDelegate
+import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.util.FullscreenHelper
 import net.mm2d.timer.util.Updater
 import net.mm2d.timer.util.resolveColor
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         delegates = listOf(
             ClockDelegate(this, binding),
             StopwatchDelegate(this, binding),
@@ -69,6 +72,9 @@ class MainActivity : AppCompatActivity() {
             fullscreenHelper.start(uiState.fullscreen)
         }
         Updater.startUpdateIfAvailable(this)
+        if (savedInstanceState == null) {
+            handleIntent(intent)
+        }
     }
 
     override fun onStop() {
@@ -80,5 +86,16 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         delegates.forEach { it.onDestroy() }
         fullscreenHelper.stop()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val mode = Mode.fromIntentExtra(intent) ?: return
+        delegates.find { it.mode == mode }?.handleIntent(intent)
+        viewModel.updateMode(mode)
     }
 }

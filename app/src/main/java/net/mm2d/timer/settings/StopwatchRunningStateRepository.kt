@@ -14,15 +14,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,7 +30,6 @@ class StopwatchRunningStateRepository @Inject constructor(
         migrations = listOf(MigrationForData())
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     val flow: Flow<StopwatchRunningState> = dataStore.data
         .catch { throwable ->
@@ -53,15 +46,12 @@ class StopwatchRunningStateRepository @Inject constructor(
                 milestone = it[MILESTONE] ?: 0L
             )
         }
-        .shareIn(scope = scope, started = SharingStarted.Eagerly, replay = 1)
 
-    fun updateState(state: StopwatchRunningState) {
-        scope.launch {
-            dataStore.edit {
-                it[STARTED] = state.started
-                it[START] = state.start
-                it[MILESTONE] = state.milestone
-            }
+    suspend fun updateState(state: StopwatchRunningState) {
+        dataStore.edit {
+            it[STARTED] = state.started
+            it[START] = state.start
+            it[MILESTONE] = state.milestone
         }
     }
 

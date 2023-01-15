@@ -45,11 +45,12 @@ class TimerViewModel @Inject constructor(
         val timerTime: Long,
     )
 
-    val runningStateLiveData: LiveData<TimerRunningState> = stateRepository.flow
-        .asLiveData()
+    val runningStateLiveData: LiveData<TimerRunningState> = stateRepository.flow.asLiveData()
 
     fun updateState(state: TimerRunningState) {
-        stateRepository.updateState(state)
+        viewModelScope.launch {
+            stateRepository.updateState(state)
+        }
     }
 
     fun updateTimerTime(time: Long) {

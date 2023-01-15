@@ -7,6 +7,10 @@
 
 package net.mm2d.timer.settings
 
+import android.content.Intent
+import net.mm2d.timer.constant.Constants
+import net.mm2d.timer.util.getStringExtraSafely
+
 enum class Mode {
     CLOCK,
     STOPWATCH,
@@ -14,6 +18,11 @@ enum class Mode {
     ;
 
     companion object {
-        fun of(value: String?): Mode = values().find { it.name == value } ?: STOPWATCH
+        private fun ofNullable(value: String?): Mode? = values().find { it.name == value }
+
+        fun of(value: String?): Mode = ofNullable(value) ?: STOPWATCH
+
+        fun fromIntentExtra(intent: Intent): Mode? =
+            intent.getStringExtraSafely(Constants.EXTRA_MODE)?.let { ofNullable(it) }
     }
 }

@@ -6,6 +6,7 @@
  */
 
 package net.mm2d.timer.util
+
 import android.graphics.Color
 import kotlin.math.pow
 

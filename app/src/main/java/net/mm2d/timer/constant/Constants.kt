@@ -13,4 +13,8 @@ object Constants {
         "https://ohmae.github.io/app/fullscreen-timer/privacy-policy.html"
     const val GITHUB_URL =
         "https://github.com/ohmae/timer/"
+
+    const val EXTRA_MODE = "EXTRA_MODE"
+    const val EXTRA_COMMAND = "EXTRA_COMMAND"
+    const val EXTRA_TIME = "EXTRA_TIME"
 }

@@ -7,7 +7,12 @@
 
 package net.mm2d.timer.delegate
 
+import android.content.Intent
+import net.mm2d.timer.settings.Mode
+
 interface ModeDelegate {
+    val mode: Mode
+    fun handleIntent(intent: Intent)
     fun onClickButton1()
     fun onClickButton2()
     fun onClickTime()
