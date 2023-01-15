@@ -47,7 +47,7 @@ class TimerDelegate(
             val time = milestone - (System.currentTimeMillis() - start)
             if (time <= 0) {
                 stop()
-                delegateViewModel.playSound()
+                delegateViewModel.playStopSound()
                 return
             }
             binding.clock.updateTime(time)

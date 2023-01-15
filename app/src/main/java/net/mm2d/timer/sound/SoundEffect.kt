@@ -36,4 +36,9 @@ class SoundEffect @Inject constructor(
         ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10)
             .startTone(ToneGenerator.TONE_PROP_BEEP)
     }
+
+    fun playStop() {
+        ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10)
+            .startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
+    }
 }

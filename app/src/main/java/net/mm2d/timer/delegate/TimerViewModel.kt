@@ -62,4 +62,8 @@ class TimerViewModel @Inject constructor(
     fun playSound() {
         soundEffect.play()
     }
+
+    fun playStopSound() {
+        soundEffect.playStop()
+    }
 }
