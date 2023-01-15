@@ -7,6 +7,10 @@
 
 ![](readme/Screenshot.png)
 
+# Install
+
+[Google Play](https://play.google.com/store/apps/details?id=net.mm2d.timer)
+
 # Intent Control
 
 This app accepts control by Intent from other apps.
