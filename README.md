@@ -5,13 +5,15 @@
 [![GitHub issues](https://img.shields.io/github/issues/ohmae/fullscreen-timer.svg)](https://github.com/ohmae/fullscreen-timer/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/ohmae/fullscreen-timer.svg)](https://github.com/ohmae/fullscreen-timer/issues?q=is%3Aissue+is%3Aclosed)
 
+![](readme/Screenshot.png)
+
 # Intent Control
 
 This app accepts control by Intent from other apps.
 
 ## EXTRA_MODE (required type: String)
 
-Specifies the app mode. Required. The command is ignored if not specified.
+Specifies the app mode. Required. Ignored if not specified.
 
 - CLOCK
 - STOPWATCH
@@ -26,9 +28,9 @@ Specifies a command. There are the following variations. Ignored if MODE is CLOC
 - STOP
   - Changes to stop state. Ignored if already stoped. If the count is progressing, it will continue.
 - SET
-  - Sets the count to the specified value and changes to stop state. Specify the value in EXTRA_TIME. Therefore, EXTRA_TIME must be specified, otherwise the command will be ignored.
+  - Sets the count to the specified value and changes to stop state. Specify the value in EXTRA_TIME. Therefore, EXTRA_TIME must be specified, otherwise this command will be ignored.
 - SET_AND_START
-  - Sets the count to the specified value and changes to start state. Specify the value in EXTRA_TIME. Therefore, EXTRA_TIME must be specified, otherwise the command will be ignored.
+  - Sets the count to the specified value and changes to start state. Specify the value in EXTRA_TIME. Therefore, EXTRA_TIME must be specified, otherwise this command will be ignored.
 
 ## EXTRA_TIME (type: Long)
 
