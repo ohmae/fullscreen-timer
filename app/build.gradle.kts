@@ -1,5 +1,6 @@
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -53,11 +54,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         viewBinding = true
@@ -96,7 +97,7 @@ dependencies {
 }
 
 fun isStable(version: String): Boolean {
-    val versionUpperCase = version.toUpperCase()
+    val versionUpperCase = version.uppercase(Locale.getDefault())
     val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { versionUpperCase.contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     return hasStableKeyword || regex.matches(version)
