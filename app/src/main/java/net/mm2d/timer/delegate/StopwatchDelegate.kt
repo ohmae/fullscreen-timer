@@ -109,10 +109,12 @@ class StopwatchDelegate(
                 if (started) return
                 start()
             }
+
             STOP -> {
                 if (!started) return
                 stop()
             }
+
             SET -> {
                 val time = intent.getLongExtraSafely(Constants.EXTRA_TIME) ?: return
                 if (started) {
@@ -121,6 +123,7 @@ class StopwatchDelegate(
                 milestone = time
                 binding.clock.updateTime(milestone)
             }
+
             SET_AND_START -> {
                 val time = intent.getLongExtraSafely(Constants.EXTRA_TIME) ?: return
                 if (!started) {

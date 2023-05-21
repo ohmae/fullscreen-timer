@@ -19,7 +19,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import net.mm2d.timer.R.drawable
 import net.mm2d.timer.databinding.ViewClockBinding
-import java.util.*
+import java.util.Calendar
 
 class ClockView @JvmOverloads constructor(
     context: Context,

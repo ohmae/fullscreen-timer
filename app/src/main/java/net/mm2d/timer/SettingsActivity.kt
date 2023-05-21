@@ -18,9 +18,15 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import net.mm2d.color.chooser.ColorChooserDialog
+import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.databinding.ActivitySettingsBinding
+import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.util.Launcher
 
@@ -51,21 +57,11 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.license -> {
-                LicenseActivity.start(this)
-            }
-            R.id.source_code -> {
-                Launcher.openSourceCode(this)
-            }
-            R.id.privacy_policy -> {
-                Launcher.openPrivacyPolicy(this)
-            }
-            R.id.play_store -> {
-                Launcher.openGooglePlay(this)
-            }
-            else -> {
-                return super.onOptionsItemSelected(item)
-            }
+            R.id.license -> LicenseActivity.start(this)
+            R.id.source_code -> Launcher.openSourceCode(this)
+            R.id.privacy_policy -> Launcher.openPrivacyPolicy(this)
+            R.id.play_store -> Launcher.openGooglePlay(this)
+            else -> return super.onOptionsItemSelected(item)
         }
         return true
     }
@@ -113,6 +109,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.fullscreen.setOnClickListener {
             viewModel.updateFullscreen(!binding.fullscreen.isChecked)
         }
+        OrientationDialog.registerListener(this, REQUEST_KEY_ORIENTATION) {
+            viewModel.updateOrientation(it)
+        }
+        binding.orientation.setOnClickListener {
+            OrientationDialog.show(this, REQUEST_KEY_ORIENTATION)
+        }
         binding.versionDescription.text = BuildConfig.VERSION_NAME
         setUpSingleSelectMediator()
         setUpObserver()
@@ -135,22 +137,29 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-        viewModel.uiStateLiveData.observe(this) { uiState ->
-            uiState ?: return@observe
-            when (uiState.mode) {
-                Mode.CLOCK -> binding.modeClock
-                Mode.STOPWATCH -> binding.modeStopwatch
-                Mode.TIMER -> binding.modeTimer
-            }.let {
-                singleSelectMediator.onSelect(it)
-            }
-            binding.foregroundColor.setColor(uiState.foregroundColor)
-            binding.backgroundColor.setColor(uiState.backgroundColor)
-            binding.hourEnabled.isChecked = uiState.hourEnabled
-            binding.volumeBar.progress = uiState.volume
-            binding.volumeValue.text = uiState.volume.toString()
-            binding.fullscreen.isChecked = uiState.fullscreen
+        lifecycleScope.launch {
+            viewModel.uiStateFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { updateUiState(it) }
         }
+    }
+
+    private fun updateUiState(uiState: UiState) {
+        when (uiState.mode) {
+            Mode.CLOCK -> binding.modeClock
+            Mode.STOPWATCH -> binding.modeStopwatch
+            Mode.TIMER -> binding.modeTimer
+        }.let {
+            singleSelectMediator.onSelect(it)
+        }
+        binding.foregroundColor.setColor(uiState.foregroundColor)
+        binding.backgroundColor.setColor(uiState.backgroundColor)
+        binding.hourEnabled.isChecked = uiState.hourEnabled
+        binding.volumeBar.progress = uiState.volume
+        binding.volumeValue.text = uiState.volume.toString()
+        binding.fullscreen.isChecked = uiState.fullscreen
+        binding.orientationIcon.setImageResource(uiState.orientation.icon)
+        binding.orientationDescription.setText(uiState.orientation.description)
     }
 
     private class SingleSelectMediator(
@@ -187,6 +196,7 @@ class SettingsActivity : AppCompatActivity() {
         private const val PREFIX = "SettingsActivity."
         private const val REQUEST_KEY_FOREGROUND = PREFIX + "REQUEST_KEY_FOREGROUND"
         private const val REQUEST_KEY_BACKGROUND = PREFIX + "REQUEST_KEY_BACKGROUND"
+        private const val REQUEST_KEY_ORIENTATION = PREFIX + "REQUEST_KEY_ORIENTATION"
 
         fun start(context: Context) {
             context.startActivity(Intent(context, SettingsActivity::class.java))

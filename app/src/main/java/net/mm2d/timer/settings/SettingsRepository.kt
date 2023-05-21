@@ -61,7 +61,8 @@ class SettingsRepository @Inject constructor(
                 hourEnabled = it[HOUR_ENABLED] ?: false,
                 timerTime = it[TIMER_TIME] ?: TIMER_TIME_DEFAULT,
                 soundVolume = it[SOUND_VOLUME] ?: 5,
-                fullscreen = it[FULLSCREEN] ?: true
+                fullscreen = it[FULLSCREEN] ?: true,
+                orientation = Orientation.of(it[ORIENTATION]),
             )
         }
         .shareIn(scope = scope, started = SharingStarted.Eagerly, replay = 1)
@@ -105,6 +106,12 @@ class SettingsRepository @Inject constructor(
     suspend fun updateFullscreen(fullscreen: Boolean) {
         dataStore.edit {
             it[FULLSCREEN] = fullscreen
+        }
+    }
+
+    suspend fun updateOrientation(orientation: Orientation) {
+        dataStore.edit {
+            it[ORIENTATION] = orientation.value
         }
     }
 
@@ -165,5 +172,7 @@ class SettingsRepository @Inject constructor(
             Key.Main.SOUND_VOLUME_INT.intKey()
         private val FULLSCREEN =
             Key.Main.FULLSCREEN_BOOLEAN.booleanKey()
+        private val ORIENTATION =
+            Key.Main.ORIENTATION_INT.intKey()
     }
 }

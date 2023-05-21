@@ -13,7 +13,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import net.mm2d.timer.MainViewModel.UiState
 import net.mm2d.timer.databinding.ActivityMainBinding
 import net.mm2d.timer.delegate.ClockDelegate
 import net.mm2d.timer.delegate.ModeDelegate
@@ -54,27 +59,37 @@ class MainActivity : AppCompatActivity() {
             delegates.forEach { it.onClickTime() }
         }
         fullscreenHelper = FullscreenHelper(window)
-        viewModel.uiStateLiveData.observe(this) { uiState ->
-            uiState ?: return@observe
-            binding.clock.setColor(uiState.foregroundColor)
-            window.setBackgroundDrawable(ColorDrawable(uiState.backgroundColor))
-            val (backgroundResource, foregroundTint) = if (uiState.shouldUseDarkForeground) {
-                R.drawable.bg_button_dark to ColorStateList.valueOf(resolveColor(R.attr.colorControlDark))
-            } else {
-                R.drawable.bg_button_light to ColorStateList.valueOf(resolveColor(R.attr.colorControlLight))
-            }
-            binding.button1.setBackgroundResource(backgroundResource)
-            binding.button1.imageTintList = foregroundTint
-            binding.button2.setBackgroundResource(backgroundResource)
-            binding.button2.imageTintList = foregroundTint
-            binding.settings.setBackgroundResource(backgroundResource)
-            binding.settings.imageTintList = foregroundTint
-            fullscreenHelper.start(uiState.fullscreen)
+        lifecycleScope.launch {
+            viewModel.uiStateFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { updateUiState(it) }
+        }
+        lifecycleScope.launch {
+            viewModel.orientationFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
+                .collect { requestedOrientation = it.value }
         }
         Updater.startUpdateIfAvailable(this)
         if (savedInstanceState == null) {
             handleIntent(intent)
         }
+    }
+
+    private fun updateUiState(uiState: UiState) {
+        binding.clock.setColor(uiState.foregroundColor)
+        window.setBackgroundDrawable(ColorDrawable(uiState.backgroundColor))
+        val (backgroundResource, foregroundTint) = if (uiState.shouldUseDarkForeground) {
+            R.drawable.bg_button_dark to ColorStateList.valueOf(resolveColor(R.attr.colorControlDark))
+        } else {
+            R.drawable.bg_button_light to ColorStateList.valueOf(resolveColor(R.attr.colorControlLight))
+        }
+        binding.button1.setBackgroundResource(backgroundResource)
+        binding.button1.imageTintList = foregroundTint
+        binding.button2.setBackgroundResource(backgroundResource)
+        binding.button2.imageTintList = foregroundTint
+        binding.settings.setBackgroundResource(backgroundResource)
+        binding.settings.imageTintList = foregroundTint
+        fullscreenHelper.start(uiState.fullscreen)
     }
 
     override fun onStop() {

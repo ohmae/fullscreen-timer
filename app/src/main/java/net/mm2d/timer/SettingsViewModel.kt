@@ -7,15 +7,15 @@
 
 package net.mm2d.timer
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.Mode
+import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.settings.SettingsRepository
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
-    val uiStateLiveData: LiveData<UiState> = settingsRepository.flow
+    val uiStateFlow: Flow<UiState> = settingsRepository.flow
         .map {
             UiState(
                 mode = it.mode,
@@ -32,10 +32,10 @@ class SettingsViewModel @Inject constructor(
                 hourEnabled = it.hourEnabled,
                 volume = it.soundVolume,
                 fullscreen = it.fullscreen,
+                orientation = it.orientation,
             )
         }
         .distinctUntilChanged()
-        .asLiveData()
 
     data class UiState(
         val mode: Mode,
@@ -44,6 +44,7 @@ class SettingsViewModel @Inject constructor(
         val hourEnabled: Boolean,
         val volume: Int,
         val fullscreen: Boolean,
+        val orientation: Orientation,
     )
 
     fun updateMode(mode: Mode) {
@@ -79,6 +80,12 @@ class SettingsViewModel @Inject constructor(
     fun updateFullscreen(fullscreen: Boolean) {
         viewModelScope.launch {
             settingsRepository.updateFullscreen(fullscreen)
+        }
+    }
+
+    fun updateOrientation(orientation: Orientation) {
+        viewModelScope.launch {
+            settingsRepository.updateOrientation(orientation)
         }
     }
 }

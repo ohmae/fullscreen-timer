@@ -39,12 +39,14 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
+            android:screenOrientation="behind"
             android:theme="@style/Theme.Timer.NoActionBar"
             />
 
         <activity
             android:name=".LicenseActivity"
             android:exported="false"
+            android:screenOrientation="behind"
             android:theme="@style/Theme.Timer.NoActionBar"
             />
     </application>

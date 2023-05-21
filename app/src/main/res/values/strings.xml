@@ -18,6 +18,12 @@
     <string name="menu_title_fullscreen">Full screen view of the main screen</string>
     <string name="menu_description_fullscreen_on">Full screen view</string>
     <string name="menu_description_fullscreen_off">Do not display full screen</string>
+    <string name="menu_title_orientation">Screen Orientation</string>
+    <string name="menu_description_unspecified">Unspecified orientation from this app. Device will be the original orientation of the displayed app</string>
+    <string name="menu_description_portrait">Fixed to portrait</string>
+    <string name="menu_description_landscape">Fixed to landscape</string>
+    <string name="menu_description_reverse_portrait">Fixed to reverse portrait</string>
+    <string name="menu_description_reverse_landscape">Fixed to reverse landscape</string>
     <string name="menu_title_version">Version</string>
 
     <string name="hour_initial">H</string>

@@ -19,6 +19,12 @@
     <string name="menu_title_fullscreen">メイン画面のフルスクリーン表示</string>
     <string name="menu_description_fullscreen_on">フルスクリーン表示します</string>
     <string name="menu_description_fullscreen_off">フルスクリーン表示しません</string>
+    <string name="menu_title_orientation">画面の向き</string>
+    <string name="menu_description_unspecified">アプリからは画面の向きを指定しません。表示されているアプリ本来の向きになります</string>
+    <string name="menu_description_portrait">縦方向に固定します</string>
+    <string name="menu_description_landscape">横方向に固定します</string>
+    <string name="menu_description_reverse_portrait">逆向きの縦方向に固定します</string>
+    <string name="menu_description_reverse_landscape">逆向きの横方向に固定します</string>
     <string name="menu_title_version">バージョン</string>
 
     <string name="hour_initial">時</string>

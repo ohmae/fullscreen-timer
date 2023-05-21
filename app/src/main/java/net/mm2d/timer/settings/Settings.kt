@@ -18,4 +18,5 @@ data class Settings(
     val timerTime: Long,
     val soundVolume: Int,
     val fullscreen: Boolean,
+    val orientation: Orientation,
 )

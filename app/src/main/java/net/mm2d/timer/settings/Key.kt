@@ -39,6 +39,7 @@ sealed interface Key {
         TIMER_TIME_LONG,
         SOUND_VOLUME_INT,
         FULLSCREEN_BOOLEAN,
+        ORIENTATION_INT,
     }
 
     enum class Stopwatch : Key {
