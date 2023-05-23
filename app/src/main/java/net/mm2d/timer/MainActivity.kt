@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         binding.button2.imageTintList = foregroundTint
         binding.settings.setBackgroundResource(backgroundResource)
         binding.settings.imageTintList = foregroundTint
-        fullscreenHelper.start(uiState.fullscreen)
+        fullscreenHelper.invoke(uiState.fullscreen)
     }
 
     override fun onStop() {
@@ -100,7 +100,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         delegates.forEach { it.onDestroy() }
-        fullscreenHelper.stop()
     }
 
     override fun onNewIntent(intent: Intent) {
