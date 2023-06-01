@@ -136,12 +136,8 @@ class ClockView @JvmOverloads constructor(
                 }
             }
         } else {
-            val xMax =
-                if (xSpec == MeasureSpec.UNSPECIFIED) Int.MAX_VALUE
-                else MeasureSpec.getSize(widthMeasureSpec)
-            val yMax =
-                if (ySpec == MeasureSpec.UNSPECIFIED) Int.MAX_VALUE
-                else MeasureSpec.getSize(heightMeasureSpec)
+            val xMax = MeasureSpec.getSize(widthMeasureSpec)
+            val yMax = MeasureSpec.getSize(heightMeasureSpec)
             val xScore = viewSizes.filter { it.view.isVisible }
                 .sumOf { it.width }
             val yScore = viewSizes.maxOf { it.height }
