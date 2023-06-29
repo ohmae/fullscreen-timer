@@ -18,13 +18,16 @@ import net.mm2d.timer.R
 import net.mm2d.timer.databinding.DialogTimeBinding
 
 class TimeDialog : DialogFragment() {
+    private var hourEnabled: Boolean = false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = DialogTimeBinding.inflate(requireActivity().layoutInflater)
         val arguments = requireArguments()
         val requestKey = arguments.getString(KEY_REQUEST) ?: ""
         val time = arguments.getLong(KEY_TIME)
-        val hourEnabled = arguments.getBoolean(KEY_HOUR_ENABLED)
-        binding.setValue(time, hourEnabled)
+        hourEnabled = arguments.getBoolean(KEY_HOUR_ENABLED)
+        binding.setValue(time)
+        binding.setOnClickListener()
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.ok) { _, _ ->
@@ -38,15 +41,16 @@ class TimeDialog : DialogFragment() {
             .create()
     }
 
-    private fun DialogTimeBinding.setValue(time: Long, hourEnabled: Boolean) {
-        val second = (time / 1000).toInt()
+    private fun DialogTimeBinding.setValue(time: Long) {
+        val maxSecond = if (hourEnabled) 35999L else 5999L
+        val second = (time / 1000).coerceIn(0, maxSecond).toInt()
         second1.maxValue = 9
         second1.minValue = 0
-        second10.maxValue = 6
+        second10.maxValue = 5
         second10.minValue = 0
         minute1.maxValue = 9
         minute1.minValue = 0
-        minute10.maxValue = if (hourEnabled) 6 else 9
+        minute10.maxValue = if (hourEnabled) 5 else 9
         minute10.minValue = 0
         hour1.maxValue = 9
         hour1.minValue = 0
@@ -71,6 +75,16 @@ class TimeDialog : DialogFragment() {
             minute1.value * 60_000L +
             minute10.value * 600_000L +
             hour1.value * 3600_000L
+
+    private fun DialogTimeBinding.setOnClickListener() {
+        reset.setOnClickListener { setValue(0L) }
+        plus5s.setOnClickListener { setValue(getValue() + 5_000) }
+        plus30s.setOnClickListener { setValue(getValue() + 30_000) }
+        plus5m.setOnClickListener { setValue(getValue() + 300_000) }
+        minus5s.setOnClickListener { setValue(getValue() - 5_000) }
+        minus30s.setOnClickListener { setValue(getValue() - 30_000) }
+        minus5m.setOnClickListener { setValue(getValue() - 300_000) }
+    }
 
     companion object {
         private const val TAG = "TimeDialog"

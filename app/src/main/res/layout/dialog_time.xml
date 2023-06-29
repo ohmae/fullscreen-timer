@@ -10,7 +10,7 @@
         android:id="@+id/hour_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/hour_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/hour_initial"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/minute_10"
         app:layout_constraintStart_toEndOf="@id/hour_1"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/minute_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/minute_1"
         app:layout_constraintStart_toEndOf="@id/hour_label"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,7 @@
         android:id="@+id/minute_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/minute_label"
         app:layout_constraintStart_toEndOf="@id/minute_10"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/minute_initial"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/second_10"
         app:layout_constraintStart_toEndOf="@id/minute_1"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
         android:id="@+id/second_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toStartOf="@id/second_1"
         app:layout_constraintStart_toEndOf="@id/minute_label"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,9 +76,93 @@
         android:id="@+id/second_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/second_10"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <Space
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/second_1"
+        />
+
+    <Button
+        android:id="@+id/plus_5m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus_5m"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@id/plus_30s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        />
+
+    <Button
+        android:id="@+id/plus_30s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus_30s"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@id/plus_5s"
+        app:layout_constraintStart_toEndOf="@id/plus_5m"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        />
+
+    <Button
+        android:id="@+id/plus_5s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus_5s"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@id/reset"
+        app:layout_constraintStart_toEndOf="@id/plus_30s"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/plus_5s"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        />
+
+    <Button
+        android:id="@+id/minus_5m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minus_5m"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@id/plus_5m"
+        app:layout_constraintTop_toBottomOf="@id/plus_5m"
+        />
+
+    <Button
+        android:id="@+id/minus_30s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minus_30s"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@id/plus_30s"
+        app:layout_constraintTop_toBottomOf="@id/plus_30s"
+        />
+
+    <Button
+        android:id="@+id/minus_5s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minus_5s"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@id/plus_5s"
+        app:layout_constraintTop_toBottomOf="@id/plus_5s"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,14 @@
     <string name="hour_initial">H</string>
     <string name="minute_initial">M</string>
 
+    <string name="plus_5m">+5m</string>
+    <string name="plus_30s">+30s</string>
+    <string name="plus_5s">+5s</string>
+    <string name="minus_5m">-5m</string>
+    <string name="minus_30s">-30s</string>
+    <string name="minus_5s">-5s</string>
+    <string name="reset">reset</string>
+
     <string name="options_menu_license">Open source licenses</string>
     <string name="options_menu_source_code">Source code</string>
     <string name="options_menu_privacy_policy">Privacy policy</string>

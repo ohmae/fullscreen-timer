@@ -30,6 +30,14 @@
     <string name="hour_initial">時</string>
     <string name="minute_initial">分</string>
 
+    <string name="plus_5m">+5分</string>
+    <string name="plus_30s">+30秒</string>
+    <string name="plus_5s">+5秒</string>
+    <string name="minus_5m">-5分</string>
+    <string name="minus_30s">-30秒</string>
+    <string name="minus_5s">-5秒</string>
+    <string name="reset">リセット</string>
+
     <string name="options_menu_license">オープンソースライセンス</string>
     <string name="options_menu_source_code">ソースコード</string>
     <string name="options_menu_privacy_policy">プライバシーポリシー</string>
