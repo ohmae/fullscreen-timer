@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import net.mm2d.timer.R
 import net.mm2d.timer.R.drawable
 import net.mm2d.timer.databinding.ViewClockBinding
 import java.util.Calendar
@@ -48,11 +49,12 @@ class ClockView @JvmOverloads constructor(
         ViewSize(binding.small1, 1, 4),
     )
 
-    fun setDigit(small: Boolean, third: Boolean) {
+    fun setDigit(third: Boolean = false, small: Boolean = true, hourFormat24: Boolean = true) {
         binding.third1.isVisible = third
         binding.colon2.isVisible = third
         binding.small10.isVisible = small
         binding.small1.isVisible = small
+        binding.amPm.isVisible = !hourFormat24
     }
 
     fun updateTime(millis: Long) {
@@ -78,9 +80,10 @@ class ClockView @JvmOverloads constructor(
         val minute = calendar[Calendar.MINUTE]
         setNumber(binding.first1, minute)
         setNumber(binding.first10, minute / 10)
-        val hour = calendar[Calendar.HOUR_OF_DAY]
+        val hour = calendar[if (binding.amPm.isVisible) Calendar.HOUR else Calendar.HOUR_OF_DAY]
         setNumber(binding.second1, hour)
         setNumber(binding.second10, hour / 10)
+        binding.amPm.setText(if (calendar[Calendar.AM_PM] == Calendar.AM) R.string.am else R.string.pm)
     }
 
     fun setColor(color: Int) {
@@ -101,6 +104,7 @@ class ClockView @JvmOverloads constructor(
         binding.third1.setColorFilter(color)
         binding.colon1.setColorFilter(color)
         binding.colon2.setColorFilter(color)
+        binding.amPm.setTextColor(color)
     }
 
     private fun setNumber(view: ImageView, number: Int) {
@@ -136,7 +140,12 @@ class ClockView @JvmOverloads constructor(
                 }
             }
         } else {
-            val xMax = MeasureSpec.getSize(widthMeasureSpec)
+            val amPmWidth = if (binding.amPm.isVisible) {
+                (binding.amPm.layoutParams as MarginLayoutParams).let {
+                    it.width + it.marginStart + it.marginEnd
+                }
+            } else 0
+            val xMax = MeasureSpec.getSize(widthMeasureSpec) - amPmWidth
             val yMax = MeasureSpec.getSize(heightMeasureSpec)
             val xScore = viewSizes.filter { it.view.isVisible }
                 .sumOf { it.width }

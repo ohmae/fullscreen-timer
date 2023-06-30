@@ -210,7 +210,7 @@ class TimerDelegate(
     private fun setHourEnabled(hourEnabled: Boolean) {
         this.hourEnabled = hourEnabled
         if (!isActive) return
-        binding.clock.setDigit(small = true, third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled)
         binding.clock.updateTime(milestone)
     }
 
@@ -234,7 +234,7 @@ class TimerDelegate(
         binding.button2.setImageResource(R.drawable.ic_start)
         binding.button2.isInvisible = false
         binding.button2.setImageResource(R.drawable.ic_timer)
-        binding.clock.setDigit(small = true, third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled)
         binding.clock.updateTime(timerTime)
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }

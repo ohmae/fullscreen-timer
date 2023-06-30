@@ -22,11 +22,17 @@ class ClockViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
 ) : ViewModel() {
     val uiStateLiveData: LiveData<UiState> = settingsRepository.flow
-        .map { UiState(it.mode) }
+        .map {
+            UiState(
+                mode = it.mode,
+                hourFormat24 = it.hourFormat24,
+            )
+        }
         .distinctUntilChanged()
         .asLiveData()
 
     data class UiState(
         val mode: Mode,
+        val hourFormat24: Boolean,
     )
 }

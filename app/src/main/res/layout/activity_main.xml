@@ -75,5 +75,4 @@
         app:tint="?attr/colorControlDark"
         tools:ignore="ContentDescription"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

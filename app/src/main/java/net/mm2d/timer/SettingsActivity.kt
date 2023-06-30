@@ -18,9 +18,11 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.mm2d.color.chooser.ColorChooserDialog
@@ -98,6 +100,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.hourEnabled.setOnClickListener {
             viewModel.updateHourEnabled(!binding.hourEnabled.isChecked)
         }
+        binding.hourFormat.setOnClickListener {
+            viewModel.updateHourFormat24(!binding.hourFormat.isChecked)
+        }
         binding.volumeBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
@@ -155,11 +160,15 @@ class SettingsActivity : AppCompatActivity() {
         binding.foregroundColor.setColor(uiState.foregroundColor)
         binding.backgroundColor.setColor(uiState.backgroundColor)
         binding.hourEnabled.isChecked = uiState.hourEnabled
+        binding.hourFormat.isChecked = uiState.hourFormat24
         binding.volumeBar.progress = uiState.volume
         binding.volumeValue.text = uiState.volume.toString()
         binding.fullscreen.isChecked = uiState.fullscreen
         binding.orientationIcon.setImageResource(uiState.orientation.icon)
         binding.orientationDescription.setText(uiState.orientation.description)
+        TransitionManager.beginDelayedTransition(binding.root)
+        binding.hourEnabled.isVisible = uiState.mode != Mode.CLOCK
+        binding.hourFormat.isVisible = uiState.mode == Mode.CLOCK
     }
 
     private class SingleSelectMediator(

@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isInvisible
 import androidx.fragment.app.FragmentActivity
 import net.mm2d.timer.databinding.ActivityMainBinding
+import net.mm2d.timer.delegate.ClockViewModel.UiState
 import net.mm2d.timer.settings.Mode
 
 class ClockDelegate(
@@ -21,6 +22,7 @@ class ClockDelegate(
 ) : ModeDelegate {
     private val delegateViewModel: ClockViewModel by activity.viewModels()
     private var isActive: Boolean = false
+    private var hourFormat24: Boolean = false
     override val mode: Mode = Mode.CLOCK
 
     private val task = object : Runnable {
@@ -34,7 +36,7 @@ class ClockDelegate(
 
     init {
         delegateViewModel.uiStateLiveData.observe(activity) {
-            onModeChanged(it.mode)
+            onModeChanged(it)
         }
     }
 
@@ -44,15 +46,19 @@ class ClockDelegate(
     override fun onClickTime() = Unit
     override fun onStop() = Unit
 
-    private fun onModeChanged(mode: Mode) {
-        val active = mode == this.mode
+    private fun onModeChanged(uiState: UiState) {
+        val active = uiState.mode == this.mode
+        if (active) {
+            binding.clock.setDigit(hourFormat24 = uiState.hourFormat24)
+            if (isActive) binding.clock.updateClock(System.currentTimeMillis())
+        }
         if (active == isActive) return
         isActive = active
+        hourFormat24 = uiState.hourFormat24
         binding.clock.removeCallbacks(task)
         if (!active) return
         binding.button1.isInvisible = true
         binding.button2.isInvisible = true
-        binding.clock.setDigit(small = true, third = false)
         task.run()
         activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }

@@ -30,6 +30,7 @@ class SettingsViewModel @Inject constructor(
                 foregroundColor = it.foregroundColor,
                 backgroundColor = it.backgroundColor,
                 hourEnabled = it.hourEnabled,
+                hourFormat24 = it.hourFormat24,
                 volume = it.soundVolume,
                 fullscreen = it.fullscreen,
                 orientation = it.orientation,
@@ -42,6 +43,7 @@ class SettingsViewModel @Inject constructor(
         val foregroundColor: Int,
         val backgroundColor: Int,
         val hourEnabled: Boolean,
+        val hourFormat24: Boolean,
         val volume: Int,
         val fullscreen: Boolean,
         val orientation: Orientation,
@@ -68,6 +70,12 @@ class SettingsViewModel @Inject constructor(
     fun updateHourEnabled(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.updateHourEnabled(enabled)
+        }
+    }
+
+    fun updateHourFormat24(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.updateHourFormat24(enabled)
         }
     }
 

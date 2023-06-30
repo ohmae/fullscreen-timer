@@ -9,6 +9,23 @@
     tools:parentTag="android.widget.LinearLayout"
     >
 
+    <TextView
+        android:id="@+id/am_pm"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/am"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        android:textSize="14dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clock"
+        tools:ignore="SpUsage"
+        />
+
     <ImageView
         android:id="@+id/third_1"
         android:layout_width="wrap_content"
@@ -87,7 +104,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        android:visibility="gone"
+        android:visibility="visible"
         app:srcCompat="@drawable/ic_0"
         tools:ignore="ContentDescription"
         />
@@ -98,7 +115,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        android:visibility="gone"
+        android:visibility="visible"
         app:srcCompat="@drawable/ic_0"
         tools:ignore="ContentDescription"
         />

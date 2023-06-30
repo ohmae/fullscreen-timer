@@ -197,7 +197,7 @@ class StopwatchDelegate(
         this.hourEnabled = hourEnabled
         max = if (hourEnabled) MAX_WITH_HOUR else MAX_WITHOUT_HOUR
         if (!isActive) return
-        binding.clock.setDigit(small = true, third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled)
     }
 
     private fun onModeChanged(mode: Mode) {
@@ -212,7 +212,7 @@ class StopwatchDelegate(
         binding.button1.setImageResource(R.drawable.ic_start)
         binding.button2.isInvisible = false
         binding.button2.setImageResource(R.drawable.ic_reset)
-        binding.clock.setDigit(small = true, third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled)
         binding.clock.updateTime(0)
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
