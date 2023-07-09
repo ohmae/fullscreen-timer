@@ -7,13 +7,14 @@
 
 package net.mm2d.timer.delegate
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.SettingsRepository
@@ -28,7 +29,7 @@ class TimerViewModel @Inject constructor(
     private val stateRepository: TimerRunningStateRepository,
     private val soundEffect: SoundEffect,
 ) : ViewModel() {
-    val uiStateLiveData: LiveData<UiState> = settingsRepository.flow
+    val uiStateFlow: Flow<UiState> = settingsRepository.flow
         .map {
             UiState(
                 mode = it.mode,
@@ -37,7 +38,6 @@ class TimerViewModel @Inject constructor(
             )
         }
         .distinctUntilChanged()
-        .asLiveData()
 
     data class UiState(
         val mode: Mode,
@@ -45,7 +45,8 @@ class TimerViewModel @Inject constructor(
         val timerTime: Long,
     )
 
-    val runningStateLiveData: LiveData<TimerRunningState> = stateRepository.flow.asLiveData()
+    val runningStateFlow: Flow<TimerRunningState> = stateRepository.flow
+        .shareIn(viewModelScope, SharingStarted.Lazily, 1)
 
     fun updateState(state: TimerRunningState) {
         viewModelScope.launch {

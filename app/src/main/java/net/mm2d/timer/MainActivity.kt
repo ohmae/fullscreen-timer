@@ -27,6 +27,7 @@ import net.mm2d.timer.delegate.TimerDelegate
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.util.FullscreenHelper
 import net.mm2d.timer.util.Updater
+import net.mm2d.timer.util.observe
 import net.mm2d.timer.util.resolveColor
 
 @AndroidEntryPoint
@@ -59,15 +60,11 @@ class MainActivity : AppCompatActivity() {
             delegates.forEach { it.onClickTime() }
         }
         fullscreenHelper = FullscreenHelper(window)
-        lifecycleScope.launch {
-            viewModel.uiStateFlow
-                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect { updateUiState(it) }
+        viewModel.uiStateFlow.observe(this) {
+            updateUiState(it)
         }
-        lifecycleScope.launch {
-            viewModel.orientationFlow
-                .flowWithLifecycle(lifecycle, Lifecycle.State.CREATED)
-                .collect { requestedOrientation = it.value }
+        viewModel.orientationFlow.observe(this, Lifecycle.State.CREATED) {
+            requestedOrientation = it.value
         }
         Updater.startUpdateIfAvailable(this)
         if (savedInstanceState == null) {

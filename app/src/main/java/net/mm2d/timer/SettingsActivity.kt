@@ -19,18 +19,15 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.databinding.ActivitySettingsBinding
 import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.util.Launcher
+import net.mm2d.timer.util.observe
 
 @AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
@@ -142,10 +139,8 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-        lifecycleScope.launch {
-            viewModel.uiStateFlow
-                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect { updateUiState(it) }
+        viewModel.uiStateFlow.observe(this) {
+            updateUiState(it)
         }
     }
 

@@ -8,6 +8,7 @@
 package net.mm2d.timer.delegate
 
 import android.content.Intent
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.view.isInvisible
@@ -24,6 +25,7 @@ import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.StopwatchRunningState
 import net.mm2d.timer.util.doOnResume
 import net.mm2d.timer.util.getLongExtraSafely
+import net.mm2d.timer.util.observe
 import net.mm2d.timer.util.observeOnce
 
 class StopwatchDelegate(
@@ -55,7 +57,7 @@ class StopwatchDelegate(
     }
 
     init {
-        delegateViewModel.uiStateLiveData.observe(activity) {
+        delegateViewModel.uiStateFlow.observe(activity) {
             onModeChanged(it.mode)
             if (!isActive) return@observe
             setHourEnabled(it.hourEnabled)
@@ -69,7 +71,8 @@ class StopwatchDelegate(
             return
         }
         restoreLatch = true
-        delegateViewModel.runningStateLiveData.observeOnce(activity) {
+        delegateViewModel.runningStateFlow.observeOnce(activity) {
+            Log.e("XXXX","observeOnce: $it")
             restore(it)
             handlePendingIntent()
         }

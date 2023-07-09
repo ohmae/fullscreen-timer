@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity
 import net.mm2d.timer.databinding.ActivityMainBinding
 import net.mm2d.timer.delegate.ClockViewModel.UiState
 import net.mm2d.timer.settings.Mode
+import net.mm2d.timer.util.observe
 
 class ClockDelegate(
     private val activity: FragmentActivity,
@@ -35,7 +36,7 @@ class ClockDelegate(
     }
 
     init {
-        delegateViewModel.uiStateLiveData.observe(activity) {
+        delegateViewModel.uiStateFlow.observe(activity) {
             onModeChanged(it)
         }
     }

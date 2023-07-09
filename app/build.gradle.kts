@@ -82,6 +82,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-process:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.7.0")
@@ -92,7 +94,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.46.1")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
 
-    implementation("net.mm2d.color-chooser:color-chooser:0.6.0")
+    implementation("net.mm2d.color-chooser:color-chooser:0.6.1")
 
     testImplementation("junit:junit:4.13.2")
 

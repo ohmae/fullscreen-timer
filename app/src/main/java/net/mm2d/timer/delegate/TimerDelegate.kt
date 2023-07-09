@@ -8,6 +8,7 @@
 package net.mm2d.timer.delegate
 
 import android.content.Intent
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.view.isInvisible
@@ -25,6 +26,7 @@ import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.TimerRunningState
 import net.mm2d.timer.util.doOnResume
 import net.mm2d.timer.util.getLongExtraSafely
+import net.mm2d.timer.util.observe
 import net.mm2d.timer.util.observeOnce
 
 class TimerDelegate(
@@ -57,7 +59,8 @@ class TimerDelegate(
     }
 
     init {
-        delegateViewModel.uiStateLiveData.observe(activity) {
+        delegateViewModel.uiStateFlow.observe(activity) {
+            Log.e("XXXX","uiStateLiveData: $it $isActive")
             onModeChanged(it.mode)
             if (!isActive) return@observe
             setHourEnabled(it.hourEnabled)
@@ -78,13 +81,15 @@ class TimerDelegate(
             return
         }
         restoreLatch = true
-        delegateViewModel.runningStateLiveData.observeOnce(activity) {
+        delegateViewModel.runningStateFlow.observeOnce(activity) {
+            Log.e("XXXX","observeOnce: $it")
             restore(it)
             handlePendingIntent()
         }
     }
 
     private fun restore(state: TimerRunningState) {
+        Log.e("XXXX","restore: $state")
         if (!state.started) return
         delegateViewModel.updateState(TimerRunningState(started = false))
         if (!isActive) return
