@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.tapArea.setOnClickListener {
             delegates.forEach { it.onClickTime() }
+            animateButtonOpacity()
         }
         fullscreenHelper = FullscreenHelper(window)
         viewModel.uiStateFlow.observe(this) {

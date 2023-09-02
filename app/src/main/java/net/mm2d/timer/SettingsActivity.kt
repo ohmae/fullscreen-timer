@@ -34,6 +34,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var singleSelectMediator: SingleSelectMediator
     private val viewModel: SettingsViewModel by viewModels()
+    private var inactiveLatch = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,11 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setUpView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        inactiveLatch = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -165,9 +171,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.hourEnabled.isChecked = uiState.hourEnabled
         binding.hourFormat.isChecked = uiState.hourFormat24
         val opacityPercent = (uiState.buttonOpacity * 100).toInt()
-        binding.buttonOpacityBar.progress = opacityPercent
+        if (inactiveLatch) {
+            inactiveLatch = false
+            binding.buttonOpacityBar.progress = opacityPercent
+            binding.volumeBar.progress = uiState.volume
+        }
         binding.buttonOpacityValue.text = "%d%%".format(opacityPercent)
-        binding.volumeBar.progress = uiState.volume
         binding.volumeValue.text = uiState.volume.toString()
         binding.fullscreen.isChecked = uiState.fullscreen
         binding.orientationIcon.setImageResource(uiState.orientation.icon)
