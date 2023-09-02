@@ -32,6 +32,7 @@ class MainViewModel @Inject constructor(
                 backgroundColor = it.backgroundColor,
                 shouldUseDarkForeground = it.backgroundColor.shouldUseDarkForeground(),
                 fullscreen = it.fullscreen,
+                buttonOpacity = it.buttonOpacity,
             )
         }
         .distinctUntilChanged()
@@ -51,5 +52,6 @@ class MainViewModel @Inject constructor(
         val backgroundColor: Int,
         val shouldUseDarkForeground: Boolean,
         val fullscreen: Boolean,
+        val buttonOpacity: Float,
     )
 }

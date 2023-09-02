@@ -60,7 +60,7 @@ class TimerDelegate(
 
     init {
         delegateViewModel.uiStateFlow.observe(activity) {
-            Log.e("XXXX","uiStateLiveData: $it $isActive")
+            Log.e("XXXX", "uiStateLiveData: $it $isActive")
             onModeChanged(it.mode)
             if (!isActive) return@observe
             setHourEnabled(it.hourEnabled)
@@ -82,14 +82,14 @@ class TimerDelegate(
         }
         restoreLatch = true
         delegateViewModel.runningStateFlow.observeOnce(activity) {
-            Log.e("XXXX","observeOnce: $it")
+            Log.e("XXXX", "observeOnce: $it")
             restore(it)
             handlePendingIntent()
         }
     }
 
     private fun restore(state: TimerRunningState) {
-        Log.e("XXXX","restore: $state")
+        Log.e("XXXX", "restore: $state")
         if (!state.started) return
         delegateViewModel.updateState(TimerRunningState(started = false))
         if (!isActive) return

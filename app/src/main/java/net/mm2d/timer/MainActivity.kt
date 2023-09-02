@@ -14,10 +14,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import net.mm2d.timer.MainViewModel.UiState
 import net.mm2d.timer.databinding.ActivityMainBinding
 import net.mm2d.timer.delegate.ClockDelegate
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var delegates: List<ModeDelegate>
     private lateinit var fullscreenHelper: FullscreenHelper
     private val viewModel: MainViewModel by viewModels()
+    private var buttonOpacity: Float = 1f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +47,11 @@ class MainActivity : AppCompatActivity() {
         )
         binding.button1.setOnClickListener {
             delegates.forEach { it.onClickButton1() }
+            animateButtonOpacity()
         }
         binding.button2.setOnClickListener {
             delegates.forEach { it.onClickButton2() }
+            animateButtonOpacity()
         }
         binding.settings.setOnClickListener {
             SettingsActivity.start(this)
@@ -80,13 +80,38 @@ class MainActivity : AppCompatActivity() {
         } else {
             R.drawable.bg_button_light to ColorStateList.valueOf(resolveColor(R.attr.colorControlLight))
         }
-        binding.button1.setBackgroundResource(backgroundResource)
-        binding.button1.imageTintList = foregroundTint
-        binding.button2.setBackgroundResource(backgroundResource)
-        binding.button2.imageTintList = foregroundTint
-        binding.settings.setBackgroundResource(backgroundResource)
-        binding.settings.imageTintList = foregroundTint
+        listOf(
+            binding.button1,
+            binding.button2,
+            binding.settings,
+        ).forEach {
+            it.setBackgroundResource(backgroundResource)
+            it.imageTintList = foregroundTint
+        }
+        buttonOpacity = uiState.buttonOpacity
+        animateButtonOpacity()
         fullscreenHelper.invoke(uiState.fullscreen)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        animateButtonOpacity()
+    }
+
+    private fun animateButtonOpacity() {
+        val opacity = buttonOpacity
+        if (binding.button1.alpha == opacity) return
+        listOf(
+            binding.button1,
+            binding.button2,
+            binding.settings,
+        ).forEach {
+            it.alpha = 1f
+            it.animate()
+                .alpha(opacity)
+                .setDuration(1500L)
+                .start()
+        }
     }
 
     override fun onStop() {

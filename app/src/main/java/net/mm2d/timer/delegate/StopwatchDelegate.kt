@@ -72,7 +72,7 @@ class StopwatchDelegate(
         }
         restoreLatch = true
         delegateViewModel.runningStateFlow.observeOnce(activity) {
-            Log.e("XXXX","observeOnce: $it")
+            Log.e("XXXX", "observeOnce: $it")
             restore(it)
             handlePendingIntent()
         }

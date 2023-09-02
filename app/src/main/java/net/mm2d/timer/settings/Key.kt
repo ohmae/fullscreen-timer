@@ -13,6 +13,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -41,6 +42,7 @@ sealed interface Key {
         SOUND_VOLUME_INT,
         FULLSCREEN_BOOLEAN,
         ORIENTATION_INT,
+        BUTTON_OPACITY_FLOAT,
     }
 
     enum class Stopwatch : Key {
@@ -122,4 +124,15 @@ fun <K> K.longKey(): Preferences.Key<Long>
         }
     }
     return longPreferencesKey(name)
+}
+
+fun <K> K.floatKey(): Preferences.Key<Float>
+    where K : Enum<*>,
+          K : Key {
+    if (BuildConfig.DEBUG) {
+        require(name.endsWith(SUFFIX_FLOAT)) {
+            "$this is used for Long, suffix \"$SUFFIX_FLOAT\" is required."
+        }
+    }
+    return floatPreferencesKey(name)
 }

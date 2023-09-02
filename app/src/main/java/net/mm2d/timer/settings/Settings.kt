@@ -20,4 +20,5 @@ data class Settings(
     val soundVolume: Int,
     val fullscreen: Boolean,
     val orientation: Orientation,
+    val buttonOpacity: Float,
 )

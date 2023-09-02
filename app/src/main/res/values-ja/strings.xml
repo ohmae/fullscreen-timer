@@ -12,6 +12,7 @@
     <string name="menu_description_foreground_color">時刻面の文字色を設定します</string>
     <string name="menu_title_background_color">背景色</string>
     <string name="menu_description_background_color">時刻面の背景色を設定します</string>
+    <string name="menu_title_button_opacity">ボタンの不透明度</string>
     <string name="menu_title_volume">SEボリューム</string>
     <string name="menu_title_hour_enabled">「時」の表示</string>
     <string name="menu_description_hour_enabled_on">「時」を表示します</string>

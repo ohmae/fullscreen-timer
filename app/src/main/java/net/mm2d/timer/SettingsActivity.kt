@@ -100,6 +100,14 @@ class SettingsActivity : AppCompatActivity() {
         binding.hourFormat.setOnClickListener {
             viewModel.updateHourFormat24(!binding.hourFormat.isChecked)
         }
+        binding.buttonOpacityBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (!fromUser) return
+                viewModel.updateButtonOpacity(progress / 100f)
+            }
+        })
         binding.volumeBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
@@ -156,6 +164,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.backgroundColor.setColor(uiState.backgroundColor)
         binding.hourEnabled.isChecked = uiState.hourEnabled
         binding.hourFormat.isChecked = uiState.hourFormat24
+        val opacityPercent = (uiState.buttonOpacity * 100).toInt()
+        binding.buttonOpacityBar.progress = opacityPercent
+        binding.buttonOpacityValue.text = "%d%%".format(opacityPercent)
         binding.volumeBar.progress = uiState.volume
         binding.volumeValue.text = uiState.volume.toString()
         binding.fullscreen.isChecked = uiState.fullscreen

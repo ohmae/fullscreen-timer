@@ -185,13 +185,65 @@
                     />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/volume"
+                    android:id="@+id/button_opacity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="?android:attr/selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/background_color"
+                    >
+
+                    <TextView
+                        android:id="@+id/button_opacity_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginTop="@dimen/margin_menu_vertical"
+                        android:text="@string/menu_title_button_opacity"
+                        android:textAppearance="@style/TextAppearance.Timer.Title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <SeekBar
+                        android:id="@+id/button_opacity_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:max="100"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/button_opacity_value"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_opacity_title"
+                        tools:progress="50"
+                        />
+
+                    <TextView
+                        android:id="@+id/button_opacity_value"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_menu_horizontal"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.Timer.SubTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_opacity_title"
+                        tools:text="5"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/volume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/button_opacity"
                     >
 
                     <TextView
@@ -222,7 +274,7 @@
 
                     <TextView
                         android:id="@+id/volume_value"
-                        android:layout_width="30dp"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_menu_horizontal"
                         android:layout_marginBottom="@dimen/margin_menu_vertical"

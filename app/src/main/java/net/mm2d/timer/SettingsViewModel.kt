@@ -34,6 +34,7 @@ class SettingsViewModel @Inject constructor(
                 volume = it.soundVolume,
                 fullscreen = it.fullscreen,
                 orientation = it.orientation,
+                buttonOpacity = it.buttonOpacity,
             )
         }
         .distinctUntilChanged()
@@ -47,6 +48,7 @@ class SettingsViewModel @Inject constructor(
         val volume: Int,
         val fullscreen: Boolean,
         val orientation: Orientation,
+        val buttonOpacity: Float,
     )
 
     fun updateMode(mode: Mode) {
@@ -94,6 +96,12 @@ class SettingsViewModel @Inject constructor(
     fun updateOrientation(orientation: Orientation) {
         viewModelScope.launch {
             settingsRepository.updateOrientation(orientation)
+        }
+    }
+
+    fun updateButtonOpacity(opacity: Float) {
+        viewModelScope.launch {
+            settingsRepository.updateButtonOpacity(opacity)
         }
     }
 }

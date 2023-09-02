@@ -64,6 +64,7 @@ class SettingsRepository @Inject constructor(
                 soundVolume = it[SOUND_VOLUME] ?: 5,
                 fullscreen = it[FULLSCREEN] ?: true,
                 orientation = Orientation.of(it[ORIENTATION]),
+                buttonOpacity = it[BUTTON_OPACITY]?.coerceIn(0f, 1f) ?: 1f,
             )
         }
         .shareIn(scope = scope, started = SharingStarted.Eagerly, replay = 1)
@@ -119,6 +120,12 @@ class SettingsRepository @Inject constructor(
     suspend fun updateOrientation(orientation: Orientation) {
         dataStore.edit {
             it[ORIENTATION] = orientation.value
+        }
+    }
+
+    suspend fun updateButtonOpacity(opacity: Float) {
+        dataStore.edit {
+            it[BUTTON_OPACITY] = opacity
         }
     }
 
@@ -183,5 +190,7 @@ class SettingsRepository @Inject constructor(
             Key.Main.FULLSCREEN_BOOLEAN.booleanKey()
         private val ORIENTATION =
             Key.Main.ORIENTATION_INT.intKey()
+        private val BUTTON_OPACITY =
+            Key.Main.BUTTON_OPACITY_FLOAT.floatKey()
     }
 }
