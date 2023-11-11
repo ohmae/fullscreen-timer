@@ -24,7 +24,7 @@ android {
     defaultConfig {
         applicationId = "net.mm2d.timer"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
         base.archivesName.set("${applicationName}-${versionName}")
@@ -79,7 +79,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.browser:browser:1.6.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-process:2.6.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -94,7 +94,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48.1")
     ksp("com.google.dagger:hilt-android-compiler:2.48.1")
 
-    implementation("net.mm2d.color-chooser:color-chooser:0.6.1")
+    implementation("net.mm2d.color-chooser:color-chooser:0.6.3")
 
     testImplementation("junit:junit:4.13.2")
 
