@@ -8,16 +8,19 @@
 package net.mm2d.timer.view
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.getStringOrThrow
+import androidx.core.graphics.alpha
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import net.mm2d.timer.R
 import net.mm2d.timer.databinding.ViewColorMenuBinding
-import net.mm2d.timer.util.alpha
-import net.mm2d.timer.util.opaque
 
 class ColorMenuView @JvmOverloads constructor(
     context: Context,
@@ -43,7 +46,7 @@ class ColorMenuView @JvmOverloads constructor(
     }
 
     private fun ImageView.setImageColor(@ColorInt color: Int) {
-        setColorFilter(color.opaque())
-        imageAlpha = color.alpha()
+        setColorFilter(Color.rgb(color.red, color.green, color.blue))
+        imageAlpha = color.alpha
     }
 }
