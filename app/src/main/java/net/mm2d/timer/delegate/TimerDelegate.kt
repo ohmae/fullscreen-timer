@@ -182,7 +182,7 @@ class TimerDelegate(
                 started = started,
                 start = start,
                 milestone = milestone,
-            )
+            ),
         )
     }
 

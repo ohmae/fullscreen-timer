@@ -26,9 +26,11 @@ object Updater {
                 if (it.isAvailable()) {
                     runCatching {
                         manager.startUpdateFlow(
-                            it, activity, AppUpdateOptions.defaultOptions(
-                                AppUpdateType.IMMEDIATE
-                            )
+                            it,
+                            activity,
+                            AppUpdateOptions.defaultOptions(
+                                AppUpdateType.IMMEDIATE,
+                            ),
                         )
                     }
                 }

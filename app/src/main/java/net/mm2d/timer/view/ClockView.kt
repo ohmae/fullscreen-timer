@@ -144,7 +144,9 @@ class ClockView @JvmOverloads constructor(
                 (binding.amPm.layoutParams as MarginLayoutParams).let {
                     it.width + it.marginStart + it.marginEnd
                 }
-            } else 0
+            } else {
+                0
+            }
             val xMax = MeasureSpec.getSize(widthMeasureSpec) - amPmWidth
             val yMax = MeasureSpec.getSize(heightMeasureSpec)
             val xScore = viewSizes.filter { it.view.isVisible }

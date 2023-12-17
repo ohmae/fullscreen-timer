@@ -23,11 +23,11 @@ import javax.inject.Singleton
 
 @Singleton
 class StopwatchRunningStateRepository @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext context: Context,
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.STOPWATCH_STATE,
-        migrations = listOf(MigrationForData())
+        migrations = listOf(MigrationForData()),
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
@@ -43,7 +43,7 @@ class StopwatchRunningStateRepository @Inject constructor(
             StopwatchRunningState(
                 started = it[STARTED] ?: false,
                 start = it[START] ?: 0L,
-                milestone = it[MILESTONE] ?: 0L
+                milestone = it[MILESTONE] ?: 0L,
             )
         }
 

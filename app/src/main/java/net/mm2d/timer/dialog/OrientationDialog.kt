@@ -28,12 +28,12 @@ class OrientationDialog : DialogFragment() {
         recyclerView.adapter = Adapter(activity) {
             parentFragmentManager.setFragmentResult(
                 requestKey,
-                bundleOf(RESULT_ORIENTATION to it)
+                bundleOf(RESULT_ORIENTATION to it),
             )
             dialog?.cancel()
         }
         recyclerView.addItemDecoration(
-            DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(activity, DividerItemDecoration.VERTICAL),
         )
         recyclerView.overScrollMode = View.OVER_SCROLL_NEVER
         recyclerView.isVerticalFadingEdgeEnabled = true
@@ -45,7 +45,7 @@ class OrientationDialog : DialogFragment() {
 
     class Adapter(
         activity: Activity,
-        private val onClickListener: (orientation: Orientation) -> Unit
+        private val onClickListener: (orientation: Orientation) -> Unit,
     ) : RecyclerView.Adapter<ViewHolder>() {
         private val inflater = activity.layoutInflater
         private val orientations = Orientation.values()
@@ -64,7 +64,7 @@ class OrientationDialog : DialogFragment() {
     }
 
     class ViewHolder(
-        private val binding: ItemOrientationBinding
+        private val binding: ItemOrientationBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(orientation: Orientation) {
             binding.icon.setImageResource(orientation.icon)
@@ -80,7 +80,7 @@ class OrientationDialog : DialogFragment() {
         fun registerListener(
             activity: FragmentActivity,
             requestKey: String,
-            listener: (Orientation) -> Unit
+            listener: (Orientation) -> Unit,
         ) {
             val manager = activity.supportFragmentManager
             manager.setFragmentResultListener(requestKey, activity) { _, result ->
@@ -95,7 +95,7 @@ class OrientationDialog : DialogFragment() {
             if (manager.isStateSaved || manager.findFragmentByTag(TAG) != null) return
             OrientationDialog().also { dialog ->
                 dialog.arguments = bundleOf(
-                    KEY_REQUEST_KEY to requestKey
+                    KEY_REQUEST_KEY to requestKey,
                 )
             }.show(manager, TAG)
         }

@@ -10,5 +10,5 @@ package net.mm2d.timer.settings
 data class TimerRunningState(
     val started: Boolean,
     val start: Long = 0L,
-    val milestone: Long = 0L
+    val milestone: Long = 0L,
 )

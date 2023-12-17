@@ -32,7 +32,8 @@ class TimeDialog : DialogFragment() {
             .setView(binding.root)
             .setPositiveButton(R.string.ok) { _, _ ->
                 parentFragmentManager.setFragmentResult(
-                    requestKey, bundleOf(KEY_RESULT to binding.getValue())
+                    requestKey,
+                    bundleOf(KEY_RESULT to binding.getValue()),
                 )
             }
             .setNegativeButton(R.string.cancel) { dialog, _ ->
@@ -96,7 +97,7 @@ class TimeDialog : DialogFragment() {
         fun registerListener(
             activity: FragmentActivity,
             requestKey: String,
-            listener: (Long) -> Unit
+            listener: (Long) -> Unit,
         ) {
             val manager = activity.supportFragmentManager
             manager.setFragmentResultListener(requestKey, activity) { _, result ->

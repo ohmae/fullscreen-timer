@@ -23,11 +23,11 @@ import javax.inject.Singleton
 
 @Singleton
 class TimerRunningStateRepository @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext context: Context,
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.TIMER_STATE,
-        migrations = listOf(MigrationForData())
+        migrations = listOf(MigrationForData()),
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
@@ -43,7 +43,7 @@ class TimerRunningStateRepository @Inject constructor(
             TimerRunningState(
                 started = it[STARTED] ?: false,
                 start = it[START] ?: 0L,
-                milestone = it[MILESTONE] ?: 0L
+                milestone = it[MILESTONE] ?: 0L,
             )
         }
 

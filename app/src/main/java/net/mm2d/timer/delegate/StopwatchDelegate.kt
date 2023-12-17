@@ -166,7 +166,7 @@ class StopwatchDelegate(
                 started = started,
                 start = start,
                 milestone = milestone,
-            )
+            ),
         )
     }
 

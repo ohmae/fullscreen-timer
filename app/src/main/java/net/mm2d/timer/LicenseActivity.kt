@@ -33,7 +33,7 @@ class LicenseActivity : AppCompatActivity() {
         binding.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
-                request: WebResourceRequest?
+                request: WebResourceRequest?,
             ): Boolean {
                 val uri = request?.url ?: return true
                 return Launcher.openCustomTabs(this@LicenseActivity, uri)

@@ -76,20 +76,20 @@ class SettingsActivity : AppCompatActivity() {
             this,
             REQUEST_KEY_FOREGROUND,
             { viewModel.updateForegroundColor(it) },
-            null
+            null,
         )
         ColorChooserDialog.registerListener(
             this,
             REQUEST_KEY_BACKGROUND,
             { viewModel.updateBackgroundColor(it) },
-            null
+            null,
         )
         binding.foregroundColor.setOnClickListener {
             ColorChooserDialog.show(
                 this,
                 REQUEST_KEY_FOREGROUND,
                 binding.foregroundColor.getColor(),
-                false
+                false,
             )
         }
         binding.backgroundColor.setOnClickListener {
@@ -97,7 +97,7 @@ class SettingsActivity : AppCompatActivity() {
                 this,
                 REQUEST_KEY_BACKGROUND,
                 binding.backgroundColor.getColor(),
-                false
+                false,
             )
         }
         binding.hourEnabled.setOnClickListener {
@@ -187,7 +187,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private class SingleSelectMediator(
-        private val onSelectedListener: (Int) -> Unit
+        private val onSelectedListener: (Int) -> Unit,
     ) {
         private val views = SparseArray<View>()
         var selectedId: Int = 0

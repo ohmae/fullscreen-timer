@@ -27,8 +27,11 @@ object Launcher {
 
     fun openCustomTabs(context: Context, uri: Uri): Boolean = runCatching {
         val scheme =
-            if (context.isNightMode()) CustomTabsIntent.COLOR_SCHEME_DARK
-            else CustomTabsIntent.COLOR_SCHEME_LIGHT
+            if (context.isNightMode()) {
+                CustomTabsIntent.COLOR_SCHEME_DARK
+            } else {
+                CustomTabsIntent.COLOR_SCHEME_LIGHT
+            }
         val params = CustomTabColorSchemeParams.Builder()
             .setToolbarColor(context.resolveColor(android.R.attr.colorPrimary))
             .build()
@@ -41,7 +44,6 @@ object Launcher {
         intent.launchUrl(context, uri)
         true
     }.getOrNull() ?: false
-
 
     private fun openGooglePlay(context: Context, packageName: String): Boolean =
         openUri(context, "market://details?id=$packageName") ||
