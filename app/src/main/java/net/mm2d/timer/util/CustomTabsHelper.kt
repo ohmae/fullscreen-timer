@@ -20,9 +20,12 @@ import androidx.lifecycle.ProcessLifecycleOwner
 @SuppressLint("StaticFieldLeak")
 object CustomTabsHelper : CustomTabsServiceConnection() {
     private val PREFERRED_PACKAGES = listOf(
-        "com.android.chrome", // Chrome
-        "org.mozilla.firefox", // Firefox
-        "com.microsoft.emmx", // Microsoft Edge
+        // Chrome
+        "com.android.chrome",
+        // Firefox
+        "org.mozilla.firefox",
+        // Microsoft Edge
+        "com.microsoft.emmx",
     )
     private const val ACTION_CUSTOM_TABS_CONNECTION =
         "android.support.customtabs.action.CustomTabsService"

@@ -65,16 +65,18 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     lint {
         abortOnError = true
     }
+    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
 }
 
-val ktlint by configurations.creating
+val ktlint: Configuration by configurations.creating
 
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
@@ -93,14 +95,14 @@ dependencies {
     implementation("com.google.android.play:core:1.10.3")
     implementation("com.google.android.play:core-ktx:1.8.1")
 
-    implementation("com.google.dagger:hilt-android:2.49")
-    ksp("com.google.dagger:hilt-android-compiler:2.49")
+    implementation("com.google.dagger:hilt-android:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
 
     implementation("net.mm2d.color-chooser:color-chooser:0.7.1")
 
     testImplementation("junit:junit:4.13.2")
 
-    ktlint("com.pinterest.ktlint:ktlint-cli:1.0.1") {
+    ktlint("com.pinterest.ktlint:ktlint-cli:1.1.0") {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
         }
@@ -109,7 +111,7 @@ dependencies {
     // for release
 }
 
-val ktlintCheck by tasks.registering(JavaExec::class) {
+tasks.register<JavaExec>("ktlint") {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
     description = "Check Kotlin code style"
     classpath = ktlint
@@ -120,10 +122,6 @@ val ktlintCheck by tasks.registering(JavaExec::class) {
         "!**/build/**",
     )
     isIgnoreExitValue = true
-}
-
-tasks.named<DefaultTask>("check") {
-    dependsOn(ktlintCheck)
 }
 
 tasks.register<JavaExec>("ktlintFormat") {
