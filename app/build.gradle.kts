@@ -76,18 +76,16 @@ android {
     }
 }
 
-val ktlint: Configuration by configurations.creating
-
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.browser:browser:1.7.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-process:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.9.0")
@@ -102,41 +100,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
 
-    ktlint("com.pinterest.ktlint:ktlint-cli:1.1.0") {
-        attributes {
-            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
-        }
-    }
-
     // for release
-}
-
-tasks.register<JavaExec>("ktlint") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    args(
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-    isIgnoreExitValue = true
-}
-
-tasks.register<JavaExec>("ktlintFormat") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style and format"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
-    args(
-        "-F",
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-    isIgnoreExitValue = true
 }
 
 fun isStable(version: String): Boolean {
