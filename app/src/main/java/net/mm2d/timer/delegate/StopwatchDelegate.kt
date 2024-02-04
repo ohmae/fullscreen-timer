@@ -8,7 +8,6 @@
 package net.mm2d.timer.delegate
 
 import android.content.Intent
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.view.isInvisible
@@ -72,7 +71,6 @@ class StopwatchDelegate(
         }
         restoreLatch = true
         delegateViewModel.runningStateFlow.observeOnce(activity) {
-            Log.e("XXXX", "observeOnce: $it")
             restore(it)
             handlePendingIntent()
         }

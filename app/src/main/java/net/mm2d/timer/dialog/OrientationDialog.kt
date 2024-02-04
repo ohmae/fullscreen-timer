@@ -48,19 +48,18 @@ class OrientationDialog : DialogFragment() {
         private val onClickListener: (orientation: Orientation) -> Unit,
     ) : RecyclerView.Adapter<ViewHolder>() {
         private val inflater = activity.layoutInflater
-        private val orientations = Orientation.values()
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(ItemOrientationBinding.inflate(inflater, parent, false))
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val orientation = orientations[position]
+            val orientation = Orientation.entries[position]
             holder.bind(orientation)
             holder.itemView.setOnClickListener {
                 onClickListener(orientation)
             }
         }
 
-        override fun getItemCount(): Int = orientations.size
+        override fun getItemCount(): Int = Orientation.entries.size
     }
 
     class ViewHolder(
