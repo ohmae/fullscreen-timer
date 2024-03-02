@@ -1,9 +1,9 @@
 plugins {
-    id("com.android.application") version "8.2.2" apply false
+    id("com.android.application") version "8.3.0" apply false
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
-    id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
-    id("dagger.hilt.android.plugin") version "2.50" apply false
-    id("com.github.ben-manes.versions") version "0.50.0" apply false
+    id("com.google.devtools.ksp") version "1.9.22-1.0.18" apply false
+    id("dagger.hilt.android.plugin") version "2.51" apply false
+    id("com.github.ben-manes.versions") version "0.51.0" apply false
 
     // for release
 }
