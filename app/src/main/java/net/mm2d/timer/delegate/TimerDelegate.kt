@@ -148,10 +148,13 @@ class TimerDelegate(
         if (!isActive) return
         if (started) {
             stop()
-        } else {
+            delegateViewModel.playSound()
+        } else if (milestone != 0L) {
             start()
+            delegateViewModel.playSound()
+        } else {
+            TimeDialog.show(activity, REQUEST_KEY, timerTime, hourEnabled)
         }
-        delegateViewModel.playSound()
     }
 
     override fun onClickButton2() {

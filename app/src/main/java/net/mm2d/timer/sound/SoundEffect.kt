@@ -11,7 +11,9 @@ import android.media.AudioManager
 import android.media.ToneGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.SettingsRepository
 import javax.inject.Inject
@@ -23,6 +25,7 @@ class SoundEffect @Inject constructor(
 ) {
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var volume: Int = 0
+    private var job: Job? = null
 
     init {
         scope.launch {
@@ -38,7 +41,15 @@ class SoundEffect @Inject constructor(
     }
 
     fun playStop() {
-        ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10)
-            .startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
+        job?.cancel()
+        job = scope.launch {
+            ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10).let { tone ->
+                repeat(3) {
+                    tone.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
+                    delay(1000)
+                }
+                job = null
+            }
+        }
     }
 }

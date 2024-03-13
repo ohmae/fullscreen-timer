@@ -61,7 +61,7 @@ class SettingsRepository @Inject constructor(
                 hourEnabled = it[HOUR_ENABLED] ?: false,
                 hourFormat24 = it[HOUR_FORMAT_24] ?: true,
                 timerTime = it[TIMER_TIME] ?: TIMER_TIME_DEFAULT,
-                soundVolume = it[SOUND_VOLUME] ?: 5,
+                soundVolume = it[SOUND_VOLUME] ?: 10,
                 fullscreen = it[FULLSCREEN] ?: true,
                 orientation = Orientation.of(it[ORIENTATION]),
                 buttonOpacity = it[BUTTON_OPACITY]?.coerceIn(0f, 1f) ?: 1f,
