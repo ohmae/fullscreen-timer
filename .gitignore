@@ -17,6 +17,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/jarRepositories.xml
+/.idea/sonarlint
 .DS_Store
 /build
 /captures
