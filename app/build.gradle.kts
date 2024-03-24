@@ -3,11 +3,11 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import java.util.*
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
-    id("com.github.ben-manes.versions")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.gradleVersions)
 
     // for release
 }
@@ -53,15 +53,12 @@ android {
             )
         }
     }
-    kotlin {
-        jvmToolchain(11)
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
@@ -77,28 +74,31 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.browser:browser:1.8.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-process:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.webkit:webkit:1.10.0")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("com.google.android.play:core:1.10.3")
-    implementation("com.google.android.play:core-ktx:1.8.1")
+    implementation(libs.androidxCore)
+    implementation(libs.androidxAppCompat)
+    implementation(libs.androidxActivity)
+    implementation(libs.androidxBrowser)
+    implementation(libs.androidxFragment)
+    implementation(libs.androidxLifecycleLiveData)
+    implementation(libs.androidxLifecycleProcess)
+    implementation(libs.androidxLifecycleRuntime)
+    implementation(libs.androidxLifecycleViewModel)
+    implementation(libs.androidxConstraintLayout)
+    implementation(libs.androidxDatastorePreferences)
+    implementation(libs.androidxWebkit)
+    implementation(libs.material)
+    implementation(libs.playCore)
+    implementation(libs.playCoreKtx)
 
-    implementation("com.google.dagger:hilt-android:2.51")
-    ksp("com.google.dagger:hilt-android-compiler:2.51")
+    implementation(libs.hiltAndroid)
+    ksp(libs.hiltAndroidCompiler)
 
-    implementation("net.mm2d.color-chooser:color-chooser:0.7.2")
+    implementation(libs.colorChooser)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit)
+
+    debugImplementation(libs.leakcanary)
+    debugImplementation(libs.bundles.flipper)
 
     // for release
 }

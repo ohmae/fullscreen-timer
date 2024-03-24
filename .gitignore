@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/.idea/appInsightsSettings.xml
 /.idea/caches
 /.idea/copyright
 /.idea/deploymentTargetDropDown.xml
@@ -10,6 +11,7 @@
 /.idea/kotlinc.xml
 /.idea/misc.xml
 /.idea/gradle.xml
+/.idea/migrations.xml
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml

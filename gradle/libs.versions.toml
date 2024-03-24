@@ -1,0 +1,87 @@
+[versions]
+androidGradlePlugin = "8.3.1"
+kotlin = "1.9.23"
+ksp = "1.9.23-1.0.19"
+hilt = "2.51"
+gradleVersionsPlugin = "0.51.0"
+
+androidxCore = "1.12.0"
+androidxAppCompat = "1.6.1"
+androidxActivity = "1.8.2"
+androidxFragment = "1.6.2"
+androidxBrowser = "1.8.0"
+androidxConstraintLayout = "2.1.4"
+androidxDatastore = "1.0.0"
+androidxLifecycle = "2.7.0"
+androidxWebkit = "1.10.0"
+material = "1.11.0"
+playCore = "1.10.3"
+playCoreKtx = "1.8.1"
+colorChooser = "0.7.2"
+
+# test
+junit = "4.13.2"
+
+# debug
+leakcanary = "2.13"
+flipper = "0.250.0"
+soloader = "0.11.0"
+
+ktlint = "1.2.1"
+
+# for release
+
+[libraries]
+
+androidxCore = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidxAppCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidxActivity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
+androidxFragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
+androidxBrowser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
+androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
+androidxDatastorePreferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastore" }
+androidxLifecycleProcess = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
+androidxLifecycleRuntime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidxLifecycleLiveData = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
+androidxWebkit = { group = "androidx.webkit", name = "webkit", version.ref = "androidxWebkit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+playCore = { group = "com.google.android.play", name = "core", version.ref = "playCore" }
+playCoreKtx = { group = "com.google.android.play", name = "core-ktx", version.ref = "playCoreKtx" }
+hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
+colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser", version.ref = "colorChooser" }
+
+# test
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+# debug
+leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+flipper = { group = "com.facebook.flipper", name = "flipper", version.ref = "flipper" }
+soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
+flipperNetwork = { group = "com.facebook.flipper", name = "flipper-network-plugin", version.ref = "flipper" }
+flipperLeakCanary2 = { group = "com.facebook.flipper", name = "flipper-leakcanary2-plugin", version.ref = "flipper" }
+
+ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
+
+# for release
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "dagger.hilt.android.plugin", version.ref = "hilt" }
+gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
+
+
+# for release
+
+[bundles]
+flipper = [
+    "flipper",
+    "soloader",
+    "flipperNetwork",
+    "flipperLeakCanary2"
+]
+
+# for release
