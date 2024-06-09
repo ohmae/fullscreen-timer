@@ -1,6 +1,6 @@
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import java.util.*
+import java.util.Locale
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -15,7 +15,7 @@ plugins {
 val applicationName = "Timer"
 val versionMajor = 0
 val versionMinor = 6
-val versionPatch = 2
+val versionPatch = 3
 
 android {
     compileSdk = 34
