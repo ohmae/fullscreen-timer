@@ -15,8 +15,7 @@ androidxDatastore = "1.1.1"
 androidxLifecycle = "2.8.1"
 androidxWebkit = "1.11.0"
 material = "1.12.0"
-playCore = "1.10.3"
-playCoreKtx = "1.8.1"
+playAppUpdate = "2.1.0"
 colorChooser = "0.7.3"
 
 # test
@@ -46,8 +45,7 @@ androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-v
 androidxLifecycleLiveData = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidxWebkit = { group = "androidx.webkit", name = "webkit", version.ref = "androidxWebkit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-playCore = { group = "com.google.android.play", name = "core", version.ref = "playCore" }
-playCoreKtx = { group = "com.google.android.play", name = "core-ktx", version.ref = "playCoreKtx" }
+playAppUpdate = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "playAppUpdate" }
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser", version.ref = "colorChooser" }

@@ -87,8 +87,7 @@ dependencies {
     implementation(libs.androidxDatastorePreferences)
     implementation(libs.androidxWebkit)
     implementation(libs.material)
-    implementation(libs.playCore)
-    implementation(libs.playCoreKtx)
+    implementation(libs.playAppUpdate)
 
     implementation(libs.hiltAndroid)
     ksp(libs.hiltAndroidCompiler)
