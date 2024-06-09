@@ -10,9 +10,11 @@ package net.mm2d.timer.settings
 import android.content.Context
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
@@ -76,6 +78,7 @@ fun preferences(
 ): ReadOnlyProperty<Context, DataStore<Preferences>> =
     preferencesDataStore(
         name = file.fileName(),
+        corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() },
         produceMigrations = { migrations },
     )
 
