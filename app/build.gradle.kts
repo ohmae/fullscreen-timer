@@ -110,5 +110,5 @@ fun isStable(version: String): Boolean {
 }
 
 tasks.withType<DependencyUpdatesTask> {
-    rejectVersionIf { !isStable(candidate.version) }
+    rejectVersionIf { !isStable(candidate.version) && isStable(currentVersion) }
 }
