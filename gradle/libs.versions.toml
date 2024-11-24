@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.7.2"
 kotlin = "2.0.21"
-ksp = "2.0.21-1.0.27"
+ksp = "2.0.21-1.0.28"
 hilt = "2.52"
 gradleVersionsPlugin = "0.51.0"
 
@@ -23,7 +23,7 @@ junit = "4.13.2"
 
 # debug
 leakcanary = "2.14"
-flipper = "0.272.0"
+flipper = "0.273.0"
 soloader = "0.12.1"
 
 ktlint = "1.4.1"
