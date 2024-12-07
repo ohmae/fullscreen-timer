@@ -1,8 +1,8 @@
 [versions]
-androidGradlePlugin = "8.7.2"
-kotlin = "2.0.21"
-ksp = "2.0.21-1.0.28"
-hilt = "2.52"
+androidGradlePlugin = "8.7.3"
+kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29"
+hilt = "2.53"
 gradleVersionsPlugin = "0.51.0"
 
 androidxCore = "1.15.0"
@@ -26,7 +26,7 @@ leakcanary = "2.14"
 flipper = "0.273.0"
 soloader = "0.12.1"
 
-ktlint = "1.4.1"
+ktlint = "1.5.0"
 
 # for release
 
