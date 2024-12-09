@@ -35,7 +35,9 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private var buttonOpacity: Float = 1f
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -73,7 +75,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiState(uiState: UiState) {
+    private fun updateUiState(
+        uiState: UiState,
+    ) {
         binding.clock.setColor(uiState.foregroundColor)
         window.setBackgroundDrawable(ColorDrawable(uiState.backgroundColor))
         val (backgroundResource, foregroundTint) = if (uiState.shouldUseDarkForeground) {
@@ -125,12 +129,16 @@ class MainActivity : AppCompatActivity() {
         delegates.forEach { it.onDestroy() }
     }
 
-    override fun onNewIntent(intent: Intent) {
+    override fun onNewIntent(
+        intent: Intent,
+    ) {
         super.onNewIntent(intent)
         handleIntent(intent)
     }
 
-    private fun handleIntent(intent: Intent) {
+    private fun handleIntent(
+        intent: Intent,
+    ) {
         val mode = Mode.fromIntentExtra(intent) ?: return
         delegates.find { it.mode == mode }?.handleIntent(intent)
         viewModel.updateMode(mode)

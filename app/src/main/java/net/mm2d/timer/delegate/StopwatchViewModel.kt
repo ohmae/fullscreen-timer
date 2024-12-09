@@ -46,7 +46,9 @@ class StopwatchViewModel @Inject constructor(
     val runningStateFlow: Flow<StopwatchRunningState> = stateRepository.flow
         .shareIn(viewModelScope, SharingStarted.Eagerly, 1)
 
-    fun updateState(state: StopwatchRunningState) {
+    fun updateState(
+        state: StopwatchRunningState,
+    ) {
         viewModelScope.launch {
             stateRepository.updateState(state)
         }

@@ -20,7 +20,9 @@ import net.mm2d.timer.databinding.DialogTimeBinding
 class TimeDialog : DialogFragment() {
     private var hourEnabled: Boolean = false
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(
+        savedInstanceState: Bundle?,
+    ): Dialog {
         val binding = DialogTimeBinding.inflate(requireActivity().layoutInflater)
         val arguments = requireArguments()
         val requestKey = arguments.getString(KEY_REQUEST) ?: ""
@@ -42,7 +44,9 @@ class TimeDialog : DialogFragment() {
             .create()
     }
 
-    private fun DialogTimeBinding.setValue(time: Long) {
+    private fun DialogTimeBinding.setValue(
+        time: Long,
+    ) {
         val maxSecond = if (hourEnabled) 35999L else 5999L
         val second = (time / 1000).coerceIn(0, maxSecond).toInt()
         second1.maxValue = 9

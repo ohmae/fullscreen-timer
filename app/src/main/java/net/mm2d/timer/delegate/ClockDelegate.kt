@@ -41,13 +41,17 @@ class ClockDelegate(
         }
     }
 
-    override fun handleIntent(intent: Intent) = Unit
+    override fun handleIntent(
+        intent: Intent,
+    ) = Unit
     override fun onClickButton1() = Unit
     override fun onClickButton2() = Unit
     override fun onClickTime() = Unit
     override fun onStop() = Unit
 
-    private fun onModeChanged(uiState: UiState) {
+    private fun onModeChanged(
+        uiState: UiState,
+    ) {
         val active = uiState.mode == this.mode
         if (active) {
             binding.clock.setDigit(hourFormat24 = uiState.hourFormat24)

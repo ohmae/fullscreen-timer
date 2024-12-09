@@ -39,7 +39,9 @@ class SettingsActivity : AppCompatActivity() {
     private val viewModel: SettingsViewModel by viewModels()
     private var inactiveLatch = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -59,7 +61,9 @@ class SettingsActivity : AppCompatActivity() {
         inactiveLatch = true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(
+        menu: Menu,
+    ): Boolean {
         menuInflater.inflate(R.menu.settings, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -69,7 +73,9 @@ class SettingsActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(
+        item: MenuItem,
+    ): Boolean {
         when (item.itemId) {
             R.id.license -> LicenseActivity.start(this)
             R.id.source_code -> Launcher.openSourceCode(this)
@@ -116,17 +122,37 @@ class SettingsActivity : AppCompatActivity() {
             viewModel.updateHourFormat24(!binding.hourFormat.isChecked)
         }
         binding.buttonOpacityBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            override fun onStartTrackingTouch(
+                seekBar: SeekBar?,
+            ) = Unit
+
+            override fun onStopTrackingTouch(
+                seekBar: SeekBar?,
+            ) = Unit
+
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean,
+            ) {
                 if (!fromUser) return
                 viewModel.updateButtonOpacity(progress / 100f)
             }
         })
         binding.volumeBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            override fun onStartTrackingTouch(
+                seekBar: SeekBar?,
+            ) = Unit
+
+            override fun onStopTrackingTouch(
+                seekBar: SeekBar?,
+            ) = Unit
+
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean,
+            ) {
                 if (!fromUser) return
                 viewModel.updateVolume(progress)
             }
@@ -167,7 +193,9 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiState(uiState: UiState) {
+    private fun updateUiState(
+        uiState: UiState,
+    ) {
         when (uiState.mode) {
             Mode.CLOCK -> binding.modeClock
             Mode.STOPWATCH -> binding.modeStopwatch
@@ -202,7 +230,9 @@ class SettingsActivity : AppCompatActivity() {
         var selectedId: Int = 0
             private set
 
-        fun add(view: View) {
+        fun add(
+            view: View,
+        ) {
             views.put(view.id, view)
             if (view.isSelected) {
                 if (selectedId == 0) {
@@ -216,7 +246,9 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        fun onSelect(view: View) {
+        fun onSelect(
+            view: View,
+        ) {
             if (view.id == selectedId) return
             views.get(selectedId)?.isSelected = false
             view.isSelected = true
@@ -231,7 +263,9 @@ class SettingsActivity : AppCompatActivity() {
         private const val REQUEST_KEY_BACKGROUND = PREFIX + "REQUEST_KEY_BACKGROUND"
         private const val REQUEST_KEY_ORIENTATION = PREFIX + "REQUEST_KEY_ORIENTATION"
 
-        fun start(context: Context) {
+        fun start(
+            context: Context,
+        ) {
             context.startActivity(Intent(context, SettingsActivity::class.java))
         }
     }

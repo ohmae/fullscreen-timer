@@ -38,6 +38,10 @@ enum class Orientation(
     ;
 
     companion object {
-        fun of(value: Int?): Orientation = values().firstOrNull { it.value == value } ?: UNSPECIFIED
+        fun of(
+            value: Int?,
+        ): Orientation =
+            entries.firstOrNull { it.value == value }
+                ?: UNSPECIFIED
     }
 }

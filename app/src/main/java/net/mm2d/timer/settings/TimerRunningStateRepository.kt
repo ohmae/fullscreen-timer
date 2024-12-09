@@ -47,7 +47,9 @@ class TimerRunningStateRepository @Inject constructor(
             )
         }
 
-    suspend fun updateState(state: TimerRunningState) {
+    suspend fun updateState(
+        state: TimerRunningState,
+    ) {
         dataStore.edit {
             it[STARTED] = state.started
             it[START] = state.start
@@ -56,10 +58,13 @@ class TimerRunningStateRepository @Inject constructor(
     }
 
     private class MigrationForData : DataMigration<Preferences> {
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[DATA_VERSION] != VERSION
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[DATA_VERSION] != VERSION
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit {
                 it[DATA_VERSION] = VERSION
             }

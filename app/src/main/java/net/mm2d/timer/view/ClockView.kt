@@ -49,7 +49,11 @@ class ClockView @JvmOverloads constructor(
         ViewSize(binding.small1, 1, 4),
     )
 
-    fun setDigit(third: Boolean = false, small: Boolean = true, hourFormat24: Boolean = true) {
+    fun setDigit(
+        third: Boolean = false,
+        small: Boolean = true,
+        hourFormat24: Boolean = true,
+    ) {
         binding.third1.isVisible = third
         binding.colon2.isVisible = third
         binding.small10.isVisible = small
@@ -57,7 +61,9 @@ class ClockView @JvmOverloads constructor(
         binding.amPm.isVisible = !hourFormat24
     }
 
-    fun updateTime(millis: Long) {
+    fun updateTime(
+        millis: Long,
+    ) {
         val base = millis / 10
         setNumber(binding.small1, base)
         setNumber(binding.small10, base / 10)
@@ -72,7 +78,9 @@ class ClockView @JvmOverloads constructor(
         }
     }
 
-    fun updateClock(millis: Long) {
+    fun updateClock(
+        millis: Long,
+    ) {
         calendar.timeInMillis = millis
         val second = calendar[Calendar.SECOND]
         setNumber(binding.small1, second)
@@ -86,7 +94,9 @@ class ClockView @JvmOverloads constructor(
         binding.amPm.setText(if (calendar[Calendar.AM_PM] == Calendar.AM) R.string.am else R.string.pm)
     }
 
-    fun setColor(color: Int) {
+    fun setColor(
+        color: Int,
+    ) {
         val colorStateList = ColorStateList.valueOf(color)
         binding.small1.backgroundTintList = colorStateList
         binding.small10.backgroundTintList = colorStateList
@@ -107,15 +117,23 @@ class ClockView @JvmOverloads constructor(
         binding.amPm.setTextColor(color)
     }
 
-    private fun setNumber(view: ImageView, number: Int) {
+    private fun setNumber(
+        view: ImageView,
+        number: Int,
+    ) {
         view.setImageResource(getRes((number % 10)))
     }
 
-    private fun setNumber(view: ImageView, number: Long) {
+    private fun setNumber(
+        view: ImageView,
+        number: Long,
+    ) {
         view.setImageResource(getRes((number % 10).toInt()))
     }
 
-    private fun getRes(number: Int): Int =
+    private fun getRes(
+        number: Int,
+    ): Int =
         when (number) {
             1 -> drawable.ic_1
             2 -> drawable.ic_2
@@ -129,7 +147,10 @@ class ClockView @JvmOverloads constructor(
             else -> drawable.ic_0
         }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         val xSpec = MeasureSpec.getMode(widthMeasureSpec)
         val ySpec = MeasureSpec.getMode(heightMeasureSpec)
         if (xSpec == MeasureSpec.UNSPECIFIED || ySpec == MeasureSpec.UNSPECIFIED) {

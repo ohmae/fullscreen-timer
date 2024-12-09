@@ -18,7 +18,9 @@ import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.util.getSerializableSafely
 
 class OrientationDialog : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(
+        savedInstanceState: Bundle?,
+    ): Dialog {
         val activity = requireActivity()
         val arguments = requireArguments()
         val requestKey = arguments.getString(KEY_REQUEST_KEY, "")
@@ -48,10 +50,15 @@ class OrientationDialog : DialogFragment() {
         private val onClickListener: (orientation: Orientation) -> Unit,
     ) : RecyclerView.Adapter<ViewHolder>() {
         private val inflater = activity.layoutInflater
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-            ViewHolder(ItemOrientationBinding.inflate(inflater, parent, false))
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int,
+        ): ViewHolder = ViewHolder(ItemOrientationBinding.inflate(inflater, parent, false))
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(
+            holder: ViewHolder,
+            position: Int,
+        ) {
             val orientation = Orientation.entries[position]
             holder.bind(orientation)
             holder.itemView.setOnClickListener {
@@ -65,7 +72,9 @@ class OrientationDialog : DialogFragment() {
     class ViewHolder(
         private val binding: ItemOrientationBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(orientation: Orientation) {
+        fun bind(
+            orientation: Orientation,
+        ) {
             binding.icon.setImageResource(orientation.icon)
             binding.description.setText(orientation.description)
         }
@@ -89,7 +98,10 @@ class OrientationDialog : DialogFragment() {
             }
         }
 
-        fun show(activity: FragmentActivity, requestKey: String) {
+        fun show(
+            activity: FragmentActivity,
+            requestKey: String,
+        ) {
             val manager = activity.supportFragmentManager
             if (manager.isStateSaved || manager.findFragmentByTag(TAG) != null) return
             OrientationDialog().also { dialog ->

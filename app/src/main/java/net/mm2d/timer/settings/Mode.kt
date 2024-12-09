@@ -18,11 +18,16 @@ enum class Mode {
     ;
 
     companion object {
-        private fun ofNullable(value: String?): Mode? = values().find { it.name == value }
+        private fun ofNullable(
+            value: String?,
+        ): Mode? = entries.find { it.name == value }
 
-        fun of(value: String?): Mode = ofNullable(value) ?: STOPWATCH
+        fun of(
+            value: String?,
+        ): Mode = ofNullable(value) ?: STOPWATCH
 
-        fun fromIntentExtra(intent: Intent): Mode? =
-            intent.getStringExtraSafely(Constants.EXTRA_MODE)?.let { ofNullable(it) }
+        fun fromIntentExtra(
+            intent: Intent,
+        ): Mode? = intent.getStringExtraSafely(Constants.EXTRA_MODE)?.let { ofNullable(it) }
     }
 }

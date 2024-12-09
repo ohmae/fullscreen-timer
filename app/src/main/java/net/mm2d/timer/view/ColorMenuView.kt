@@ -40,12 +40,16 @@ class ColorMenuView @JvmOverloads constructor(
 
     fun getColor(): Int = color
 
-    fun setColor(color: Int) {
+    fun setColor(
+        color: Int,
+    ) {
         this.color = color
         binding.menuColor.setImageColor(color)
     }
 
-    private fun ImageView.setImageColor(@ColorInt color: Int) {
+    private fun ImageView.setImageColor(
+        @ColorInt color: Int,
+    ) {
         setColorFilter(Color.rgb(color.red, color.green, color.blue))
         imageAlpha = color.alpha
     }

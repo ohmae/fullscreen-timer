@@ -11,13 +11,17 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle.State
 import androidx.lifecycle.LifecycleOwner
 
-fun LifecycleOwner.doOnResume(block: () -> Unit) {
+fun LifecycleOwner.doOnResume(
+    block: () -> Unit,
+) {
     if (lifecycle.currentState == State.RESUMED) {
         block()
         return
     }
     lifecycle.addObserver(object : DefaultLifecycleObserver {
-        override fun onResume(owner: LifecycleOwner) {
+        override fun onResume(
+            owner: LifecycleOwner,
+        ) {
             block()
             lifecycle.removeObserver(this)
         }

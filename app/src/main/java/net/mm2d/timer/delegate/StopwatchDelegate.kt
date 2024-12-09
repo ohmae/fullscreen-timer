@@ -76,7 +76,9 @@ class StopwatchDelegate(
         }
     }
 
-    private fun restore(state: StopwatchRunningState) {
+    private fun restore(
+        state: StopwatchRunningState,
+    ) {
         if (!state.started) return
         delegateViewModel.updateState(StopwatchRunningState(started = false))
         if (!isActive) return
@@ -88,7 +90,9 @@ class StopwatchDelegate(
         task.run()
     }
 
-    override fun handleIntent(intent: Intent) {
+    override fun handleIntent(
+        intent: Intent,
+    ) {
         if (isActive) {
             handleIntentInner(intent)
         } else {
@@ -103,7 +107,9 @@ class StopwatchDelegate(
         }
     }
 
-    private fun handleIntentInner(intent: Intent) {
+    private fun handleIntentInner(
+        intent: Intent,
+    ) {
         val command = Command.fromIntentExtra(intent) ?: return
         when (command) {
             START -> {
@@ -194,14 +200,18 @@ class StopwatchDelegate(
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    private fun setHourEnabled(hourEnabled: Boolean) {
+    private fun setHourEnabled(
+        hourEnabled: Boolean,
+    ) {
         this.hourEnabled = hourEnabled
         max = if (hourEnabled) MAX_WITH_HOUR else MAX_WITHOUT_HOUR
         if (!isActive) return
         binding.clock.setDigit(third = hourEnabled)
     }
 
-    private fun onModeChanged(mode: Mode) {
+    private fun onModeChanged(
+        mode: Mode,
+    ) {
         val active = mode == this.mode
         if (active == isActive) return
         isActive = active

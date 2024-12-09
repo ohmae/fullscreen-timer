@@ -68,8 +68,7 @@ enum class DataStoreFile {
     TIMER_STATE,
     ;
 
-    fun fileName(): String =
-        BuildConfig.APPLICATION_ID + "." + name.lowercase()
+    fun fileName(): String = BuildConfig.APPLICATION_ID + "." + name.lowercase()
 }
 
 fun preferences(
@@ -82,8 +81,9 @@ fun preferences(
         produceMigrations = { migrations },
     )
 
-fun Preferences.edit(editor: (preferences: MutablePreferences) -> Unit): Preferences =
-    toMutablePreferences().also(editor).toPreferences()
+fun Preferences.edit(
+    editor: (preferences: MutablePreferences) -> Unit,
+): Preferences = toMutablePreferences().also(editor).toPreferences()
 
 fun <K> K.intKey(): Preferences.Key<Int>
     where K : Enum<*>,

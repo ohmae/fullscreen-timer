@@ -48,13 +48,17 @@ class TimerViewModel @Inject constructor(
     val runningStateFlow: Flow<TimerRunningState> = stateRepository.flow
         .shareIn(viewModelScope, SharingStarted.Lazily, 1)
 
-    fun updateState(state: TimerRunningState) {
+    fun updateState(
+        state: TimerRunningState,
+    ) {
         viewModelScope.launch {
             stateRepository.updateState(state)
         }
     }
 
-    fun updateTimerTime(time: Long) {
+    fun updateTimerTime(
+        time: Long,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateTimerTime(time)
         }

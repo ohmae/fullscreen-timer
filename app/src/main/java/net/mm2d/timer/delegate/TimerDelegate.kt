@@ -85,7 +85,9 @@ class TimerDelegate(
         }
     }
 
-    private fun restore(state: TimerRunningState) {
+    private fun restore(
+        state: TimerRunningState,
+    ) {
         if (!state.started) return
         delegateViewModel.updateState(TimerRunningState(started = false))
         if (!isActive) return
@@ -95,7 +97,9 @@ class TimerDelegate(
         task.run()
     }
 
-    override fun handleIntent(intent: Intent) {
+    override fun handleIntent(
+        intent: Intent,
+    ) {
         if (isActive) {
             handleIntentInner(intent)
         } else {
@@ -110,7 +114,9 @@ class TimerDelegate(
         }
     }
 
-    private fun handleIntentInner(intent: Intent) {
+    private fun handleIntentInner(
+        intent: Intent,
+    ) {
         val command = Command.fromIntentExtra(intent) ?: return
         when (command) {
             START -> {
@@ -211,14 +217,18 @@ class TimerDelegate(
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    private fun setHourEnabled(hourEnabled: Boolean) {
+    private fun setHourEnabled(
+        hourEnabled: Boolean,
+    ) {
         this.hourEnabled = hourEnabled
         if (!isActive) return
         binding.clock.setDigit(third = hourEnabled)
         binding.clock.updateTime(milestone)
     }
 
-    private fun setTimerTime(time: Long) {
+    private fun setTimerTime(
+        time: Long,
+    ) {
         if (!isActive) return
         if (started) stop()
         timerTime = time
@@ -226,7 +236,9 @@ class TimerDelegate(
         binding.clock.updateTime(time)
     }
 
-    private fun onModeChanged(mode: Mode) {
+    private fun onModeChanged(
+        mode: Mode,
+    ) {
         val active = mode == this.mode
         if (active == isActive) return
         isActive = active

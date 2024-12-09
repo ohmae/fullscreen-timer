@@ -51,55 +51,73 @@ class SettingsViewModel @Inject constructor(
         val buttonOpacity: Float,
     )
 
-    fun updateMode(mode: Mode) {
+    fun updateMode(
+        mode: Mode,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateMode(mode)
         }
     }
 
-    fun updateForegroundColor(color: Int) {
+    fun updateForegroundColor(
+        color: Int,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateForegroundColor(color)
         }
     }
 
-    fun updateBackgroundColor(color: Int) {
+    fun updateBackgroundColor(
+        color: Int,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateBackgroundColor(color)
         }
     }
 
-    fun updateHourEnabled(enabled: Boolean) {
+    fun updateHourEnabled(
+        enabled: Boolean,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateHourEnabled(enabled)
         }
     }
 
-    fun updateHourFormat24(enabled: Boolean) {
+    fun updateHourFormat24(
+        enabled: Boolean,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateHourFormat24(enabled)
         }
     }
 
-    fun updateVolume(volume: Int) {
+    fun updateVolume(
+        volume: Int,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateVolume(volume)
         }
     }
 
-    fun updateFullscreen(fullscreen: Boolean) {
+    fun updateFullscreen(
+        fullscreen: Boolean,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateFullscreen(fullscreen)
         }
     }
 
-    fun updateOrientation(orientation: Orientation) {
+    fun updateOrientation(
+        orientation: Orientation,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateOrientation(orientation)
         }
     }
 
-    fun updateButtonOpacity(opacity: Float) {
+    fun updateButtonOpacity(
+        opacity: Float,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateButtonOpacity(opacity)
         }

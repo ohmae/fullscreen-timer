@@ -11,11 +11,15 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
 class CustomTabsBinder : DefaultLifecycleObserver {
-    override fun onStart(owner: LifecycleOwner) {
+    override fun onStart(
+        owner: LifecycleOwner,
+    ) {
         CustomTabsHelper.bind()
     }
 
-    override fun onStop(owner: LifecycleOwner) {
+    override fun onStop(
+        owner: LifecycleOwner,
+    ) {
         CustomTabsHelper.unbind()
     }
 }

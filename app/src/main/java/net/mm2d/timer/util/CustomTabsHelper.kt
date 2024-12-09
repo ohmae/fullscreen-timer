@@ -32,12 +32,16 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
     var packageNameToBind: String? = null
         private set
 
-    private fun findPackageNameToUse(context: Context): String? {
+    private fun findPackageNameToUse(
+        context: Context,
+    ): String? {
         packageNameToBind = findPackageNameToUseInner(context)
         return packageNameToBind
     }
 
-    private fun findPackageNameToUseInner(context: Context): String? {
+    private fun findPackageNameToUseInner(
+        context: Context,
+    ): String? {
         val browsers = OpenUriUtils.getBrowserPackages(context)
         val candidate = context.packageManager
             .queryIntentServices(Intent(ACTION_CUSTOM_TABS_CONNECTION), 0)
@@ -62,7 +66,9 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
     var session: CustomTabsSession? = null
         private set
 
-    fun initialize(context: Context) {
+    fun initialize(
+        context: Context,
+    ) {
         this.context = context.applicationContext
         ProcessLifecycleOwner.get()
             .lifecycle
@@ -84,12 +90,17 @@ object CustomTabsHelper : CustomTabsServiceConnection() {
         }
     }
 
-    override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
+    override fun onCustomTabsServiceConnected(
+        name: ComponentName,
+        client: CustomTabsClient,
+    ) {
         client.warmup(0)
         session = client.newSession(CustomTabsCallback())
     }
 
-    override fun onServiceDisconnected(name: ComponentName) {
+    override fun onServiceDisconnected(
+        name: ComponentName,
+    ) {
         session = null
     }
 }

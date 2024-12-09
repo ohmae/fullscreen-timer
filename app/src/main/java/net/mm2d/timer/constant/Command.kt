@@ -18,9 +18,12 @@ enum class Command {
     ;
 
     companion object {
-        private fun ofNullable(name: String?): Command? = values().find { it.name == name }
+        private fun ofNullable(
+            name: String?,
+        ): Command? = entries.find { it.name == name }
 
-        fun fromIntentExtra(intent: Intent): Command? =
-            intent.getStringExtraSafely(Constants.EXTRA_COMMAND)?.let { ofNullable(it) }
+        fun fromIntentExtra(
+            intent: Intent,
+        ): Command? = intent.getStringExtraSafely(Constants.EXTRA_COMMAND)?.let { ofNullable(it) }
     }
 }

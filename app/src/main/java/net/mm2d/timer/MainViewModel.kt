@@ -40,7 +40,9 @@ class MainViewModel @Inject constructor(
     val orientationFlow: Flow<Orientation> = settingsRepository.flow
         .map { it.orientation }.distinctUntilChanged()
 
-    fun updateMode(mode: Mode) {
+    fun updateMode(
+        mode: Mode,
+    ) {
         viewModelScope.launch {
             settingsRepository.updateMode(mode)
         }

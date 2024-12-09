@@ -9,8 +9,12 @@ package net.mm2d.timer.util
 
 import android.content.Intent
 
-fun Intent.getStringExtraSafely(name: String): String? =
-    runCatching { getStringExtra(name) }.getOrNull()
+fun Intent.getStringExtraSafely(
+    name: String,
+): String? = runCatching { getStringExtra(name) }
+    .getOrNull()
 
-fun Intent.getLongExtraSafely(name: String): Long? =
-    runCatching { if (hasExtra(name)) getLongExtra(name, 0L) else null }.getOrNull()
+fun Intent.getLongExtraSafely(
+    name: String,
+): Long? = runCatching { if (hasExtra(name)) getLongExtra(name, 0L) else null }
+    .getOrNull()

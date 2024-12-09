@@ -10,5 +10,4 @@ package net.mm2d.timer.util
 import android.graphics.Color
 import androidx.core.graphics.ColorUtils
 
-fun Int.shouldUseDarkForeground(): Boolean =
-    ColorUtils.calculateContrast(this, Color.WHITE) >= 3
+fun Int.shouldUseDarkForeground(): Boolean = ColorUtils.calculateContrast(this, Color.WHITE) >= 3

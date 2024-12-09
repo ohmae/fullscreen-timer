@@ -69,71 +69,94 @@ class SettingsRepository @Inject constructor(
         }
         .shareIn(scope = scope, started = SharingStarted.Eagerly, replay = 1)
 
-    suspend fun updateMode(mode: Mode) {
+    suspend fun updateMode(
+        mode: Mode,
+    ) {
         dataStore.edit {
             it[MODE] = mode.name
         }
     }
 
-    suspend fun updateForegroundColor(color: Int) {
+    suspend fun updateForegroundColor(
+        color: Int,
+    ) {
         dataStore.edit {
             it[FOREGROUND_COLOR] = color
         }
     }
 
-    suspend fun updateBackgroundColor(color: Int) {
+    suspend fun updateBackgroundColor(
+        color: Int,
+    ) {
         dataStore.edit {
             it[BACKGROUND_COLOR] = color
         }
     }
 
-    suspend fun updateHourEnabled(enabled: Boolean) {
+    suspend fun updateHourEnabled(
+        enabled: Boolean,
+    ) {
         dataStore.edit {
             it[HOUR_ENABLED] = enabled
         }
     }
 
-    suspend fun updateHourFormat24(enabled: Boolean) {
+    suspend fun updateHourFormat24(
+        enabled: Boolean,
+    ) {
         dataStore.edit {
             it[HOUR_FORMAT_24] = enabled
         }
     }
 
-    suspend fun updateTimerTime(time: Long) {
+    suspend fun updateTimerTime(
+        time: Long,
+    ) {
         dataStore.edit {
             it[TIMER_TIME] = time
         }
     }
 
-    suspend fun updateVolume(volume: Int) {
+    suspend fun updateVolume(
+        volume: Int,
+    ) {
         dataStore.edit {
             it[SOUND_VOLUME] = volume
         }
     }
 
-    suspend fun updateFullscreen(fullscreen: Boolean) {
+    suspend fun updateFullscreen(
+        fullscreen: Boolean,
+    ) {
         dataStore.edit {
             it[FULLSCREEN] = fullscreen
         }
     }
 
-    suspend fun updateOrientation(orientation: Orientation) {
+    suspend fun updateOrientation(
+        orientation: Orientation,
+    ) {
         dataStore.edit {
             it[ORIENTATION] = orientation.value
         }
     }
 
-    suspend fun updateButtonOpacity(opacity: Float) {
+    suspend fun updateButtonOpacity(
+        opacity: Float,
+    ) {
         dataStore.edit {
             it[BUTTON_OPACITY] = opacity
         }
     }
 
     private class MigrationForData : DataMigration<Preferences> {
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[DATA_VERSION] != VERSION
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[DATA_VERSION] != VERSION
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit {
                 it[DATA_VERSION] = VERSION
             }
@@ -142,10 +165,13 @@ class SettingsRepository @Inject constructor(
     }
 
     private class MigrationForVersion : DataMigration<Preferences> {
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[VERSION_AT_LAST_LAUNCHED] != BuildConfig.VERSION_CODE
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[VERSION_AT_LAST_LAUNCHED] != BuildConfig.VERSION_CODE
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit { preferences ->
                 preferences[VERSION_AT_INSTALL]?.let {
                     preferences[VERSION_AT_INSTALL] = BuildConfig.VERSION_CODE

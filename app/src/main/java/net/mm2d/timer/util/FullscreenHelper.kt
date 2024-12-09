@@ -11,11 +11,15 @@ import android.view.Window
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
-class FullscreenHelper(window: Window) {
+class FullscreenHelper(
+    window: Window,
+) {
     private val controller: WindowInsetsControllerCompat =
         WindowInsetsControllerCompat(window, window.decorView)
 
-    fun invoke(fullscreen: Boolean) {
+    fun invoke(
+        fullscreen: Boolean,
+    ) {
         if (fullscreen) {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE

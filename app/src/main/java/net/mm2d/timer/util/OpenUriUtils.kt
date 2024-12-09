@@ -16,7 +16,9 @@ object OpenUriUtils {
     private var defaultBrowserPackage: String? = null
     private var browserPackages: Set<String>? = null
 
-    fun getBrowserPackages(context: Context): Set<String> {
+    fun getBrowserPackages(
+        context: Context,
+    ): Set<String> {
         browserPackages?.let {
             return it
         }
@@ -25,13 +27,17 @@ object OpenUriUtils {
         }
     }
 
-    private fun getBrowserPackagesInner(context: Context): Set<String> =
+    private fun getBrowserPackagesInner(
+        context: Context,
+    ): Set<String> =
         context.packageManager
             .queryIntentActivities(makeBrowserTestIntent(), PackageManager.MATCH_ALL)
             .mapNotNull { it.activityInfo?.packageName }
             .toSet()
 
-    fun getDefaultBrowserPackage(context: Context): String? {
+    fun getDefaultBrowserPackage(
+        context: Context,
+    ): String? {
         defaultBrowserPackage?.let {
             return it
         }
@@ -40,7 +46,9 @@ object OpenUriUtils {
         }
     }
 
-    private fun getDefaultBrowserPackageInner(context: Context): String? {
+    private fun getDefaultBrowserPackageInner(
+        context: Context,
+    ): String? {
         val packageName = context.packageManager
             .resolveActivity(makeBrowserTestIntent(), 0)
             ?.activityInfo
@@ -53,9 +61,12 @@ object OpenUriUtils {
         }
     }
 
-    private fun makeBrowseIntent(uri: String): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri)).also {
-        it.addCategory(Intent.CATEGORY_BROWSABLE)
-    }
+    private fun makeBrowseIntent(
+        uri: String,
+    ): Intent =
+        Intent(Intent.ACTION_VIEW, Uri.parse(uri)).also {
+            it.addCategory(Intent.CATEGORY_BROWSABLE)
+        }
 
     private fun makeBrowserTestIntent(): Intent = makeBrowseIntent("http://www.example.com/")
 }
