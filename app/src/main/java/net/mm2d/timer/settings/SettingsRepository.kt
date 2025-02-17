@@ -60,6 +60,8 @@ class SettingsRepository @Inject constructor(
                 backgroundColor = it[BACKGROUND_COLOR] ?: Color.BLACK,
                 hourEnabled = it[HOUR_ENABLED] ?: false,
                 hourFormat24 = it[HOUR_FORMAT_24] ?: true,
+                millisecondEnabled = it[MILLISECOND_ENABLED] ?: true,
+                secondEnabled = it[SECOND_ENABLED] ?: true,
                 timerTime = it[TIMER_TIME] ?: TIMER_TIME_DEFAULT,
                 soundVolume = it[SOUND_VOLUME] ?: 10,
                 fullscreen = it[FULLSCREEN] ?: true,
@@ -106,6 +108,22 @@ class SettingsRepository @Inject constructor(
     ) {
         dataStore.edit {
             it[HOUR_FORMAT_24] = enabled
+        }
+    }
+
+    suspend fun updateMillisecondEnabled(
+        enabled: Boolean,
+    ) {
+        dataStore.edit {
+            it[MILLISECOND_ENABLED] = enabled
+        }
+    }
+
+    suspend fun updateSecondEnabled(
+        enabled: Boolean,
+    ) {
+        dataStore.edit {
+            it[SECOND_ENABLED] = enabled
         }
     }
 
@@ -208,6 +226,10 @@ class SettingsRepository @Inject constructor(
             Key.Main.HOUR_ENABLED_BOOLEAN.booleanKey()
         private val HOUR_FORMAT_24 =
             Key.Main.HOUR_FORMAT_24_BOOLEAN.booleanKey()
+        private val MILLISECOND_ENABLED =
+            Key.Main.MILLISECOND_ENABLED_BOOLEAN.booleanKey()
+        private val SECOND_ENABLED =
+            Key.Main.SECOND_ENABLED_BOOLEAN.booleanKey()
         private val TIMER_TIME =
             Key.Main.TIMER_TIME_LONG.longKey()
         private val SOUND_VOLUME =

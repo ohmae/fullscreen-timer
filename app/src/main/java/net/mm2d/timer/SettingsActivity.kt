@@ -121,6 +121,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.hourFormat.setOnClickListener {
             viewModel.updateHourFormat24(!binding.hourFormat.isChecked)
         }
+        binding.millisecondEnabled.setOnClickListener {
+            viewModel.updateMillisecondEnabled(!binding.millisecondEnabled.isChecked)
+        }
+        binding.secondEnabled.setOnClickListener {
+            viewModel.updateSecondEnabled(!binding.secondEnabled.isChecked)
+        }
         binding.buttonOpacityBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStartTrackingTouch(
                 seekBar: SeekBar?,
@@ -207,6 +213,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.backgroundColor.setColor(uiState.backgroundColor)
         binding.hourEnabled.isChecked = uiState.hourEnabled
         binding.hourFormat.isChecked = uiState.hourFormat24
+        binding.millisecondEnabled.isChecked = uiState.millisecondEnabled
+        binding.secondEnabled.isChecked = uiState.secondEnabled
         val opacityPercent = (uiState.buttonOpacity * 100).toInt()
         if (inactiveLatch) {
             inactiveLatch = false
@@ -214,13 +222,15 @@ class SettingsActivity : AppCompatActivity() {
             binding.volumeBar.progress = uiState.volume
         }
         binding.buttonOpacityValue.text = "%d%%".format(opacityPercent)
-        binding.volumeValue.text = uiState.volume.toString()
+        binding.volumeValue.text = "%d".format(uiState.volume)
         binding.fullscreen.isChecked = uiState.fullscreen
         binding.orientationIcon.setImageResource(uiState.orientation.icon)
         binding.orientationDescription.setText(uiState.orientation.description)
         TransitionManager.beginDelayedTransition(binding.root)
         binding.hourEnabled.isVisible = uiState.mode != Mode.CLOCK
         binding.hourFormat.isVisible = uiState.mode == Mode.CLOCK
+        binding.millisecondEnabled.isVisible = uiState.mode != Mode.CLOCK
+        binding.secondEnabled.isVisible = uiState.mode == Mode.CLOCK
     }
 
     private class SingleSelectMediator(

@@ -23,7 +23,6 @@ class ClockDelegate(
 ) : ModeDelegate {
     private val delegateViewModel: ClockViewModel by activity.viewModels()
     private var isActive: Boolean = false
-    private var hourFormat24: Boolean = false
     override val mode: Mode = Mode.CLOCK
 
     private val task = object : Runnable {
@@ -54,12 +53,11 @@ class ClockDelegate(
     ) {
         val active = uiState.mode == this.mode
         if (active) {
-            binding.clock.setDigit(hourFormat24 = uiState.hourFormat24)
+            binding.clock.setDigit(hourFormat24 = uiState.hourFormat24, small = uiState.secondEnabled)
             if (isActive) binding.clock.updateClock(System.currentTimeMillis())
         }
         if (active == isActive) return
         isActive = active
-        hourFormat24 = uiState.hourFormat24
         binding.clock.removeCallbacks(task)
         if (!active) return
         binding.button1.isInvisible = true

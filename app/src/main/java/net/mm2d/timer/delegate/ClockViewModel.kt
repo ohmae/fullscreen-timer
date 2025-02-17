@@ -25,6 +25,7 @@ class ClockViewModel @Inject constructor(
             UiState(
                 mode = it.mode,
                 hourFormat24 = it.hourFormat24,
+                secondEnabled = it.secondEnabled,
             )
         }
         .distinctUntilChanged()
@@ -32,5 +33,6 @@ class ClockViewModel @Inject constructor(
     data class UiState(
         val mode: Mode,
         val hourFormat24: Boolean,
+        val secondEnabled: Boolean,
     )
 }

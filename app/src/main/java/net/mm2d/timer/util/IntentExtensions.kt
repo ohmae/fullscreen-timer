@@ -11,10 +11,12 @@ import android.content.Intent
 
 fun Intent.getStringExtraSafely(
     name: String,
-): String? = runCatching { getStringExtra(name) }
-    .getOrNull()
+): String? =
+    runCatching { getStringExtra(name) }
+        .getOrNull()
 
 fun Intent.getLongExtraSafely(
     name: String,
-): Long? = runCatching { if (hasExtra(name)) getLongExtra(name, 0L) else null }
-    .getOrNull()
+): Long? =
+    runCatching { if (hasExtra(name)) getLongExtra(name, 0L) else null }
+        .getOrNull()

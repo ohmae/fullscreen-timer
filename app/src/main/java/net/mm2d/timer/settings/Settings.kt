@@ -16,6 +16,8 @@ data class Settings(
     val backgroundColor: Int,
     val hourEnabled: Boolean,
     val hourFormat24: Boolean,
+    val millisecondEnabled: Boolean,
+    val secondEnabled: Boolean,
     val timerTime: Long,
     val soundVolume: Int,
     val fullscreen: Boolean,

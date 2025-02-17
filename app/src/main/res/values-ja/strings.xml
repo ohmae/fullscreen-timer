@@ -20,6 +20,12 @@
     <string name="menu_title_hour_notation">24時間表記</string>
     <string name="menu_description_hour_notation_on">24時間表記</string>
     <string name="menu_description_hour_notation_off">12時間表記</string>
+    <string name="menu_title_millisecond_enabled">「小数秒」の表示</string>
+    <string name="menu_description_millisecond_enabled_on">「小数秒」を表示します</string>
+    <string name="menu_description_millisecond_enabled_off">「小数秒」を表示しません</string>
+    <string name="menu_title_second_enabled">「秒」の表示</string>
+    <string name="menu_description_second_enabled_on">「秒」を表示します</string>
+    <string name="menu_description_second_enabled_off">「秒」を表示しません</string>
     <string name="menu_title_fullscreen">メイン画面のフルスクリーン表示</string>
     <string name="menu_description_fullscreen_on">フルスクリーン表示します</string>
     <string name="menu_description_fullscreen_off">フルスクリーン表示しません</string>

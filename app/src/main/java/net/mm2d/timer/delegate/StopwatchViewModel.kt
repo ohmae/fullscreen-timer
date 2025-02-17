@@ -34,6 +34,7 @@ class StopwatchViewModel @Inject constructor(
             UiState(
                 mode = it.mode,
                 hourEnabled = it.hourEnabled,
+                millisecondEnabled = it.millisecondEnabled,
             )
         }
         .distinctUntilChanged()
@@ -41,6 +42,7 @@ class StopwatchViewModel @Inject constructor(
     data class UiState(
         val mode: Mode,
         val hourEnabled: Boolean,
+        val millisecondEnabled: Boolean,
     )
 
     val runningStateFlow: Flow<StopwatchRunningState> = stateRepository.flow

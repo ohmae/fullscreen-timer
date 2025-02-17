@@ -315,6 +315,32 @@
                     />
 
                 <net.mm2d.timer.view.SwitchMenuView
+                    android:id="@+id/millisecond_enabled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    app:descriptionOff="@string/menu_description_millisecond_enabled_off"
+                    app:descriptionOn="@string/menu_description_millisecond_enabled_on"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hour_format"
+                    app:title="@string/menu_title_millisecond_enabled"
+                    />
+
+                <net.mm2d.timer.view.SwitchMenuView
+                    android:id="@+id/second_enabled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:checked="false"
+                    app:descriptionOff="@string/menu_description_second_enabled_off"
+                    app:descriptionOn="@string/menu_description_second_enabled_on"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/millisecond_enabled"
+                    app:title="@string/menu_title_second_enabled"
+                    />
+
+                <net.mm2d.timer.view.SwitchMenuView
                     android:id="@+id/fullscreen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -323,7 +349,7 @@
                     app:descriptionOn="@string/menu_description_fullscreen_on"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hour_format"
+                    app:layout_constraintTop_toBottomOf="@id/second_enabled"
                     app:title="@string/menu_title_fullscreen"
                     />
 

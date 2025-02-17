@@ -34,6 +34,7 @@ class TimerViewModel @Inject constructor(
             UiState(
                 mode = it.mode,
                 hourEnabled = it.hourEnabled,
+                millisecondEnabled = it.millisecondEnabled,
                 timerTime = it.timerTime,
             )
         }
@@ -42,6 +43,7 @@ class TimerViewModel @Inject constructor(
     data class UiState(
         val mode: Mode,
         val hourEnabled: Boolean,
+        val millisecondEnabled: Boolean,
         val timerTime: Long,
     )
 

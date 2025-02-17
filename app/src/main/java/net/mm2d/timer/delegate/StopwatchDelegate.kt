@@ -37,6 +37,7 @@ class StopwatchDelegate(
     private var start: Long = 0L
     private var milestone: Long = 0L
     private var hourEnabled: Boolean = false
+    private var millisecondEnabled: Boolean = true
     private var max: Long = MAX_WITHOUT_HOUR
     private var restoreLatch: Boolean = false
     private var pendingIntent: Intent? = null
@@ -59,7 +60,7 @@ class StopwatchDelegate(
         delegateViewModel.uiStateFlow.observe(activity) {
             onModeChanged(it.mode)
             if (!isActive) return@observe
-            setHourEnabled(it.hourEnabled)
+            setHourEnabled(it.hourEnabled, it.millisecondEnabled)
             restore()
         }
     }
@@ -202,11 +203,13 @@ class StopwatchDelegate(
 
     private fun setHourEnabled(
         hourEnabled: Boolean,
+        millisecondEnabled: Boolean,
     ) {
         this.hourEnabled = hourEnabled
+        this.millisecondEnabled = millisecondEnabled
         max = if (hourEnabled) MAX_WITH_HOUR else MAX_WITHOUT_HOUR
         if (!isActive) return
-        binding.clock.setDigit(third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled, small = millisecondEnabled)
     }
 
     private fun onModeChanged(
@@ -223,7 +226,7 @@ class StopwatchDelegate(
         binding.button1.setImageResource(R.drawable.ic_start)
         binding.button2.isInvisible = false
         binding.button2.setImageResource(R.drawable.ic_reset)
-        binding.clock.setDigit(third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled, small = millisecondEnabled)
         binding.clock.updateTime(0)
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }

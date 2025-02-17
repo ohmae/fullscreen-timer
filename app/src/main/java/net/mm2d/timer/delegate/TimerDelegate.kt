@@ -38,6 +38,7 @@ class TimerDelegate(
     private var start: Long = 0L
     private var milestone: Long = 0L
     private var hourEnabled: Boolean = false
+    private var millisecondEnabled: Boolean = true
     private var timerTime: Long = 0L
     private var restoreLatch: Boolean = false
     private var pendingIntent: Intent? = null
@@ -61,7 +62,7 @@ class TimerDelegate(
         delegateViewModel.uiStateFlow.observe(activity) {
             onModeChanged(it.mode)
             if (!isActive) return@observe
-            setHourEnabled(it.hourEnabled)
+            setHourEnabled(it.hourEnabled, it.millisecondEnabled)
             setTimerTime(it.timerTime)
             restore()
         }
@@ -219,10 +220,12 @@ class TimerDelegate(
 
     private fun setHourEnabled(
         hourEnabled: Boolean,
+        millisecondEnabled: Boolean,
     ) {
         this.hourEnabled = hourEnabled
+        this.millisecondEnabled = millisecondEnabled
         if (!isActive) return
-        binding.clock.setDigit(third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled, small = millisecondEnabled)
         binding.clock.updateTime(milestone)
     }
 
@@ -250,7 +253,7 @@ class TimerDelegate(
         binding.button2.setImageResource(R.drawable.ic_start)
         binding.button2.isInvisible = false
         binding.button2.setImageResource(R.drawable.ic_timer)
-        binding.clock.setDigit(third = hourEnabled)
+        binding.clock.setDigit(third = hourEnabled, small = millisecondEnabled)
         binding.clock.updateTime(timerTime)
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
