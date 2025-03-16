@@ -20,6 +20,8 @@
 /.idea/jarRepositories.xml
 /.idea/sonarlint
 /.idea/other.xml
+/.idea/AndroidProjectSystem.xml
+/.idea/runConfigurations.xml
 .DS_Store
 /build
 /captures
