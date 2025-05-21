@@ -10,10 +10,10 @@ dependencyGuard = "0.5.0"
 androidxCore = "1.16.0"
 androidxAppCompat = "1.7.0"
 androidxActivity = "1.10.1"
-androidxFragment = "1.8.6"
+androidxFragment = "1.8.7"
 androidxBrowser = "1.8.0"
 androidxConstraintLayout = "2.2.1"
-androidxDatastore = "1.1.6"
+androidxDatastore = "1.1.7"
 androidxLifecycle = "2.9.0"
 androidxWebkit = "1.13.0"
 material = "1.12.0"
@@ -26,7 +26,7 @@ junit = "4.13.2"
 # debug
 leakcanary = "2.14"
 
-ktlint = "1.5.0"
+ktlint = "1.6.0"
 
 # for release
 
