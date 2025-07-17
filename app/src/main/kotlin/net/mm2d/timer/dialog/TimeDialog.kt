@@ -75,11 +75,16 @@ class TimeDialog : DialogFragment() {
     }
 
     private fun DialogTimeBinding.getValue(): Long =
-        second1.value * 1000L +
-            second10.value * 10_000L +
-            minute1.value * 60_000L +
-            minute10.value * 600_000L +
-            hour1.value * 3600_000L
+        second1.value *
+            1000L +
+            second10.value *
+            10_000L +
+            minute1.value *
+            60_000L +
+            minute10.value *
+            600_000L +
+            hour1.value *
+            3600_000L
 
     private fun DialogTimeBinding.setOnClickListener() {
         reset.setOnClickListener { setValue(0L) }

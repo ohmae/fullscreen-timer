@@ -14,7 +14,7 @@ androidxFragment = "1.8.8"
 androidxBrowser = "1.8.0"
 androidxConstraintLayout = "2.2.1"
 androidxDatastore = "1.1.7"
-androidxLifecycle = "2.9.1"
+androidxLifecycle = "2.9.2"
 androidxWebkit = "1.14.0"
 material = "1.12.0"
 playAppUpdate = "2.1.0"
@@ -26,7 +26,7 @@ junit = "4.13.2"
 # debug
 leakcanary = "2.14"
 
-ktlint = "1.6.0"
+ktlint = "1.7.0"
 
 # for release
 
