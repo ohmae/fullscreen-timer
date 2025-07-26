@@ -33,7 +33,7 @@
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -44,7 +44,7 @@
         android:background="@drawable/bg_colon"
         android:scaleType="fitXY"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_colon"
+        app:srcCompat="@drawable/led_colon"
         tools:ignore="ContentDescription"
         />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_colon"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_colon"
+        app:srcCompat="@drawable/led_colon"
         tools:ignore="ContentDescription"
         />
 
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -105,7 +105,7 @@
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
         android:visibility="visible"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 
@@ -116,7 +116,7 @@
         android:background="@drawable/bg_num"
         android:scaleType="fitXY"
         android:visibility="visible"
-        app:srcCompat="@drawable/ic_0"
+        app:srcCompat="@drawable/led_0"
         tools:ignore="ContentDescription"
         />
 </merge>

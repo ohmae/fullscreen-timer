@@ -18,7 +18,6 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import net.mm2d.timer.R
-import net.mm2d.timer.R.drawable
 import net.mm2d.timer.databinding.ViewClockBinding
 import java.util.Calendar
 
@@ -135,16 +134,16 @@ class ClockView @JvmOverloads constructor(
         number: Int,
     ): Int =
         when (number) {
-            1 -> drawable.ic_1
-            2 -> drawable.ic_2
-            3 -> drawable.ic_3
-            4 -> drawable.ic_4
-            5 -> drawable.ic_5
-            6 -> drawable.ic_6
-            7 -> drawable.ic_7
-            8 -> drawable.ic_8
-            9 -> drawable.ic_9
-            else -> drawable.ic_0
+            1 -> R.drawable.led_1
+            2 -> R.drawable.led_2
+            3 -> R.drawable.led_3
+            4 -> R.drawable.led_4
+            5 -> R.drawable.led_5
+            6 -> R.drawable.led_6
+            7 -> R.drawable.led_7
+            8 -> R.drawable.led_8
+            9 -> R.drawable.led_9
+            else -> R.drawable.led_0
         }
 
     override fun onMeasure(
