@@ -27,7 +27,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import net.mm2d.color.chooser.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.databinding.ActivitySettingsBinding
+import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.dialog.OrientationDialog
+import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.util.Launcher
 import net.mm2d.timer.util.observe
@@ -166,6 +168,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.fullscreen.setOnClickListener {
             viewModel.updateFullscreen(!binding.fullscreen.isChecked)
         }
+        FontDialog.registerListener(this, REQUEST_KEY_FONT) { font ->
+            viewModel.updateFont(font)
+        }
+        binding.font.setOnClickListener {
+            FontDialog.show(this, REQUEST_KEY_FONT)
+        }
         OrientationDialog.registerListener(this, REQUEST_KEY_ORIENTATION) {
             viewModel.updateOrientation(it)
         }
@@ -224,6 +232,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.buttonOpacityValue.text = "%d%%".format(opacityPercent)
         binding.volumeValue.text = "%d".format(uiState.volume)
         binding.fullscreen.isChecked = uiState.fullscreen
+        binding.fontDescription.setText(
+            when (uiState.font) {
+                Font.LED_7SEGMENT -> R.string.menu_description_font_led_7segment
+                Font.ROBOTO -> R.string.menu_description_font_roboto
+            },
+        )
         binding.orientationIcon.setImageResource(uiState.orientation.icon)
         binding.orientationDescription.setText(uiState.orientation.description)
         TransitionManager.beginDelayedTransition(binding.root)
@@ -271,6 +285,7 @@ class SettingsActivity : AppCompatActivity() {
         private const val PREFIX = "SettingsActivity."
         private const val REQUEST_KEY_FOREGROUND = PREFIX + "REQUEST_KEY_FOREGROUND"
         private const val REQUEST_KEY_BACKGROUND = PREFIX + "REQUEST_KEY_BACKGROUND"
+        private const val REQUEST_KEY_FONT = PREFIX + "REQUEST_KEY_FONT"
         private const val REQUEST_KEY_ORIENTATION = PREFIX + "REQUEST_KEY_ORIENTATION"
 
         fun start(

@@ -65,6 +65,7 @@ class SettingsRepository @Inject constructor(
                 timerTime = it[TIMER_TIME] ?: TIMER_TIME_DEFAULT,
                 soundVolume = it[SOUND_VOLUME] ?: 10,
                 fullscreen = it[FULLSCREEN] ?: true,
+                font = Font.of(it[FONT]),
                 orientation = Orientation.of(it[ORIENTATION]),
                 buttonOpacity = it[BUTTON_OPACITY]?.coerceIn(0f, 1f) ?: 1f,
             )
@@ -148,6 +149,14 @@ class SettingsRepository @Inject constructor(
     ) {
         dataStore.edit {
             it[FULLSCREEN] = fullscreen
+        }
+    }
+
+    suspend fun updateFont(
+        font: Font,
+    ) {
+        dataStore.edit {
+            it[FONT] = font.name
         }
     }
 
@@ -236,6 +245,8 @@ class SettingsRepository @Inject constructor(
             Key.Main.SOUND_VOLUME_INT.intKey()
         private val FULLSCREEN =
             Key.Main.FULLSCREEN_BOOLEAN.booleanKey()
+        private val FONT =
+            Key.Main.FONT_STRING.stringKey()
         private val ORIENTATION =
             Key.Main.ORIENTATION_INT.intKey()
         private val BUTTON_OPACITY =

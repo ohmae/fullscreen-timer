@@ -29,6 +29,9 @@
     <string name="menu_title_fullscreen">メイン画面のフルスクリーン表示</string>
     <string name="menu_description_fullscreen_on">フルスクリーン表示します</string>
     <string name="menu_description_fullscreen_off">フルスクリーン表示しません</string>
+    <string name="menu_title_font">フォント</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
     <string name="menu_title_orientation">画面の向き</string>
     <string name="menu_description_unspecified">アプリからは画面の向きを指定しません。表示されているアプリ本来の向きになります</string>
     <string name="menu_description_portrait">縦方向に固定します</string>

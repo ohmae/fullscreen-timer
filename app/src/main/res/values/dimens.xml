@@ -4,4 +4,5 @@
     <dimen name="margin_menu_vertical">16dp</dimen>
     <dimen name="margin_item">8dp</dimen>
     <dimen name="text_description">12sp</dimen>
+    <dimen name="dialog_margin">16dp</dimen>
 </resources>

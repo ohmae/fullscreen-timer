@@ -45,6 +45,7 @@ sealed interface Key {
         TIMER_TIME_LONG,
         SOUND_VOLUME_INT,
         FULLSCREEN_BOOLEAN,
+        FONT_STRING,
         ORIENTATION_INT,
         BUTTON_OPACITY_FLOAT,
     }

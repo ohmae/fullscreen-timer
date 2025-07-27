@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.settings.SettingsRepository
@@ -33,6 +34,7 @@ class MainViewModel @Inject constructor(
                 shouldUseDarkForeground = it.backgroundColor.shouldUseDarkForeground(),
                 fullscreen = it.fullscreen,
                 buttonOpacity = it.buttonOpacity,
+                font = it.font,
             )
         }
         .distinctUntilChanged()
@@ -55,5 +57,6 @@ class MainViewModel @Inject constructor(
         val shouldUseDarkForeground: Boolean,
         val fullscreen: Boolean,
         val buttonOpacity: Float,
+        val font: Font,
     )
 }

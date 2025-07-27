@@ -58,11 +58,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        isCoreLibraryDesugaringEnabled = true
     }
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
         jvmToolchain(21)
     }
@@ -79,8 +79,6 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring(libs.desugarJdkLibs)
-
     implementation(libs.androidxCore)
     implementation(libs.androidxAppCompat)
     implementation(libs.androidxActivity)

@@ -354,12 +354,52 @@
                     />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/orientation"
+                    android:id="@+id/font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fullscreen"
+                    >
+
+                    <TextView
+                        android:id="@+id/font_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginTop="@dimen/margin_menu_vertical"
+                        android:layout_marginEnd="@dimen/margin_item"
+                        android:text="@string/menu_title_font"
+                        android:textAppearance="@style/TextAppearance.Timer.Title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/font_description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_menu_horizontal"
+                        android:layout_marginEnd="@dimen/margin_item"
+                        android:layout_marginBottom="@dimen/margin_menu_vertical"
+                        android:text="@string/menu_description_font_led_7segment"
+                        android:textAppearance="@style/TextAppearance.Timer.SubTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/font_title"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/orientation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/font"
                     >
 
                     <ImageView

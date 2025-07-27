@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.core.view.updatePadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -32,6 +33,7 @@ class OrientationDialog : DialogFragment() {
         val arguments = requireArguments()
         val requestKey = arguments.getString(KEY_REQUEST_KEY, "")
         val recyclerView = RecyclerView(activity)
+        recyclerView.updatePadding(top = resources.getDimensionPixelSize(R.dimen.dialog_margin))
         recyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = Adapter(activity) {
@@ -47,6 +49,7 @@ class OrientationDialog : DialogFragment() {
         recyclerView.overScrollMode = View.OVER_SCROLL_NEVER
         recyclerView.isVerticalFadingEdgeEnabled = true
         return AlertDialog.Builder(activity)
+            .setTitle(R.string.menu_title_orientation)
             .setView(recyclerView)
             .setNegativeButton(R.string.cancel, null)
             .create()

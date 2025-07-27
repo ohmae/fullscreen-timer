@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.settings.SettingsRepository
@@ -35,6 +36,7 @@ class SettingsViewModel @Inject constructor(
                 secondEnabled = it.secondEnabled,
                 volume = it.soundVolume,
                 fullscreen = it.fullscreen,
+                font = it.font,
                 orientation = it.orientation,
                 buttonOpacity = it.buttonOpacity,
             )
@@ -51,6 +53,7 @@ class SettingsViewModel @Inject constructor(
         val secondEnabled: Boolean,
         val volume: Int,
         val fullscreen: Boolean,
+        val font: Font,
         val orientation: Orientation,
         val buttonOpacity: Float,
     )
@@ -124,6 +127,14 @@ class SettingsViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             settingsRepository.updateFullscreen(fullscreen)
+        }
+    }
+
+    fun updateFont(
+        font: Font,
+    ) {
+        viewModelScope.launch {
+            settingsRepository.updateFont(font)
         }
     }
 

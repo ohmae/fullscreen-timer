@@ -9,10 +9,10 @@ package net.mm2d.timer
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.Lifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import net.mm2d.timer.MainViewModel.UiState
@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
         uiState: UiState,
     ) {
         binding.clock.setColor(uiState.foregroundColor)
-        window.setBackgroundDrawable(ColorDrawable(uiState.backgroundColor))
+        binding.clock.setFont(uiState.font)
+        window.setBackgroundDrawable(uiState.backgroundColor.toDrawable())
         val (backgroundResource, foregroundTint) = if (uiState.shouldUseDarkForeground) {
             R.drawable.bg_button_dark to ColorStateList.valueOf(resolveColor(R.attr.colorControlDark))
         } else {

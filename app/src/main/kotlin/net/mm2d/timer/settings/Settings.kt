@@ -21,6 +21,7 @@ data class Settings(
     val timerTime: Long,
     val soundVolume: Int,
     val fullscreen: Boolean,
+    val font: Font,
     val orientation: Orientation,
     val buttonOpacity: Float,
 )

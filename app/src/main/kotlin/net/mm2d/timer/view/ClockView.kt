@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import net.mm2d.timer.R
 import net.mm2d.timer.databinding.ViewClockBinding
+import net.mm2d.timer.settings.Font
 import java.util.Calendar
 
 class ClockView @JvmOverloads constructor(
@@ -28,6 +29,7 @@ class ClockView @JvmOverloads constructor(
     defStyleRes: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
     private var calendar = Calendar.getInstance()
+    private var font: Font = Font.LED_7SEGMENT
 
     init {
         orientation = HORIZONTAL
@@ -116,21 +118,70 @@ class ClockView @JvmOverloads constructor(
         binding.amPm.setTextColor(color)
     }
 
+    fun setFont(
+        font: Font,
+    ) {
+        this.font = font
+        if (font == Font.LED_7SEGMENT) {
+            binding.small1.setBackgroundResource(R.drawable.bg_num)
+            binding.small10.setBackgroundResource(R.drawable.bg_num)
+            binding.first1.setBackgroundResource(R.drawable.bg_num)
+            binding.first10.setBackgroundResource(R.drawable.bg_num)
+            binding.second1.setBackgroundResource(R.drawable.bg_num)
+            binding.second10.setBackgroundResource(R.drawable.bg_num)
+            binding.third1.setBackgroundResource(R.drawable.bg_num)
+        } else {
+            binding.small1.background = null
+            binding.small10.background = null
+            binding.first1.background = null
+            binding.first10.background = null
+            binding.second1.background = null
+            binding.second10.background = null
+            binding.third1.background = null
+        }
+        resetNumber(binding.small1)
+        resetNumber(binding.small10)
+        resetNumber(binding.first1)
+        resetNumber(binding.first10)
+        resetNumber(binding.second1)
+        resetNumber(binding.second10)
+        resetNumber(binding.third1)
+    }
+
     private fun setNumber(
         view: ImageView,
         number: Int,
     ) {
-        view.setImageResource(getRes((number % 10)))
+        val value = (number % 10)
+        view.tag = value
+        view.setImageResource(getRes(value))
     }
 
     private fun setNumber(
         view: ImageView,
         number: Long,
     ) {
-        view.setImageResource(getRes((number % 10).toInt()))
+        val value = (number % 10).toInt()
+        view.tag = value
+        view.setImageResource(getRes(value))
+    }
+
+    private fun resetNumber(
+        view: ImageView,
+    ) {
+        val value = view.tag as? Int ?: 0
+        view.setImageResource(getRes(value))
     }
 
     private fun getRes(
+        number: Int,
+    ): Int =
+        when (font) {
+            Font.LED_7SEGMENT -> getLedRes(number)
+            Font.ROBOTO -> getRobotoRes(number)
+        }
+
+    private fun getLedRes(
         number: Int,
     ): Int =
         when (number) {
@@ -144,6 +195,22 @@ class ClockView @JvmOverloads constructor(
             8 -> R.drawable.led_8
             9 -> R.drawable.led_9
             else -> R.drawable.led_0
+        }
+
+    private fun getRobotoRes(
+        number: Int,
+    ): Int =
+        when (number) {
+            1 -> R.drawable.roboto_medium_1
+            2 -> R.drawable.roboto_medium_2
+            3 -> R.drawable.roboto_medium_3
+            4 -> R.drawable.roboto_medium_4
+            5 -> R.drawable.roboto_medium_5
+            6 -> R.drawable.roboto_medium_6
+            7 -> R.drawable.roboto_medium_7
+            8 -> R.drawable.roboto_medium_8
+            9 -> R.drawable.roboto_medium_9
+            else -> R.drawable.roboto_medium_0
         }
 
     override fun onMeasure(
