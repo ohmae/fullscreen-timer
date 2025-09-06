@@ -1,8 +1,8 @@
 [versions]
-androidGradlePlugin = "8.12.1"
+androidGradlePlugin = "8.13.0"
 kotlin = "2.2.10"
 ksp = "2.2.10-2.0.2"
-hilt = "2.57"
+hilt = "2.57.1"
 gradleVersionsPlugin = "0.52.0"
 dependencyGuard = "0.5.0"
 
@@ -13,9 +13,9 @@ androidxFragment = "1.8.9"
 androidxBrowser = "1.9.0"
 androidxConstraintLayout = "2.2.1"
 androidxDatastore = "1.1.7"
-androidxLifecycle = "2.9.2"
+androidxLifecycle = "2.9.3"
 androidxWebkit = "1.14.0"
-material = "1.12.0"
+material = "1.13.0"
 playAppUpdate = "2.1.0"
 colorChooser = "0.7.4"
 
