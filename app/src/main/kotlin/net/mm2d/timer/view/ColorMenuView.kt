@@ -15,6 +15,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.getStringOrThrow
+import androidx.core.content.withStyledAttributes
 import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
@@ -31,11 +32,11 @@ class ColorMenuView @JvmOverloads constructor(
     private var color: Int = 0
 
     init {
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.ColorMenuView)
-        binding.menuTitle.text = ta.getStringOrThrow(R.styleable.ColorMenuView_title)
-        binding.menuDescription.text = ta.getStringOrThrow(R.styleable.ColorMenuView_description)
-        binding.menuColor.setImageColor(color)
-        ta.recycle()
+        context.withStyledAttributes(attrs, R.styleable.ColorMenuView) {
+            binding.menuTitle.text = getStringOrThrow(R.styleable.ColorMenuView_title)
+            binding.menuDescription.text = getStringOrThrow(R.styleable.ColorMenuView_description)
+            binding.menuColor.setImageColor(color)
+        }
     }
 
     fun getColor(): Int = color

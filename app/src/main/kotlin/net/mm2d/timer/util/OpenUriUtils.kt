@@ -10,7 +10,7 @@ package net.mm2d.timer.util
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
+import androidx.core.net.toUri
 
 object OpenUriUtils {
     private var defaultBrowserPackage: String? = null
@@ -64,7 +64,7 @@ object OpenUriUtils {
     private fun makeBrowseIntent(
         uri: String,
     ): Intent =
-        Intent(Intent.ACTION_VIEW, Uri.parse(uri)).also {
+        Intent(Intent.ACTION_VIEW, uri.toUri()).also {
             it.addCategory(Intent.CATEGORY_BROWSABLE)
         }
 

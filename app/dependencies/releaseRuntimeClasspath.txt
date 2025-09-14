@@ -1,5 +1,5 @@
-androidx.activity:activity-ktx:1.10.1
-androidx.activity:activity:1.10.1
+androidx.activity:activity-ktx:1.11.0
+androidx.activity:activity:1.11.0
 androidx.annotation:annotation-experimental:1.4.1
 androidx.annotation:annotation-jvm:1.9.1
 androidx.annotation:annotation:1.9.1
@@ -98,7 +98,7 @@ org.jetbrains.kotlin:kotlin-bom:1.8.22
 org.jetbrains.kotlin:kotlin-parcelize-runtime:1.9.22
 org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22
 org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22
-org.jetbrains.kotlin:kotlin-stdlib:2.2.10
+org.jetbrains.kotlin:kotlin-stdlib:2.2.20
 org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2
 org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2
 org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2

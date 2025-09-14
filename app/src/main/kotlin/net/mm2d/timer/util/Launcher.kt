@@ -12,6 +12,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import net.mm2d.timer.constant.Constants
 
 object Launcher {
@@ -20,7 +21,7 @@ object Launcher {
         uri: String,
     ): Boolean =
         runCatching {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            val intent = Intent(Intent.ACTION_VIEW, uri.toUri())
             intent.addCategory(Intent.CATEGORY_BROWSABLE)
             context.startActivity(intent)
             true
@@ -29,7 +30,7 @@ object Launcher {
     private fun openCustomTabs(
         context: Context,
         uri: String,
-    ): Boolean = openCustomTabs(context, Uri.parse(uri))
+    ): Boolean = openCustomTabs(context, uri.toUri())
 
     fun openCustomTabs(
         context: Context,

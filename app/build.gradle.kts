@@ -101,8 +101,6 @@ dependencies {
 
     testImplementation(libs.junit)
 
-    debugImplementation(libs.leakcanary)
-
     // for release
 }
 
