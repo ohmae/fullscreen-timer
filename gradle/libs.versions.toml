@@ -17,7 +17,7 @@ androidxLifecycle = "2.9.3"
 androidxWebkit = "1.14.0"
 material = "1.13.0"
 playAppUpdate = "2.1.0"
-colorChooser = "0.7.4"
+colorChooser = "0.7.5"
 
 # test
 junit = "4.13.2"
