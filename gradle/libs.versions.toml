@@ -2,8 +2,8 @@
 androidGradlePlugin = "8.13.0"
 kotlin = "2.2.20"
 ksp = "2.2.20-2.0.3"
-hilt = "2.57.1"
-gradleVersionsPlugin = "0.52.0"
+hilt = "2.57.2"
+gradleVersionsPlugin = "0.53.0"
 dependencyGuard = "0.5.0"
 
 androidxCore = "1.17.0"
