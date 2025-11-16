@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.13.0"
+androidGradlePlugin = "8.13.1"
 kotlin = "2.2.21"
 ksp = "2.3.2"
 hilt = "2.57.2"
@@ -22,7 +22,7 @@ colorChooser = "0.7.5"
 # test
 junit = "4.13.2"
 
-ktlint = "1.7.1"
+ktlint = "1.8.0"
 
 # for release
 
