@@ -1,5 +1,5 @@
-androidx.activity:activity-ktx:1.12.0
-androidx.activity:activity:1.12.0
+androidx.activity:activity-ktx:1.12.1
+androidx.activity:activity:1.12.1
 androidx.annotation:annotation-experimental:1.4.1
 androidx.annotation:annotation-jvm:1.9.1
 androidx.annotation:annotation:1.9.1
@@ -23,7 +23,7 @@ androidx.core:core-viewtree:1.0.0
 androidx.core:core:1.17.0
 androidx.cursoradapter:cursoradapter:1.0.0
 androidx.customview:customview:1.1.0
-androidx.databinding:viewbinding:8.13.1
+androidx.databinding:viewbinding:8.13.2
 androidx.datastore:datastore-android:1.2.0
 androidx.datastore:datastore-core-android:1.2.0
 androidx.datastore:datastore-core-okio-jvm:1.2.0
@@ -62,8 +62,8 @@ androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.10.0
 androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0
 androidx.lifecycle:lifecycle-viewmodel:2.10.0
 androidx.loader:loader:1.0.0
-androidx.navigationevent:navigationevent-android:1.0.0
-androidx.navigationevent:navigationevent:1.0.0
+androidx.navigationevent:navigationevent-android:1.0.1
+androidx.navigationevent:navigationevent:1.0.1
 androidx.profileinstaller:profileinstaller:1.4.0
 androidx.recyclerview:recyclerview:1.2.1
 androidx.resourceinspection:resourceinspection-annotation:1.0.1
