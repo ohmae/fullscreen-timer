@@ -96,6 +96,7 @@ dependencies {
 
     implementation(libs.hiltAndroid)
     ksp(libs.hiltAndroidCompiler)
+    ksp(libs.kotlinMetadataJvm)
 
     implementation(libs.colorChooser)
 

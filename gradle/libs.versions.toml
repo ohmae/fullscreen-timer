@@ -27,6 +27,7 @@ ktlint = "1.8.0"
 # for release
 
 [libraries]
+kotlinMetadataJvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
 androidxCore = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidxAppCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidxActivity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
