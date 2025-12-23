@@ -17,7 +17,7 @@ plugins {
 val applicationName = "Timer"
 val versionMajor = 0
 val versionMinor = 10
-val versionPatch = 2
+val versionPatch = 3
 
 android {
     compileSdk = 36
