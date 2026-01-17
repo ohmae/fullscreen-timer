@@ -1,11 +1,10 @@
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import com.android.build.api.variant.impl.VariantOutputImpl
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Locale
 
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.gradleVersions)
@@ -32,14 +31,6 @@ android {
         base.archivesName.set("$applicationName-$versionName")
         multiDexEnabled = true
     }
-    applicationVariants.all {
-        if (buildType.name == "release") {
-            outputs.all {
-                (this as BaseVariantOutputImpl).outputFileName =
-                    "$applicationName-$versionName.apk"
-            }
-        }
-    }
     buildTypes {
         debug {
             isDebuggable = true
@@ -59,13 +50,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
-            freeCompilerArgs.add("-Xannotation-default-target=param-property")
-        }
-        jvmToolchain(21)
-    }
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -75,6 +59,22 @@ android {
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+    jvmToolchain(21)
+}
+
+androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        variant.outputs.forEach {
+            (it as VariantOutputImpl).outputFileName.set("$applicationName-${it.versionName.get()}.apk")
+        }
     }
 }
 
