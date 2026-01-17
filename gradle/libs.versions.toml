@@ -2,7 +2,7 @@
 androidGradlePlugin = "9.0.0"
 kotlin = "2.3.0"
 ksp = "2.3.4"
-hilt = "2.57.2"
+hilt = "2.58"
 gradleVersionsPlugin = "0.53.0"
 dependencyGuard = "0.5.0"
 
