@@ -19,9 +19,11 @@ val versionMinor = 10
 val versionPatch = 3
 
 android {
-    compileSdk = 36
-
     namespace = "net.mm2d.timer"
+    compileSdk {
+        version = release(36)
+    }
+
     defaultConfig {
         applicationId = "net.mm2d.timer"
         minSdk = 26
