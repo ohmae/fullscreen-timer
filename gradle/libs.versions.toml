@@ -1,14 +1,14 @@
 [versions]
 androidGradlePlugin = "9.0.0"
 kotlin = "2.3.0"
-ksp = "2.3.4"
-hilt = "2.58"
+ksp = "2.3.5"
+hilt = "2.59"
 dependencyGuard = "0.5.0"
 versionCatalogUpdate = "1.0.1"
 
 androidxCore = "1.17.0"
 androidxAppCompat = "1.7.1"
-androidxActivity = "1.12.2"
+androidxActivity = "1.12.3"
 androidxFragment = "1.8.9"
 androidxBrowser = "1.9.0"
 androidxConstraintLayout = "2.2.1"
