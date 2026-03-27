@@ -7,7 +7,7 @@ androidx.appcompat:appcompat-resources:1.7.1
 androidx.appcompat:appcompat:1.7.1
 androidx.arch.core:core-common:2.2.0
 androidx.arch.core:core-runtime:2.2.0
-androidx.browser:browser:1.9.0
+androidx.browser:browser:1.10.0
 androidx.cardview:cardview:1.0.0
 androidx.collection:collection-jvm:1.4.2
 androidx.collection:collection-ktx:1.4.2
@@ -96,7 +96,7 @@ com.squareup.okio:okio-jvm:3.9.1
 com.squareup.okio:okio:3.9.1
 jakarta.inject:jakarta.inject-api:2.0.1
 javax.inject:javax.inject:1
-net.mm2d.color-chooser:color-chooser:0.7.5
+net.mm2d.color-chooser:color-chooser:0.7.6
 org.jetbrains.kotlin:kotlin-bom:1.8.22
 org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22
 org.jetbrains.kotlin:kotlin-stdlib:2.3.20
