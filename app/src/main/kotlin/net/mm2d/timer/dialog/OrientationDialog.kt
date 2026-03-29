@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.core.view.updatePadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
@@ -24,6 +23,8 @@ import net.mm2d.timer.R
 import net.mm2d.timer.databinding.ItemOrientationBinding
 import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.util.getSerializableSafely
+import net.mm2d.timer.util.serializableBundle
+import net.mm2d.timer.util.stringBundle
 
 class OrientationDialog : DialogFragment() {
     override fun onCreateDialog(
@@ -39,7 +40,7 @@ class OrientationDialog : DialogFragment() {
         recyclerView.adapter = Adapter(activity) {
             parentFragmentManager.setFragmentResult(
                 requestKey,
-                bundleOf(RESULT_ORIENTATION to it),
+                serializableBundle(RESULT_ORIENTATION, it),
             )
             dialog?.cancel()
         }
@@ -115,9 +116,7 @@ class OrientationDialog : DialogFragment() {
             val manager = activity.supportFragmentManager
             if (manager.isStateSaved || manager.findFragmentByTag(TAG) != null) return
             OrientationDialog().also { dialog ->
-                dialog.arguments = bundleOf(
-                    KEY_REQUEST_KEY to requestKey,
-                )
+                dialog.arguments = stringBundle(KEY_REQUEST_KEY, requestKey)
             }.show(manager, TAG)
         }
     }

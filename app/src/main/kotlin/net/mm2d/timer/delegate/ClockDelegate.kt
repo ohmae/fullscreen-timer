@@ -43,6 +43,7 @@ class ClockDelegate(
     override fun handleIntent(
         intent: Intent,
     ) = Unit
+
     override fun onClickButton1() = Unit
     override fun onClickButton2() = Unit
     override fun onClickTime() = Unit

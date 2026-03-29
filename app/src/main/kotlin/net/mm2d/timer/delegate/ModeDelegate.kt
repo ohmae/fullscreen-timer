@@ -15,6 +15,7 @@ interface ModeDelegate {
     fun handleIntent(
         intent: Intent,
     )
+
     fun onClickButton1()
     fun onClickButton2()
     fun onClickTime()

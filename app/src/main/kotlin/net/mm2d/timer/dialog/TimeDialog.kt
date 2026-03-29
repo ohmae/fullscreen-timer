@@ -10,12 +10,13 @@ package net.mm2d.timer.dialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import net.mm2d.timer.R
 import net.mm2d.timer.databinding.DialogTimeBinding
+import net.mm2d.timer.util.buildBundle
+import net.mm2d.timer.util.longBundle
 
 class TimeDialog : DialogFragment() {
     private var hourEnabled: Boolean = false
@@ -35,7 +36,7 @@ class TimeDialog : DialogFragment() {
             .setPositiveButton(R.string.ok) { _, _ ->
                 parentFragmentManager.setFragmentResult(
                     requestKey,
-                    bundleOf(KEY_RESULT to binding.getValue()),
+                    longBundle(KEY_RESULT, binding.getValue()),
                 )
             }
             .setNegativeButton(R.string.cancel) { dialog, _ ->
@@ -124,11 +125,11 @@ class TimeDialog : DialogFragment() {
             if (manager.findFragmentByTag(TAG) != null) return
             if (manager.isStateSaved) return
             TimeDialog().also {
-                it.arguments = bundleOf(
-                    KEY_REQUEST to requestKey,
-                    KEY_TIME to time,
-                    KEY_HOUR_ENABLED to hourEnabled,
-                )
+                it.arguments = buildBundle {
+                    putString(KEY_REQUEST, requestKey)
+                    putLong(KEY_TIME, time)
+                    putBoolean(KEY_HOUR_ENABLED, hourEnabled)
+                }
             }.show(manager, TAG)
         }
     }
