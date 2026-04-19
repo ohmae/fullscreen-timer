@@ -55,6 +55,7 @@ class SettingsViewModel @Inject constructor(
                 onSecondEnabledChange = ::updateSecondEnabled,
                 onFullscreenChange = ::updateFullscreen,
                 onFontRequest = ::requestFontDialog,
+                onOrientationRequest = ::requestOrientationDialog,
             )
         }
         .distinctUntilChanged()
@@ -88,6 +89,7 @@ class SettingsViewModel @Inject constructor(
         val onSecondEnabledChange: (Boolean) -> Unit = {},
         val onFullscreenChange: (Boolean) -> Unit = {},
         val onFontRequest: (Font) -> Unit = {},
+        val onOrientationRequest: (Orientation) -> Unit = {},
     )
 
     private fun updateMode(
@@ -170,7 +172,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateOrientation(
+    private fun updateOrientation(
         orientation: Orientation,
     ) {
         viewModelScope.launch {
@@ -204,7 +206,7 @@ class SettingsViewModel @Inject constructor(
         color: Color,
     ) {
         requestDialog(
-            DialogRequest.ForegroundColor(
+            DialogRequest.ForegroundColorSelect(
                 color = color,
                 onChooseColor = {
                     updateForegroundColor(it.toArgb())
@@ -219,7 +221,7 @@ class SettingsViewModel @Inject constructor(
         color: Color,
     ) {
         requestDialog(
-            DialogRequest.BackgroundColor(
+            DialogRequest.BackgroundColorSelect(
                 color = color,
                 onChooseColor = {
                     updateBackgroundColor(it.toArgb())
@@ -234,7 +236,7 @@ class SettingsViewModel @Inject constructor(
         font: Font,
     ) {
         requestDialog(
-            DialogRequest.Font(
+            DialogRequest.FontSelect(
                 font = font,
                 onChooseFont = {
                     updateFont(it)
@@ -245,21 +247,45 @@ class SettingsViewModel @Inject constructor(
         )
     }
 
+    private fun requestOrientationDialog(
+        orientation: Orientation,
+    ) {
+        requestDialog(
+            DialogRequest.OrientationSelect(
+                orientation = orientation,
+                onChooseOrientation = {
+                    updateOrientation(it)
+                    dismissDialog()
+                },
+                dismissRequest = ::dismissDialog,
+            ),
+        )
+    }
+
     sealed interface DialogRequest {
         data object Dismiss : DialogRequest
-        data class ForegroundColor(
+
+        data class ForegroundColorSelect(
             val color: Color,
             val onChooseColor: (Color) -> Unit,
             val dismissRequest: () -> Unit,
         ) : DialogRequest
-        data class BackgroundColor(
+
+        data class BackgroundColorSelect(
             val color: Color,
             val onChooseColor: (Color) -> Unit,
             val dismissRequest: () -> Unit,
         ) : DialogRequest
-        data class Font(
-            val font: net.mm2d.timer.settings.Font,
-            val onChooseFont: (net.mm2d.timer.settings.Font) -> Unit,
+
+        data class FontSelect(
+            val font: Font,
+            val onChooseFont: (Font) -> Unit,
+            val dismissRequest: () -> Unit,
+        ) : DialogRequest
+
+        data class OrientationSelect(
+            val orientation: Orientation,
+            val onChooseOrientation: (Orientation) -> Unit,
             val dismissRequest: () -> Unit,
         ) : DialogRequest
     }

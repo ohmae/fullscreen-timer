@@ -66,6 +66,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.mm2d.color.chooser.compose.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.dialog.FontDialog
+import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.Orientation
@@ -75,14 +76,12 @@ import net.mm2d.timer.ui.theme.AppTheme
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onNavigate: (NavigationDirection) -> Unit,
-    onOpenOrientationDialog: () -> Unit,
 ) {
     AppTheme {
         val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
         SettingsScreen(
             uiState = uiState,
             onNavigate = onNavigate,
-            onOpenOrientationDialog = onOpenOrientationDialog,
         )
         val dialogRequest by viewModel.getDialogRequestStream().collectAsStateWithLifecycle()
         DialogContent(dialogRequest)
@@ -96,21 +95,27 @@ private fun DialogContent(
     when (dialogRequest) {
         is SettingsViewModel.DialogRequest.Dismiss -> Unit
 
-        is SettingsViewModel.DialogRequest.BackgroundColor -> ColorChooserDialog(
+        is SettingsViewModel.DialogRequest.BackgroundColorSelect -> ColorChooserDialog(
             initialColor = dialogRequest.color,
             onChooseColor = dialogRequest.onChooseColor,
             onDismissRequest = dialogRequest.dismissRequest,
         )
 
-        is SettingsViewModel.DialogRequest.ForegroundColor -> ColorChooserDialog(
+        is SettingsViewModel.DialogRequest.ForegroundColorSelect -> ColorChooserDialog(
             initialColor = dialogRequest.color,
             onChooseColor = dialogRequest.onChooseColor,
             onDismissRequest = dialogRequest.dismissRequest,
         )
 
-        is SettingsViewModel.DialogRequest.Font -> FontDialog(
+        is SettingsViewModel.DialogRequest.FontSelect -> FontDialog(
             selectedFont = dialogRequest.font,
             onChooseFont = dialogRequest.onChooseFont,
+            onDismissRequest = dialogRequest.dismissRequest,
+        )
+
+        is SettingsViewModel.DialogRequest.OrientationSelect -> OrientationDialog(
+            selectedOrientation = dialogRequest.orientation,
+            onChooseOrientation = dialogRequest.onChooseOrientation,
             onDismissRequest = dialogRequest.dismissRequest,
         )
     }
@@ -173,9 +178,7 @@ private sealed class MenuItem {
     ) : MenuItem()
 }
 
-private fun UiState.toMenuItems(
-    onOpenOrientationDialog: () -> Unit,
-): List<MenuItem> =
+private fun UiState.toMenuItems(): List<MenuItem> =
     buildList {
         this += MenuItem.ModeMenu(
             key = "mode",
@@ -219,11 +222,11 @@ private fun UiState.toMenuItems(
                 key = "hour_format",
                 titleRes = R.string.menu_title_hour_notation,
                 descriptionRes =
-                if (hourFormat24) {
-                    R.string.menu_description_hour_notation_on
-                } else {
-                    R.string.menu_description_hour_notation_off
-                },
+                    if (hourFormat24) {
+                        R.string.menu_description_hour_notation_on
+                    } else {
+                        R.string.menu_description_hour_notation_off
+                    },
                 checked = hourFormat24,
                 onCheckedChange = onHourFormatChange,
             )
@@ -231,11 +234,11 @@ private fun UiState.toMenuItems(
                 key = "second_enabled",
                 titleRes = R.string.menu_title_second_enabled,
                 descriptionRes =
-                if (secondEnabled) {
-                    R.string.menu_description_second_enabled_on
-                } else {
-                    R.string.menu_description_second_enabled_off
-                },
+                    if (secondEnabled) {
+                        R.string.menu_description_second_enabled_on
+                    } else {
+                        R.string.menu_description_second_enabled_off
+                    },
                 checked = secondEnabled,
                 onCheckedChange = onSecondEnabledChange,
             )
@@ -269,11 +272,11 @@ private fun UiState.toMenuItems(
             key = "fullscreen",
             titleRes = R.string.menu_title_fullscreen,
             descriptionRes =
-            if (fullscreen) {
-                R.string.menu_description_fullscreen_on
-            } else {
-                R.string.menu_description_fullscreen_off
-            },
+                if (fullscreen) {
+                    R.string.menu_description_fullscreen_on
+                } else {
+                    R.string.menu_description_fullscreen_off
+                },
             checked = fullscreen,
             onCheckedChange = onFullscreenChange,
         )
@@ -288,7 +291,7 @@ private fun UiState.toMenuItems(
             titleRes = R.string.menu_title_orientation,
             descriptionRes = orientation.description,
             iconRes = orientation.icon,
-            onClick = onOpenOrientationDialog,
+            onClick = { onOrientationRequest(orientation) },
         )
         this += MenuItem.FixedTextMenu(
             key = "version",
@@ -301,11 +304,8 @@ private fun UiState.toMenuItems(
 private fun SettingsScreen(
     uiState: UiState,
     onNavigate: (NavigationDirection) -> Unit,
-    onOpenOrientationDialog: () -> Unit,
 ) {
-    val menuItems = uiState.toMenuItems(
-        onOpenOrientationDialog = onOpenOrientationDialog,
-    )
+    val menuItems = uiState.toMenuItems()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -783,7 +783,6 @@ private fun SettingsScreenPreview() {
                 buttonOpacity = 0.72f,
             ),
             onNavigate = {},
-            onOpenOrientationDialog = {},
         )
     }
 }

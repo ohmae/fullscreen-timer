@@ -72,7 +72,7 @@ fun FontDialog(
                             RadioButton(
                                 selected = font == selectedFont,
                                 onClick = null,
-                                modifier = Modifier.minimumInteractiveComponentSize()
+                                modifier = Modifier.minimumInteractiveComponentSize(),
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(

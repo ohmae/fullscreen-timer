@@ -49,7 +49,4 @@
         <item name="android:textColorSecondary">@color/gray_500</item>
         <item name="colorOnSurface">@color/gray_500</item>
     </style>
-
-    <style name="TextAppearance.Timer.Title" parent="TextAppearance.Material3.BodyLarge">
-    </style>
 </resources>
