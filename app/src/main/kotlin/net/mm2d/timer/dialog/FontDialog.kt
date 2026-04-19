@@ -61,25 +61,11 @@ fun FontDialog(
                 )
                 Column {
                     Font.entries.forEach { font ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(4.dp))
-                                .clickable { onChooseFont(font) }
-                                .padding(vertical = 8.dp, horizontal = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            RadioButton(
-                                selected = font == selectedFont,
-                                onClick = null,
-                                modifier = Modifier.minimumInteractiveComponentSize(),
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = stringResource(font.descriptionRes()),
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                        }
+                        FontItem(
+                            font = font,
+                            selected = font == selectedFont,
+                            onClick = { onChooseFont(font) },
+                        )
                     }
                 }
                 TextButton(
@@ -95,6 +81,33 @@ fun FontDialog(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FontItem(
+    font: Font,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(4.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp, horizontal = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = null,
+            modifier = Modifier.minimumInteractiveComponentSize(),
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(font.descriptionRes()),
+            style = MaterialTheme.typography.bodyLarge,
+        )
     }
 }
 
