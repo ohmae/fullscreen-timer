@@ -13,7 +13,7 @@
 ## 技術スタック
 - **言語**: Kotlin
 - **SDK**: `minSdk` = 26, `targetSdk` = 36
-- **UIツールキット**: XML (View)
+- **UIツールキット**: XML (View) / Compose へ移行中
 - **DI**: Hilt
 - **非同期処理**: Kotlin Coroutines & Flow
 - **ローカルデータ保存**: DataStore

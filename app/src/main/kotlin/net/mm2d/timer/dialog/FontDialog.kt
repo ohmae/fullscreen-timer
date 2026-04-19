@@ -29,11 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import net.mm2d.timer.R
 import net.mm2d.timer.settings.Font
+import net.mm2d.timer.ui.theme.AppTheme
 
 @Composable
 fun FontDialog(
@@ -117,3 +119,15 @@ private fun Font.descriptionRes(): Int =
         Font.LED_7SEGMENT -> R.string.menu_description_font_led_7segment
         Font.ROBOTO -> R.string.menu_description_font_roboto
     }
+
+@Preview(showBackground = true)
+@Composable
+private fun FontDialogPreview() {
+    AppTheme {
+        FontDialog(
+            selectedFont = Font.LED_7SEGMENT,
+            onChooseFont = {},
+            onDismissRequest = {},
+        )
+    }
+}
