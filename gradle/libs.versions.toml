@@ -15,9 +15,10 @@ androidxConstraintLayout = "2.2.1"
 androidxDatastore = "1.2.1"
 androidxLifecycle = "2.10.0"
 androidxWebkit = "1.15.0"
+androidxComposeBom = "2026.03.01"
 material = "1.13.0"
 playAppUpdate = "2.1.0"
-colorChooser = "0.7.6"
+colorChooser = "0.1.2"
 
 # test
 junit = "4.13.2"
@@ -40,14 +41,24 @@ androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constr
 androidxDatastorePreferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastore" }
 androidxLifecycleProcess = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
 androidxLifecycleRuntime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "androidxLifecycle" }
+androidxLifecycleRuntimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycle" }
 androidxLifecycleLiveData = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "androidxLifecycle" }
 androidxWebkit = { group = "androidx.webkit", name = "webkit", version.ref = "androidxWebkit" }
+androidxComposeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidxComposeActivity = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidxComposeAnimation = { group = "androidx.compose.animation", name = "animation" }
+androidxComposeFoundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidxComposeMaterial3 = { group = "androidx.compose.material3", name = "material3" }
+androidxComposeMaterialIconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidxComposeUi = { group = "androidx.compose.ui", name = "ui" }
+androidxComposeUiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidxComposeUiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 playAppUpdate = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "playAppUpdate" }
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
-colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser", version.ref = "colorChooser" }
+colorChooser = { group = "net.mm2d.color-chooser", name = "color-chooser-compose", version.ref = "colorChooser" }
 
 # test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -58,6 +69,7 @@ ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "k
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "dagger.hilt.android.plugin", version.ref = "hilt" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }

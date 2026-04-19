@@ -52,9 +52,4 @@
 
     <style name="TextAppearance.Timer.Title" parent="TextAppearance.Material3.BodyLarge">
     </style>
-    <style name="TextAppearance.Timer.Label" parent="TextAppearance.Material3.BodySmall">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-    <style name="TextAppearance.Timer.SubTitle" parent="TextAppearance.Material3.BodySmall">
-    </style>
 </resources>

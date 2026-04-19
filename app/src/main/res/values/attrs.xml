@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="title" format="string" />
-    <declare-styleable name="ColorMenuView">
-        <attr name="title" />
-        <attr name="description" format="string" />
-    </declare-styleable>
-    <declare-styleable name="SwitchMenuView">
-        <attr name="title" />
-        <attr name="descriptionOn" format="string" />
-        <attr name="descriptionOff" format="string" />
-        <attr name="checked" format="boolean" />
-    </declare-styleable>
-
     <attr name="colorControlDark" type="color" />
     <attr name="colorControlLight" type="color" />
     <attr name="borderColorDark" type="color" />

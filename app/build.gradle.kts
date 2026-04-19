@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinCompose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.dependencyGuard)
@@ -50,6 +51,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
+        compose = true
         viewBinding = true
         buildConfig = true
     }
@@ -78,14 +80,23 @@ androidComponents {
 }
 
 dependencies {
+    implementation(platform(libs.androidxComposeBom))
     implementation(libs.androidxCore)
     implementation(libs.androidxAppCompat)
     implementation(libs.androidxActivity)
+    implementation(libs.androidxComposeActivity)
+    implementation(libs.androidxComposeAnimation)
+    implementation(libs.androidxComposeFoundation)
+    implementation(libs.androidxComposeMaterial3)
+    implementation(libs.androidxComposeMaterialIconsExtended)
+    implementation(libs.androidxComposeUi)
+    implementation(libs.androidxComposeUiToolingPreview)
     implementation(libs.androidxBrowser)
     implementation(libs.androidxFragment)
     implementation(libs.androidxLifecycleLiveData)
     implementation(libs.androidxLifecycleProcess)
     implementation(libs.androidxLifecycleRuntime)
+    implementation(libs.androidxLifecycleRuntimeCompose)
     implementation(libs.androidxLifecycleViewModel)
     implementation(libs.androidxConstraintLayout)
     implementation(libs.androidxDatastorePreferences)
@@ -100,6 +111,8 @@ dependencies {
     implementation(libs.colorChooser)
 
     testImplementation(libs.junit)
+    debugImplementation(platform(libs.androidxComposeBom))
+    debugImplementation(libs.androidxComposeUiTooling)
 
     // for release
 }

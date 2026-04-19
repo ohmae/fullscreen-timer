@@ -7,12 +7,17 @@
 
 package net.mm2d.timer
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
@@ -24,7 +29,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
-    val uiStateFlow: Flow<UiState> = settingsRepository.flow
+    val uiStateFlow: StateFlow<UiState> = settingsRepository.flow
         .map {
             UiState(
                 mode = it.mode,
@@ -39,26 +44,51 @@ class SettingsViewModel @Inject constructor(
                 font = it.font,
                 orientation = it.orientation,
                 buttonOpacity = it.buttonOpacity,
+                onModeSelected = ::updateMode,
+                onForegroundColorRequest = ::requestForegroundColorDialog,
+                onBackgroundColorRequest = ::requestBackgroundColorDialog,
+                onButtonOpacityChange = ::updateButtonOpacity,
+                onVolumeChange = ::updateVolume,
+                onHourEnabledChange = ::updateHourEnabled,
+                onHourFormatChange = ::updateHourFormat24,
+                onMillisecondEnabledChange = ::updateMillisecondEnabled,
+                onSecondEnabledChange = ::updateSecondEnabled,
+                onFullscreenChange = ::updateFullscreen,
             )
         }
         .distinctUntilChanged()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = UiState(),
+        )
 
     data class UiState(
-        val mode: Mode,
-        val foregroundColor: Int,
-        val backgroundColor: Int,
-        val hourEnabled: Boolean,
-        val hourFormat24: Boolean,
-        val millisecondEnabled: Boolean,
-        val secondEnabled: Boolean,
-        val volume: Int,
-        val fullscreen: Boolean,
-        val font: Font,
-        val orientation: Orientation,
-        val buttonOpacity: Float,
+        val mode: Mode = Mode.CLOCK,
+        val foregroundColor: Int = android.graphics.Color.WHITE,
+        val backgroundColor: Int = android.graphics.Color.BLACK,
+        val hourEnabled: Boolean = false,
+        val hourFormat24: Boolean = true,
+        val millisecondEnabled: Boolean = true,
+        val secondEnabled: Boolean = true,
+        val volume: Int = 10,
+        val fullscreen: Boolean = true,
+        val font: Font = Font.LED_7SEGMENT,
+        val orientation: Orientation = Orientation.UNSPECIFIED,
+        val buttonOpacity: Float = 1f,
+        val onModeSelected: (Mode) -> Unit = {},
+        val onForegroundColorRequest: (Color) -> Unit = {},
+        val onBackgroundColorRequest: (Color) -> Unit = {},
+        val onButtonOpacityChange: (Float) -> Unit = {},
+        val onVolumeChange: (Int) -> Unit = {},
+        val onHourEnabledChange: (Boolean) -> Unit = {},
+        val onHourFormatChange: (Boolean) -> Unit = {},
+        val onMillisecondEnabledChange: (Boolean) -> Unit = {},
+        val onSecondEnabledChange: (Boolean) -> Unit = {},
+        val onFullscreenChange: (Boolean) -> Unit = {},
     )
 
-    fun updateMode(
+    private fun updateMode(
         mode: Mode,
     ) {
         viewModelScope.launch {
@@ -66,7 +96,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateForegroundColor(
+    private fun updateForegroundColor(
         color: Int,
     ) {
         viewModelScope.launch {
@@ -74,7 +104,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateBackgroundColor(
+    private fun updateBackgroundColor(
         color: Int,
     ) {
         viewModelScope.launch {
@@ -82,7 +112,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateHourEnabled(
+    private fun updateHourEnabled(
         enabled: Boolean,
     ) {
         viewModelScope.launch {
@@ -90,7 +120,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateHourFormat24(
+    private fun updateHourFormat24(
         enabled: Boolean,
     ) {
         viewModelScope.launch {
@@ -98,7 +128,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateMillisecondEnabled(
+    private fun updateMillisecondEnabled(
         enabled: Boolean,
     ) {
         viewModelScope.launch {
@@ -106,7 +136,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateSecondEnabled(
+    private fun updateSecondEnabled(
         enabled: Boolean,
     ) {
         viewModelScope.launch {
@@ -114,7 +144,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateVolume(
+    private fun updateVolume(
         volume: Int,
     ) {
         viewModelScope.launch {
@@ -122,7 +152,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateFullscreen(
+    private fun updateFullscreen(
         fullscreen: Boolean,
     ) {
         viewModelScope.launch {
@@ -146,11 +176,69 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateButtonOpacity(
+    private fun updateButtonOpacity(
         opacity: Float,
     ) {
         viewModelScope.launch {
             settingsRepository.updateButtonOpacity(opacity)
         }
+    }
+
+    private val dialogRequestFlow: MutableStateFlow<DialogRequest> = MutableStateFlow(DialogRequest.Dismiss)
+
+    fun getDialogRequestStream(): StateFlow<DialogRequest> = dialogRequestFlow
+
+    private fun requestDialog(
+        request: DialogRequest,
+    ) {
+        dialogRequestFlow.value = request
+    }
+
+    private fun dismissDialog() {
+        requestDialog(DialogRequest.Dismiss)
+    }
+
+    private fun requestForegroundColorDialog(
+        color: Color,
+    ) {
+        requestDialog(
+            DialogRequest.ForegroundColor(
+                color = color,
+                onChooseColor = {
+                    updateForegroundColor(it.toArgb())
+                    dismissDialog()
+                },
+                dismissRequest = ::dismissDialog,
+            ),
+        )
+    }
+
+    private fun requestBackgroundColorDialog(
+        color: Color,
+    ) {
+        requestDialog(
+            DialogRequest.BackgroundColor(
+                color = color,
+                onChooseColor = {
+                    updateBackgroundColor(it.toArgb())
+                    dismissDialog()
+                },
+                dismissRequest = ::dismissDialog,
+            ),
+        )
+    }
+
+    sealed interface DialogRequest {
+        data object Dismiss : DialogRequest
+        data class ForegroundColor(
+            val color: Color,
+            val onChooseColor: (Color) -> Unit,
+            val dismissRequest: () -> Unit,
+        ) : DialogRequest
+        data class BackgroundColor(
+            val color: Color,
+            val onChooseColor: (Color) -> Unit,
+            val dismissRequest: () -> Unit,
+        ) : DialogRequest
     }
 }
