@@ -54,6 +54,7 @@ class SettingsViewModel @Inject constructor(
                 onMillisecondEnabledChange = ::updateMillisecondEnabled,
                 onSecondEnabledChange = ::updateSecondEnabled,
                 onFullscreenChange = ::updateFullscreen,
+                onFontRequest = ::requestFontDialog,
             )
         }
         .distinctUntilChanged()
@@ -86,6 +87,7 @@ class SettingsViewModel @Inject constructor(
         val onMillisecondEnabledChange: (Boolean) -> Unit = {},
         val onSecondEnabledChange: (Boolean) -> Unit = {},
         val onFullscreenChange: (Boolean) -> Unit = {},
+        val onFontRequest: (Font) -> Unit = {},
     )
 
     private fun updateMode(
@@ -160,7 +162,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateFont(
+    private fun updateFont(
         font: Font,
     ) {
         viewModelScope.launch {
@@ -228,6 +230,21 @@ class SettingsViewModel @Inject constructor(
         )
     }
 
+    private fun requestFontDialog(
+        font: Font,
+    ) {
+        requestDialog(
+            DialogRequest.Font(
+                font = font,
+                onChooseFont = {
+                    updateFont(it)
+                    dismissDialog()
+                },
+                dismissRequest = ::dismissDialog,
+            ),
+        )
+    }
+
     sealed interface DialogRequest {
         data object Dismiss : DialogRequest
         data class ForegroundColor(
@@ -238,6 +255,11 @@ class SettingsViewModel @Inject constructor(
         data class BackgroundColor(
             val color: Color,
             val onChooseColor: (Color) -> Unit,
+            val dismissRequest: () -> Unit,
+        ) : DialogRequest
+        data class Font(
+            val font: net.mm2d.timer.settings.Font,
+            val onChooseFont: (net.mm2d.timer.settings.Font) -> Unit,
             val dismissRequest: () -> Unit,
         ) : DialogRequest
     }

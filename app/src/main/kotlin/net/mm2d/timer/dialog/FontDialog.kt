@@ -1,77 +1,106 @@
+/*
+ * Copyright (c) 2026 大前良介 (OHMAE Ryosuke)
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/MIT
+ */
+
 package net.mm2d.timer.dialog
 
-import android.app.Dialog
-import android.content.DialogInterface
-import android.os.Bundle
-import android.widget.ArrayAdapter
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
+import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import net.mm2d.timer.R
 import net.mm2d.timer.settings.Font
-import net.mm2d.timer.util.getSerializableSafely
-import net.mm2d.timer.util.serializableBundle
-import net.mm2d.timer.util.stringBundle
 
-class FontDialog : DialogFragment() {
-    override fun onCreateDialog(
-        savedInstanceState: Bundle?,
-    ): Dialog {
-        val activity = requireActivity()
-        val arguments = requireArguments()
-        val requestKey = arguments.getString(KEY_REQUEST_KEY, "")
-        val adapter = ArrayAdapter(
-            activity,
-            android.R.layout.simple_list_item_1,
-            Font.entries.map {
-                when (it) {
-                    Font.LED_7SEGMENT -> R.string.menu_description_font_led_7segment
-                    Font.ROBOTO -> R.string.menu_description_font_roboto
-                }.let { getString(it) }
-            },
-        )
-        val listener = DialogInterface.OnClickListener { dialog, which ->
-            val font = Font.entries[which]
-            parentFragmentManager.setFragmentResult(
-                requestKey,
-                serializableBundle(KEY_RESULT, font),
-            )
-            dialog.dismiss()
-        }
-        return AlertDialog.Builder(activity)
-            .setTitle(R.string.menu_title_font)
-            .setAdapter(adapter, listener)
-            .setNegativeButton(R.string.cancel, null)
-            .create()
-    }
-
-    companion object {
-        private const val TAG = "FontDialog"
-        private const val KEY_REQUEST_KEY = "KEY_REQUEST_KEY"
-        private const val KEY_RESULT = "KEY_RESULT"
-
-        fun registerListener(
-            activity: FragmentActivity,
-            requestKey: String,
-            listener: (Font) -> Unit,
+@Composable
+fun FontDialog(
+    selectedFont: Font,
+    onChooseFont: (Font) -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = DialogProperties(),
+    ) {
+        Surface(
+            modifier = Modifier.sizeIn(minWidth = DialogMinWidth, maxWidth = DialogMaxWidth),
+            shape = AlertDialogDefaults.shape,
+            color = AlertDialogDefaults.containerColor,
+            tonalElevation = AlertDialogDefaults.TonalElevation,
         ) {
-            val manager = activity.supportFragmentManager
-            manager.setFragmentResultListener(requestKey, activity) { _, result ->
-                val font = result.getSerializableSafely<Font>(KEY_RESULT)
-                    ?: return@setFragmentResultListener
-                listener(font)
+            Column(
+                modifier = Modifier.padding(top = 12.dp),
+            ) {
+                Text(
+                    text = stringResource(id = R.string.menu_title_font),
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
+                )
+                Column {
+                    Font.entries.forEach { font ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(4.dp))
+                                .clickable { onChooseFont(font) }
+                                .padding(vertical = 8.dp, horizontal = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            RadioButton(
+                                selected = font == selectedFont,
+                                onClick = null,
+                                modifier = Modifier.minimumInteractiveComponentSize()
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(font.descriptionRes()),
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        }
+                    }
+                }
+                TextButton(
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(top = 8.dp, end = 16.dp, bottom = 8.dp),
+                    onClick = onDismissRequest,
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.cancel),
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                    )
+                }
             }
-        }
-
-        fun show(
-            activity: FragmentActivity,
-            requestKey: String,
-        ) {
-            val manager = activity.supportFragmentManager
-            if (manager.isStateSaved || manager.findFragmentByTag(TAG) != null) return
-            FontDialog().also { dialog ->
-                dialog.arguments = stringBundle(KEY_REQUEST_KEY, requestKey)
-            }.show(manager, TAG)
         }
     }
 }
+
+@StringRes
+private fun Font.descriptionRes(): Int =
+    when (this) {
+        Font.LED_7SEGMENT -> R.string.menu_description_font_led_7segment
+        Font.ROBOTO -> R.string.menu_description_font_roboto
+    }

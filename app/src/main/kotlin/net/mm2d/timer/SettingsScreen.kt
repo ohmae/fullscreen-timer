@@ -65,6 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.mm2d.color.chooser.compose.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.UiState
+import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.Orientation
@@ -74,7 +75,6 @@ import net.mm2d.timer.ui.theme.AppTheme
 fun SettingsScreen(
     viewModel: SettingsViewModel,
     onNavigate: (NavigationDirection) -> Unit,
-    onOpenFontDialog: () -> Unit,
     onOpenOrientationDialog: () -> Unit,
 ) {
     AppTheme {
@@ -82,7 +82,6 @@ fun SettingsScreen(
         SettingsScreen(
             uiState = uiState,
             onNavigate = onNavigate,
-            onOpenFontDialog = onOpenFontDialog,
             onOpenOrientationDialog = onOpenOrientationDialog,
         )
         val dialogRequest by viewModel.getDialogRequestStream().collectAsStateWithLifecycle()
@@ -106,6 +105,12 @@ private fun DialogContent(
         is SettingsViewModel.DialogRequest.ForegroundColor -> ColorChooserDialog(
             initialColor = dialogRequest.color,
             onChooseColor = dialogRequest.onChooseColor,
+            onDismissRequest = dialogRequest.dismissRequest,
+        )
+
+        is SettingsViewModel.DialogRequest.Font -> FontDialog(
+            selectedFont = dialogRequest.font,
+            onChooseFont = dialogRequest.onChooseFont,
             onDismissRequest = dialogRequest.dismissRequest,
         )
     }
@@ -169,7 +174,6 @@ private sealed class MenuItem {
 }
 
 private fun UiState.toMenuItems(
-    onOpenFontDialog: () -> Unit,
     onOpenOrientationDialog: () -> Unit,
 ): List<MenuItem> =
     buildList {
@@ -277,7 +281,7 @@ private fun UiState.toMenuItems(
             key = "font",
             titleRes = R.string.menu_title_font,
             descriptionRes = fontDescription(font),
-            onClick = onOpenFontDialog,
+            onClick = { onFontRequest(font) },
         )
         this += MenuItem.TextWithIconMenu(
             key = "orientation",
@@ -297,11 +301,9 @@ private fun UiState.toMenuItems(
 private fun SettingsScreen(
     uiState: UiState,
     onNavigate: (NavigationDirection) -> Unit,
-    onOpenFontDialog: () -> Unit,
     onOpenOrientationDialog: () -> Unit,
 ) {
     val menuItems = uiState.toMenuItems(
-        onOpenFontDialog = onOpenFontDialog,
         onOpenOrientationDialog = onOpenOrientationDialog,
     )
     Scaffold(
@@ -781,7 +783,6 @@ private fun SettingsScreenPreview() {
                 buttonOpacity = 0.72f,
             ),
             onNavigate = {},
-            onOpenFontDialog = {},
             onOpenOrientationDialog = {},
         )
     }

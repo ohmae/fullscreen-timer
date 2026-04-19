@@ -15,7 +15,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
-import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.util.Launcher
 
@@ -33,9 +32,6 @@ class SettingsActivity : AppCompatActivity() {
             SettingsScreen(
                 viewModel = viewModel,
                 onNavigate = ::onNavigate,
-                onOpenFontDialog = {
-                    FontDialog.show(this, REQUEST_KEY_FONT)
-                },
                 onOpenOrientationDialog = {
                     OrientationDialog.show(this, REQUEST_KEY_ORIENTATION)
                 },
@@ -44,9 +40,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun registerDialogListeners() {
-        FontDialog.registerListener(this, REQUEST_KEY_FONT) { font ->
-            viewModel.updateFont(font)
-        }
         OrientationDialog.registerListener(this, REQUEST_KEY_ORIENTATION) {
             viewModel.updateOrientation(it)
         }
@@ -75,7 +68,6 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
         private const val PREFIX = "SettingsActivity."
-        private const val REQUEST_KEY_FONT = PREFIX + "REQUEST_KEY_FONT"
         private const val REQUEST_KEY_ORIENTATION = PREFIX + "REQUEST_KEY_ORIENTATION"
 
         fun start(
