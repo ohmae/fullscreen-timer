@@ -15,6 +15,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
+import net.mm2d.timer.ui.theme.AppTheme
 import net.mm2d.timer.util.Launcher
 
 @AndroidEntryPoint
@@ -27,10 +28,13 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            SettingsScreen(
-                viewModel = viewModel,
-                onNavigate = ::onNavigate,
-            )
+            AppTheme {
+                SettingsScreen(
+                    viewModel = viewModel,
+
+                    onNavigate = ::onNavigate,
+                )
+            }
         }
     }
 

@@ -188,105 +188,95 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    private val dialogRequestFlow: MutableStateFlow<DialogRequest> = MutableStateFlow(DialogRequest.Dismiss)
+    private val dialogUiStateFlow: MutableStateFlow<DialogUiState> = MutableStateFlow(DialogUiState.Dismiss)
 
-    fun getDialogRequestStream(): StateFlow<DialogRequest> = dialogRequestFlow
-
-    private fun requestDialog(
-        request: DialogRequest,
-    ) {
-        dialogRequestFlow.value = request
-    }
+    fun getDialogUiStateStream(): StateFlow<DialogUiState> = dialogUiStateFlow
 
     private fun dismissDialog() {
-        requestDialog(DialogRequest.Dismiss)
+        dialogUiStateFlow.value = DialogUiState.Dismiss
     }
 
     private fun requestForegroundColorDialog(
         color: Color,
     ) {
-        requestDialog(
-            DialogRequest.ForegroundColorSelect(
+        dialogUiStateFlow.value =
+            DialogUiState.ForegroundColorSelect(
                 color = color,
                 onChooseColor = {
                     updateForegroundColor(it.toArgb())
                     dismissDialog()
                 },
                 dismissRequest = ::dismissDialog,
-            ),
-        )
+            )
     }
 
     private fun requestBackgroundColorDialog(
         color: Color,
     ) {
-        requestDialog(
-            DialogRequest.BackgroundColorSelect(
+        dialogUiStateFlow.value =
+            DialogUiState.BackgroundColorSelect(
                 color = color,
                 onChooseColor = {
                     updateBackgroundColor(it.toArgb())
                     dismissDialog()
                 },
                 dismissRequest = ::dismissDialog,
-            ),
-        )
+            )
     }
 
     private fun requestFontDialog(
         font: Font,
     ) {
-        requestDialog(
-            DialogRequest.FontSelect(
+        dialogUiStateFlow.value =
+            DialogUiState.FontSelect(
                 font = font,
                 onChooseFont = {
                     updateFont(it)
                     dismissDialog()
                 },
                 dismissRequest = ::dismissDialog,
-            ),
-        )
+            )
     }
 
     private fun requestOrientationDialog(
         orientation: Orientation,
     ) {
-        requestDialog(
-            DialogRequest.OrientationSelect(
+        dialogUiStateFlow.value =
+            DialogUiState.OrientationSelect(
                 orientation = orientation,
                 onChooseOrientation = {
                     updateOrientation(it)
                     dismissDialog()
                 },
                 dismissRequest = ::dismissDialog,
-            ),
-        )
+            )
     }
 
-    sealed interface DialogRequest {
-        data object Dismiss : DialogRequest
+    sealed interface DialogUiState {
+        data object Dismiss : DialogUiState
 
         data class ForegroundColorSelect(
             val color: Color,
             val onChooseColor: (Color) -> Unit,
             val dismissRequest: () -> Unit,
-        ) : DialogRequest
+        ) : DialogUiState
 
         data class BackgroundColorSelect(
             val color: Color,
             val onChooseColor: (Color) -> Unit,
             val dismissRequest: () -> Unit,
-        ) : DialogRequest
+        ) : DialogUiState
 
         data class FontSelect(
             val font: Font,
             val onChooseFont: (Font) -> Unit,
             val dismissRequest: () -> Unit,
-        ) : DialogRequest
+        ) : DialogUiState
 
         data class OrientationSelect(
             val orientation: Orientation,
             val onChooseOrientation: (Orientation) -> Unit,
             val dismissRequest: () -> Unit,
-        ) : DialogRequest
+        ) : DialogUiState
     }
 }

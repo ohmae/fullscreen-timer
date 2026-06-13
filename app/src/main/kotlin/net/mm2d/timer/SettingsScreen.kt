@@ -65,6 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import net.mm2d.color.chooser.compose.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.UiState
+import net.mm2d.timer.SettingsViewModel.DialogUiState
 import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.settings.Font
@@ -77,46 +78,44 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     onNavigate: (NavigationDirection) -> Unit,
 ) {
-    AppTheme {
         val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
-        SettingsScreen(
+        SettingsScreenContent(
             uiState = uiState,
             onNavigate = onNavigate,
         )
-        val dialogRequest by viewModel.getDialogRequestStream().collectAsStateWithLifecycle()
-        DialogContent(dialogRequest)
-    }
+        val dialogUiState by viewModel.getDialogUiStateStream().collectAsStateWithLifecycle()
+        DialogContent(dialogUiState)
 }
 
 @Composable
 private fun DialogContent(
-    dialogRequest: SettingsViewModel.DialogRequest,
+    dialogUiState: DialogUiState,
 ) {
-    when (dialogRequest) {
-        is SettingsViewModel.DialogRequest.Dismiss -> Unit
+    when (dialogUiState) {
+        is DialogUiState.Dismiss -> Unit
 
-        is SettingsViewModel.DialogRequest.BackgroundColorSelect -> ColorChooserDialog(
-            initialColor = dialogRequest.color,
-            onChooseColor = dialogRequest.onChooseColor,
-            onDismissRequest = dialogRequest.dismissRequest,
+        is DialogUiState.BackgroundColorSelect -> ColorChooserDialog(
+            initialColor = dialogUiState.color,
+            onChooseColor = dialogUiState.onChooseColor,
+            onDismissRequest = dialogUiState.dismissRequest,
         )
 
-        is SettingsViewModel.DialogRequest.ForegroundColorSelect -> ColorChooserDialog(
-            initialColor = dialogRequest.color,
-            onChooseColor = dialogRequest.onChooseColor,
-            onDismissRequest = dialogRequest.dismissRequest,
+        is DialogUiState.ForegroundColorSelect -> ColorChooserDialog(
+            initialColor = dialogUiState.color,
+            onChooseColor = dialogUiState.onChooseColor,
+            onDismissRequest = dialogUiState.dismissRequest,
         )
 
-        is SettingsViewModel.DialogRequest.FontSelect -> FontDialog(
-            selectedFont = dialogRequest.font,
-            onChooseFont = dialogRequest.onChooseFont,
-            onDismissRequest = dialogRequest.dismissRequest,
+        is DialogUiState.FontSelect -> FontDialog(
+            selectedFont = dialogUiState.font,
+            onChooseFont = dialogUiState.onChooseFont,
+            onDismissRequest = dialogUiState.dismissRequest,
         )
 
-        is SettingsViewModel.DialogRequest.OrientationSelect -> OrientationDialog(
-            selectedOrientation = dialogRequest.orientation,
-            onChooseOrientation = dialogRequest.onChooseOrientation,
-            onDismissRequest = dialogRequest.dismissRequest,
+        is DialogUiState.OrientationSelect -> OrientationDialog(
+            selectedOrientation = dialogUiState.orientation,
+            onChooseOrientation = dialogUiState.onChooseOrientation,
+            onDismissRequest = dialogUiState.dismissRequest,
         )
     }
 }
@@ -301,7 +300,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
     }
 
 @Composable
-private fun SettingsScreen(
+private fun SettingsScreenContent(
     uiState: UiState,
     onNavigate: (NavigationDirection) -> Unit,
 ) {
@@ -772,7 +771,7 @@ private fun Mode.iconRes(): Int =
 @Composable
 private fun SettingsScreenPreview() {
     AppTheme {
-        SettingsScreen(
+        SettingsScreenContent(
             uiState = UiState(
                 mode = Mode.TIMER,
                 hourEnabled = true,
