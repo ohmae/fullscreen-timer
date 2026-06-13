@@ -266,8 +266,7 @@ private fun UiState.toMenuItems(
             this += MenuItem.SwitchMenu(
                 key = "hour_format",
                 titleRes = R.string.menu_title_hour_notation,
-                descriptionRes =
-                if (hourFormat24) {
+                descriptionRes = if (hourFormat24) {
                     R.string.menu_description_hour_notation_on
                 } else {
                     R.string.menu_description_hour_notation_off
@@ -278,8 +277,7 @@ private fun UiState.toMenuItems(
             this += MenuItem.SwitchMenu(
                 key = "second_enabled",
                 titleRes = R.string.menu_title_second_enabled,
-                descriptionRes =
-                if (secondEnabled) {
+                descriptionRes = if (secondEnabled) {
                     R.string.menu_description_second_enabled_on
                 } else {
                     R.string.menu_description_second_enabled_off
@@ -291,13 +289,11 @@ private fun UiState.toMenuItems(
             this += MenuItem.SwitchMenu(
                 key = "hour_enabled",
                 titleRes = R.string.menu_title_hour_enabled,
-                descriptionRes = (
-                    if (hourEnabled) {
-                        R.string.menu_description_hour_enabled_on
-                    } else {
-                        R.string.menu_description_hour_enabled_off
-                    }
-                    ),
+                descriptionRes = if (hourEnabled) {
+                    R.string.menu_description_hour_enabled_on
+                } else {
+                    R.string.menu_description_hour_enabled_off
+                },
                 checked = hourEnabled,
                 onCheckedChange = { onEvent(UiEvent.SelectHourEnabled(it)) },
             )
@@ -316,8 +312,7 @@ private fun UiState.toMenuItems(
         this += MenuItem.SwitchMenu(
             key = "fullscreen",
             titleRes = R.string.menu_title_fullscreen,
-            descriptionRes =
-            if (fullscreen) {
+            descriptionRes = if (fullscreen) {
                 R.string.menu_description_fullscreen_on
             } else {
                 R.string.menu_description_fullscreen_off
