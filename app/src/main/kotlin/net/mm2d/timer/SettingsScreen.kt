@@ -140,25 +140,25 @@ private fun DialogContent(
 
         is DialogUiState.BackgroundColorSelect -> ColorChooserDialog(
             initialColor = dialogUiState.color,
-            onChooseColor = dialogUiState.onChooseColor,
+            onChooseColor = { onEvent(UiEvent.SelectBackgroundColor(it)) },
             onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.ForegroundColorSelect -> ColorChooserDialog(
             initialColor = dialogUiState.color,
-            onChooseColor = dialogUiState.onChooseColor,
+            onChooseColor = { onEvent(UiEvent.SelectForegroundColor(it)) },
             onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.FontSelect -> FontDialog(
             selectedFont = dialogUiState.font,
-            onChooseFont = dialogUiState.onChooseFont,
+            onChooseFont = { onEvent(UiEvent.SelectFont(it)) },
             onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.OrientationSelect -> OrientationDialog(
             selectedOrientation = dialogUiState.orientation,
-            onChooseOrientation = dialogUiState.onChooseOrientation,
+            onChooseOrientation = { onEvent(UiEvent.SelectOrientation(it)) },
             onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
     }

@@ -205,11 +205,6 @@ class SettingsViewModel @Inject constructor(
         dialogUiStateFlow.value =
             DialogUiState.ForegroundColorSelect(
                 color = color,
-                onChooseColor = {
-                    updateForegroundColor(it.toArgb())
-                    dismissDialog()
-                },
-                dismissRequest = ::dismissDialog,
             )
     }
 
@@ -219,11 +214,6 @@ class SettingsViewModel @Inject constructor(
         dialogUiStateFlow.value =
             DialogUiState.BackgroundColorSelect(
                 color = color,
-                onChooseColor = {
-                    updateBackgroundColor(it.toArgb())
-                    dismissDialog()
-                },
-                dismissRequest = ::dismissDialog,
             )
     }
 
@@ -233,11 +223,6 @@ class SettingsViewModel @Inject constructor(
         dialogUiStateFlow.value =
             DialogUiState.FontSelect(
                 font = font,
-                onChooseFont = {
-                    updateFont(it)
-                    dismissDialog()
-                },
-                dismissRequest = ::dismissDialog,
             )
     }
 
@@ -247,11 +232,6 @@ class SettingsViewModel @Inject constructor(
         dialogUiStateFlow.value =
             DialogUiState.OrientationSelect(
                 orientation = orientation,
-                onChooseOrientation = {
-                    updateOrientation(it)
-                    dismissDialog()
-                },
-                dismissRequest = ::dismissDialog,
             )
     }
 
@@ -260,26 +240,18 @@ class SettingsViewModel @Inject constructor(
 
         data class ForegroundColorSelect(
             val color: Color,
-            val onChooseColor: (Color) -> Unit,
-            val dismissRequest: () -> Unit,
         ) : DialogUiState
 
         data class BackgroundColorSelect(
             val color: Color,
-            val onChooseColor: (Color) -> Unit,
-            val dismissRequest: () -> Unit,
         ) : DialogUiState
 
         data class FontSelect(
             val font: Font,
-            val onChooseFont: (Font) -> Unit,
-            val dismissRequest: () -> Unit,
         ) : DialogUiState
 
         data class OrientationSelect(
             val orientation: Orientation,
-            val onChooseOrientation: (Orientation) -> Unit,
-            val dismissRequest: () -> Unit,
         ) : DialogUiState
     }
 
@@ -287,11 +259,41 @@ class SettingsViewModel @Inject constructor(
         event: UiEvent,
     ) {
         when (event) {
-            UiEvent.ClickUp -> uiEffectChannel.trySend(UiEffect.ToUp)
-            UiEvent.ClickLicense -> uiEffectChannel.trySend(UiEffect.ToLicense)
-            UiEvent.ClickSourceCode -> uiEffectChannel.trySend(UiEffect.ToSourceCode)
-            UiEvent.ClickPrivacyPolicy -> uiEffectChannel.trySend(UiEffect.ToPrivacyPolicy)
-            UiEvent.ClickPlayStore -> uiEffectChannel.trySend(UiEffect.ToPlayStore)
+            UiEvent.ClickUp ->
+                uiEffectChannel.trySend(UiEffect.ToUp)
+
+            UiEvent.ClickLicense ->
+                uiEffectChannel.trySend(UiEffect.ToLicense)
+
+            UiEvent.ClickSourceCode ->
+                uiEffectChannel.trySend(UiEffect.ToSourceCode)
+
+            UiEvent.ClickPrivacyPolicy ->
+                uiEffectChannel.trySend(UiEffect.ToPrivacyPolicy)
+
+            UiEvent.ClickPlayStore ->
+                uiEffectChannel.trySend(UiEffect.ToPlayStore)
+
+            is UiEvent.SelectForegroundColor -> {
+                updateForegroundColor(event.color.toArgb())
+                dismissDialog()
+            }
+
+            is UiEvent.SelectBackgroundColor -> {
+                updateBackgroundColor(event.color.toArgb())
+                dismissDialog()
+            }
+
+            is UiEvent.SelectFont -> {
+                updateFont(event.font)
+                dismissDialog()
+            }
+
+            is UiEvent.SelectOrientation -> {
+                updateOrientation(event.orientation)
+                dismissDialog()
+            }
+
             UiEvent.DismissDialog -> dismissDialog()
         }
     }
@@ -302,6 +304,21 @@ class SettingsViewModel @Inject constructor(
         data object ClickSourceCode : UiEvent
         data object ClickPrivacyPolicy : UiEvent
         data object ClickPlayStore : UiEvent
+        data class SelectForegroundColor(
+            val color: Color,
+        ) : UiEvent
+
+        data class SelectBackgroundColor(
+            val color: Color,
+        ) : UiEvent
+
+        data class SelectFont(
+            val font: Font,
+        ) : UiEvent
+
+        data class SelectOrientation(
+            val orientation: Orientation,
+        ) : UiEvent
 
         data object DismissDialog : UiEvent
     }
