@@ -26,7 +26,10 @@ class SettingsActivity : AppCompatActivity() {
     ) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        enableEdgeToEdge(SystemBarStyle.dark(Color.TRANSPARENT))
+        enableEdgeToEdge(
+            SystemBarStyle.dark(Color.TRANSPARENT),
+            SystemBarStyle.dark(Color.BLACK),
+        )
         setContent {
             AppTheme {
                 SettingsScreen(
