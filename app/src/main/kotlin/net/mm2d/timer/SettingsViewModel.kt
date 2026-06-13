@@ -47,18 +47,6 @@ class SettingsViewModel @Inject constructor(
                 font = it.font,
                 orientation = it.orientation,
                 buttonOpacity = it.buttonOpacity,
-                onModeSelected = ::updateMode,
-                onForegroundColorRequest = ::requestForegroundColorDialog,
-                onBackgroundColorRequest = ::requestBackgroundColorDialog,
-                onButtonOpacityChange = ::updateButtonOpacity,
-                onVolumeChange = ::updateVolume,
-                onHourEnabledChange = ::updateHourEnabled,
-                onHourFormatChange = ::updateHourFormat24,
-                onMillisecondEnabledChange = ::updateMillisecondEnabled,
-                onSecondEnabledChange = ::updateSecondEnabled,
-                onFullscreenChange = ::updateFullscreen,
-                onFontRequest = ::requestFontDialog,
-                onOrientationRequest = ::requestOrientationDialog,
             )
         }
         .distinctUntilChanged()
@@ -81,18 +69,6 @@ class SettingsViewModel @Inject constructor(
         val font: Font = Font.LED_7SEGMENT,
         val orientation: Orientation = Orientation.UNSPECIFIED,
         val buttonOpacity: Float = 1f,
-        val onModeSelected: (Mode) -> Unit = {},
-        val onForegroundColorRequest: (Color) -> Unit = {},
-        val onBackgroundColorRequest: (Color) -> Unit = {},
-        val onButtonOpacityChange: (Float) -> Unit = {},
-        val onVolumeChange: (Int) -> Unit = {},
-        val onHourEnabledChange: (Boolean) -> Unit = {},
-        val onHourFormatChange: (Boolean) -> Unit = {},
-        val onMillisecondEnabledChange: (Boolean) -> Unit = {},
-        val onSecondEnabledChange: (Boolean) -> Unit = {},
-        val onFullscreenChange: (Boolean) -> Unit = {},
-        val onFontRequest: (Font) -> Unit = {},
-        val onOrientationRequest: (Orientation) -> Unit = {},
     )
 
     private fun updateMode(
@@ -274,6 +250,42 @@ class SettingsViewModel @Inject constructor(
             UiEvent.ClickPlayStore ->
                 uiEffectChannel.trySend(UiEffect.ToPlayStore)
 
+            is UiEvent.SelectMode ->
+                updateMode(event.mode)
+
+            is UiEvent.ClickForegroundColor ->
+                requestForegroundColorDialog(event.color)
+
+            is UiEvent.ClickBackgroundColor ->
+                requestBackgroundColorDialog(event.color)
+
+            is UiEvent.SelectButtonOpacity ->
+                updateButtonOpacity(event.opacity)
+
+            is UiEvent.SelectVolume ->
+                updateVolume(event.volume)
+
+            is UiEvent.SelectHourEnabled ->
+                updateHourEnabled(event.enabled)
+
+            is UiEvent.SelectHourFormat24 ->
+                updateHourFormat24(event.enabled)
+
+            is UiEvent.SelectMillisecondEnabled ->
+                updateMillisecondEnabled(event.enabled)
+
+            is UiEvent.SelectSecondEnabled ->
+                updateSecondEnabled(event.enabled)
+
+            is UiEvent.SelectFullscreen ->
+                updateFullscreen(event.fullscreen)
+
+            is UiEvent.ClickFontMenu ->
+                requestFontDialog(event.font)
+
+            is UiEvent.ClickOrientationMenu ->
+                requestOrientationDialog(event.orientation)
+
             is UiEvent.SelectForegroundColor -> {
                 updateForegroundColor(event.color.toArgb())
                 dismissDialog()
@@ -304,6 +316,54 @@ class SettingsViewModel @Inject constructor(
         data object ClickSourceCode : UiEvent
         data object ClickPrivacyPolicy : UiEvent
         data object ClickPlayStore : UiEvent
+        data class SelectMode(
+            val mode: Mode,
+        ) : UiEvent
+
+        data class ClickForegroundColor(
+            val color: Color,
+        ) : UiEvent
+
+        data class ClickBackgroundColor(
+            val color: Color,
+        ) : UiEvent
+
+        data class SelectButtonOpacity(
+            val opacity: Float,
+        ) : UiEvent
+
+        data class SelectVolume(
+            val volume: Int,
+        ) : UiEvent
+
+        data class SelectHourEnabled(
+            val enabled: Boolean,
+        ) : UiEvent
+
+        data class SelectHourFormat24(
+            val enabled: Boolean,
+        ) : UiEvent
+
+        data class SelectMillisecondEnabled(
+            val enabled: Boolean,
+        ) : UiEvent
+
+        data class SelectSecondEnabled(
+            val enabled: Boolean,
+        ) : UiEvent
+
+        data class SelectFullscreen(
+            val fullscreen: Boolean,
+        ) : UiEvent
+
+        data class ClickFontMenu(
+            val font: Font,
+        ) : UiEvent
+
+        data class ClickOrientationMenu(
+            val orientation: Orientation,
+        ) : UiEvent
+
         data class SelectForegroundColor(
             val color: Color,
         ) : UiEvent

@@ -221,26 +221,28 @@ private sealed class MenuItem {
     ) : MenuItem()
 }
 
-private fun UiState.toMenuItems(): List<MenuItem> =
+private fun UiState.toMenuItems(
+    onEvent: (UiEvent) -> Unit,
+): List<MenuItem> =
     buildList {
         this += MenuItem.ModeMenu(
             key = "mode",
             mode = mode,
-            onModeSelected = onModeSelected,
+            onModeSelected = { onEvent(UiEvent.SelectMode(it)) },
         )
         this += MenuItem.ColorMenu(
             key = "foreground_color",
             titleRes = R.string.menu_title_foreground_color,
             descriptionRes = R.string.menu_description_foreground_color,
             color = Color(foregroundColor),
-            onChangeRequest = onForegroundColorRequest,
+            onChangeRequest = { onEvent(UiEvent.ClickForegroundColor(it)) },
         )
         this += MenuItem.ColorMenu(
             key = "background_color",
             titleRes = R.string.menu_title_background_color,
             descriptionRes = R.string.menu_description_background_color,
             color = Color(backgroundColor),
-            onChangeRequest = onBackgroundColorRequest,
+            onChangeRequest = { onEvent(UiEvent.ClickBackgroundColor(it)) },
         )
         this += MenuItem.SliderMenu(
             key = "button_opacity",
@@ -249,7 +251,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
             valueRange = 0f..100f,
             steps = 99,
             valueFormatter = { "${it.toInt()}%" },
-            onValueChange = { onButtonOpacityChange(it / 100f) },
+            onValueChange = { onEvent(UiEvent.SelectButtonOpacity(it / 100f)) },
         )
         this += MenuItem.SliderMenu(
             key = "volume",
@@ -258,7 +260,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
             valueRange = 0f..10f,
             steps = 9,
             valueFormatter = { it.toInt().toString() },
-            onValueChange = { onVolumeChange(it.toInt()) },
+            onValueChange = { onEvent(UiEvent.SelectVolume(it.toInt())) },
         )
         if (mode == Mode.CLOCK) {
             this += MenuItem.SwitchMenu(
@@ -271,7 +273,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
                     R.string.menu_description_hour_notation_off
                 },
                 checked = hourFormat24,
-                onCheckedChange = onHourFormatChange,
+                onCheckedChange = { onEvent(UiEvent.SelectHourFormat24(it)) },
             )
             this += MenuItem.SwitchMenu(
                 key = "second_enabled",
@@ -283,7 +285,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
                     R.string.menu_description_second_enabled_off
                 },
                 checked = secondEnabled,
-                onCheckedChange = onSecondEnabledChange,
+                onCheckedChange = { onEvent(UiEvent.SelectSecondEnabled(it)) },
             )
         } else {
             this += MenuItem.SwitchMenu(
@@ -297,7 +299,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
                     }
                     ),
                 checked = hourEnabled,
-                onCheckedChange = onHourEnabledChange,
+                onCheckedChange = { onEvent(UiEvent.SelectHourEnabled(it)) },
             )
             this += MenuItem.SwitchMenu(
                 key = "millisecond_enabled",
@@ -308,7 +310,7 @@ private fun UiState.toMenuItems(): List<MenuItem> =
                     R.string.menu_description_millisecond_enabled_off
                 },
                 checked = millisecondEnabled,
-                onCheckedChange = onMillisecondEnabledChange,
+                onCheckedChange = { onEvent(UiEvent.SelectMillisecondEnabled(it)) },
             )
         }
         this += MenuItem.SwitchMenu(
@@ -321,20 +323,20 @@ private fun UiState.toMenuItems(): List<MenuItem> =
                 R.string.menu_description_fullscreen_off
             },
             checked = fullscreen,
-            onCheckedChange = onFullscreenChange,
+            onCheckedChange = { onEvent(UiEvent.SelectFullscreen(it)) },
         )
         this += MenuItem.TextMenu(
             key = "font",
             titleRes = R.string.menu_title_font,
             descriptionRes = fontDescription(font),
-            onClick = { onFontRequest(font) },
+            onClick = { onEvent(UiEvent.ClickFontMenu(font)) },
         )
         this += MenuItem.TextWithIconMenu(
             key = "orientation",
             titleRes = R.string.menu_title_orientation,
             descriptionRes = orientation.description,
             iconRes = orientation.icon,
-            onClick = { onOrientationRequest(orientation) },
+            onClick = { onEvent(UiEvent.ClickOrientationMenu(orientation)) },
         )
         this += MenuItem.FixedTextMenu(
             key = "version",
@@ -348,7 +350,7 @@ private fun SettingsScreenContent(
     uiState: UiState,
     onEvent: (UiEvent) -> Unit,
 ) {
-    val menuItems = uiState.toMenuItems()
+    val menuItems = uiState.toMenuItems(onEvent)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
