@@ -47,49 +47,93 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import net.mm2d.color.chooser.compose.ColorChooserDialog
-import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.SettingsViewModel.DialogUiState
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToLicense
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToPlayStore
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToPrivacyPolicy
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToSourceCode
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToUp
+import net.mm2d.timer.SettingsViewModel.UiEvent
+import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.dialog.OrientationDialog
 import net.mm2d.timer.settings.Font
 import net.mm2d.timer.settings.Mode
 import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.ui.theme.AppTheme
+import net.mm2d.timer.util.Launcher
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel,
-    onNavigate: (NavigationDirection) -> Unit,
+    goBack: () -> Unit,
 ) {
-        val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
-        SettingsScreenContent(
-            uiState = uiState,
-            onNavigate = onNavigate,
-        )
-        val dialogUiState by viewModel.getDialogUiStateStream().collectAsStateWithLifecycle()
-        DialogContent(dialogUiState)
+    val viewModel: SettingsViewModel = hiltViewModel()
+    val currentGoBack by rememberUpdatedState(goBack)
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(Unit) {
+        viewModel.getUiEffectStream()
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { effect ->
+                when (effect) {
+                    ToUp ->
+                        currentGoBack()
+
+                    ToLicense ->
+                        LicenseActivity.start(context)
+
+                    ToPrivacyPolicy ->
+                        Launcher.openPrivacyPolicy(context)
+
+                    ToSourceCode ->
+                        Launcher.openSourceCode(context)
+
+                    ToPlayStore ->
+                        Launcher.openGooglePlay(context)
+                }
+            }
+    }
+
+    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    SettingsScreenContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+    )
+
+    val dialogUiState by viewModel.getDialogUiStateStream().collectAsStateWithLifecycle()
+    DialogContent(
+        dialogUiState = dialogUiState,
+        onEvent = viewModel::onEvent,
+    )
 }
 
 @Composable
 private fun DialogContent(
     dialogUiState: DialogUiState,
+    onEvent: (UiEvent) -> Unit,
 ) {
     when (dialogUiState) {
         is DialogUiState.Dismiss -> Unit
@@ -97,25 +141,25 @@ private fun DialogContent(
         is DialogUiState.BackgroundColorSelect -> ColorChooserDialog(
             initialColor = dialogUiState.color,
             onChooseColor = dialogUiState.onChooseColor,
-            onDismissRequest = dialogUiState.dismissRequest,
+            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.ForegroundColorSelect -> ColorChooserDialog(
             initialColor = dialogUiState.color,
             onChooseColor = dialogUiState.onChooseColor,
-            onDismissRequest = dialogUiState.dismissRequest,
+            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.FontSelect -> FontDialog(
             selectedFont = dialogUiState.font,
             onChooseFont = dialogUiState.onChooseFont,
-            onDismissRequest = dialogUiState.dismissRequest,
+            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
 
         is DialogUiState.OrientationSelect -> OrientationDialog(
             selectedOrientation = dialogUiState.orientation,
             onChooseOrientation = dialogUiState.onChooseOrientation,
-            onDismissRequest = dialogUiState.dismissRequest,
+            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
         )
     }
 }
@@ -302,13 +346,13 @@ private fun UiState.toMenuItems(): List<MenuItem> =
 @Composable
 private fun SettingsScreenContent(
     uiState: UiState,
-    onNavigate: (NavigationDirection) -> Unit,
+    onEvent: (UiEvent) -> Unit,
 ) {
     val menuItems = uiState.toMenuItems()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            SettingsTopAppBar(onNavigate)
+            SettingsTopAppBar(onEvent)
         },
         containerColor = MaterialTheme.colorScheme.surface,
     ) { paddingValues ->
@@ -398,7 +442,7 @@ private fun SettingsScreenContent(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun SettingsTopAppBar(
-    onNavigate: (NavigationDirection) -> Unit,
+    onEvent: (UiEvent) -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     TopAppBar(
@@ -406,7 +450,7 @@ private fun SettingsTopAppBar(
             Text(text = stringResource(R.string.app_name))
         },
         navigationIcon = {
-            IconButton(onClick = { onNavigate(NavigationDirection.UP) }) {
+            IconButton(onClick = { onEvent(UiEvent.ClickUp) }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
@@ -426,19 +470,19 @@ private fun SettingsTopAppBar(
             ) {
                 SettingsMenuItem(R.string.options_menu_license) {
                     expanded = false
-                    onNavigate(NavigationDirection.TO_LICENSE)
+                    onEvent(UiEvent.ClickLicense)
                 }
                 SettingsMenuItem(R.string.options_menu_source_code) {
                     expanded = false
-                    onNavigate(NavigationDirection.TO_SOURCE_CODE)
+                    onEvent(UiEvent.ClickSourceCode)
                 }
                 SettingsMenuItem(R.string.options_menu_privacy_policy) {
                     expanded = false
-                    onNavigate(NavigationDirection.TO_PRIVACY_POLICY)
+                    onEvent(UiEvent.ClickPrivacyPolicy)
                 }
                 SettingsMenuItem(R.string.options_menu_play_store) {
                     expanded = false
-                    onNavigate(NavigationDirection.TO_PLAY_STORE)
+                    onEvent(UiEvent.ClickPlayStore)
                 }
             }
         },
@@ -781,7 +825,7 @@ private fun SettingsScreenPreview() {
                 orientation = Orientation.LANDSCAPE,
                 buttonOpacity = 0.72f,
             ),
-            onNavigate = {},
+            onEvent = {},
         )
     }
 }

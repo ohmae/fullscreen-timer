@@ -12,11 +12,14 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.Font
@@ -278,5 +281,39 @@ class SettingsViewModel @Inject constructor(
             val onChooseOrientation: (Orientation) -> Unit,
             val dismissRequest: () -> Unit,
         ) : DialogUiState
+    }
+
+    fun onEvent(
+        event: UiEvent,
+    ) {
+        when (event) {
+            UiEvent.ClickUp -> uiEffectChannel.trySend(UiEffect.ToUp)
+            UiEvent.ClickLicense -> uiEffectChannel.trySend(UiEffect.ToLicense)
+            UiEvent.ClickSourceCode -> uiEffectChannel.trySend(UiEffect.ToSourceCode)
+            UiEvent.ClickPrivacyPolicy -> uiEffectChannel.trySend(UiEffect.ToPrivacyPolicy)
+            UiEvent.ClickPlayStore -> uiEffectChannel.trySend(UiEffect.ToPlayStore)
+            UiEvent.DismissDialog -> dismissDialog()
+        }
+    }
+
+    sealed interface UiEvent {
+        data object ClickUp : UiEvent
+        data object ClickLicense : UiEvent
+        data object ClickSourceCode : UiEvent
+        data object ClickPrivacyPolicy : UiEvent
+        data object ClickPlayStore : UiEvent
+
+        data object DismissDialog : UiEvent
+    }
+
+    private val uiEffectChannel: Channel<UiEffect> = Channel(Channel.CONFLATED)
+    fun getUiEffectStream(): Flow<UiEffect> = uiEffectChannel.receiveAsFlow()
+
+    sealed interface UiEffect {
+        data object ToUp : UiEffect
+        data object ToLicense : UiEffect
+        data object ToSourceCode : UiEffect
+        data object ToPrivacyPolicy : UiEffect
+        data object ToPlayStore : UiEffect
     }
 }

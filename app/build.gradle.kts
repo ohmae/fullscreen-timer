@@ -19,7 +19,7 @@ val versionPatch = 3
 android {
     namespace = "net.mm2d.timer"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {
@@ -98,6 +98,7 @@ dependencies {
     implementation(libs.androidxLifecycleRuntime)
     implementation(libs.androidxLifecycleRuntimeCompose)
     implementation(libs.androidxLifecycleViewModel)
+    implementation(libs.androidxHiltLifecycleViewModelCompose)
     implementation(libs.androidxConstraintLayout)
     implementation(libs.androidxDatastorePreferences)
     implementation(libs.androidxWebkit)

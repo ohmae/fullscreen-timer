@@ -5,16 +5,13 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 
-private val DarkColorScheme = darkColorScheme()
-private val Typography = Typography()
-
 @Composable
 fun AppTheme(
     content: @Composable () -> Unit,
 ) {
     MaterialTheme(
-        colorScheme = DarkColorScheme,
-        typography = Typography,
+        colorScheme = darkColorScheme(),
+        typography = Typography(),
         content = content,
     )
 }
