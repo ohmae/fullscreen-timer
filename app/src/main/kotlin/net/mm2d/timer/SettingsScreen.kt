@@ -27,7 +27,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -164,188 +164,11 @@ private fun DialogContent(
     }
 }
 
-private sealed class MenuItem {
-    abstract val key: String
-
-    data class ModeMenu(
-        override val key: String,
-        val mode: Mode,
-        val onModeSelected: (Mode) -> Unit,
-    ) : MenuItem()
-
-    data class ColorMenu(
-        override val key: String,
-        val titleRes: Int,
-        val descriptionRes: Int,
-        val color: Color,
-        val onChangeRequest: (Color) -> Unit,
-    ) : MenuItem()
-
-    data class SliderMenu(
-        override val key: String,
-        val titleRes: Int,
-        val value: Int,
-        val valueRange: ClosedFloatingPointRange<Float>,
-        val steps: Int,
-        val valueFormatter: (Float) -> String,
-        val onValueChange: (Float) -> Unit,
-    ) : MenuItem()
-
-    data class SwitchMenu(
-        override val key: String,
-        val titleRes: Int,
-        val descriptionRes: Int,
-        val checked: Boolean,
-        val onCheckedChange: (Boolean) -> Unit,
-    ) : MenuItem()
-
-    data class TextMenu(
-        override val key: String,
-        val titleRes: Int,
-        val descriptionRes: Int,
-        val onClick: () -> Unit,
-    ) : MenuItem()
-
-    data class TextWithIconMenu(
-        override val key: String,
-        val titleRes: Int,
-        val descriptionRes: Int,
-        @DrawableRes val iconRes: Int,
-        val onClick: () -> Unit,
-    ) : MenuItem()
-
-    data class FixedTextMenu(
-        override val key: String,
-        val titleRes: Int,
-        val description: String,
-    ) : MenuItem()
-}
-
-private fun UiState.toMenuItems(
-    onEvent: (UiEvent) -> Unit,
-): List<MenuItem> =
-    buildList {
-        this += MenuItem.ModeMenu(
-            key = "mode",
-            mode = mode,
-            onModeSelected = { onEvent(UiEvent.SelectMode(it)) },
-        )
-        this += MenuItem.ColorMenu(
-            key = "foreground_color",
-            titleRes = R.string.menu_title_foreground_color,
-            descriptionRes = R.string.menu_description_foreground_color,
-            color = Color(foregroundColor),
-            onChangeRequest = { onEvent(UiEvent.ClickForegroundColor(it)) },
-        )
-        this += MenuItem.ColorMenu(
-            key = "background_color",
-            titleRes = R.string.menu_title_background_color,
-            descriptionRes = R.string.menu_description_background_color,
-            color = Color(backgroundColor),
-            onChangeRequest = { onEvent(UiEvent.ClickBackgroundColor(it)) },
-        )
-        this += MenuItem.SliderMenu(
-            key = "button_opacity",
-            titleRes = R.string.menu_title_button_opacity,
-            value = (buttonOpacity * 100).toInt(),
-            valueRange = 0f..100f,
-            steps = 99,
-            valueFormatter = { "${it.toInt()}%" },
-            onValueChange = { onEvent(UiEvent.SelectButtonOpacity(it / 100f)) },
-        )
-        this += MenuItem.SliderMenu(
-            key = "volume",
-            titleRes = R.string.menu_title_volume,
-            value = volume,
-            valueRange = 0f..10f,
-            steps = 9,
-            valueFormatter = { it.toInt().toString() },
-            onValueChange = { onEvent(UiEvent.SelectVolume(it.toInt())) },
-        )
-        if (mode == Mode.CLOCK) {
-            this += MenuItem.SwitchMenu(
-                key = "hour_format",
-                titleRes = R.string.menu_title_hour_notation,
-                descriptionRes = if (hourFormat24) {
-                    R.string.menu_description_hour_notation_on
-                } else {
-                    R.string.menu_description_hour_notation_off
-                },
-                checked = hourFormat24,
-                onCheckedChange = { onEvent(UiEvent.SelectHourFormat24(it)) },
-            )
-            this += MenuItem.SwitchMenu(
-                key = "second_enabled",
-                titleRes = R.string.menu_title_second_enabled,
-                descriptionRes = if (secondEnabled) {
-                    R.string.menu_description_second_enabled_on
-                } else {
-                    R.string.menu_description_second_enabled_off
-                },
-                checked = secondEnabled,
-                onCheckedChange = { onEvent(UiEvent.SelectSecondEnabled(it)) },
-            )
-        } else {
-            this += MenuItem.SwitchMenu(
-                key = "hour_enabled",
-                titleRes = R.string.menu_title_hour_enabled,
-                descriptionRes = if (hourEnabled) {
-                    R.string.menu_description_hour_enabled_on
-                } else {
-                    R.string.menu_description_hour_enabled_off
-                },
-                checked = hourEnabled,
-                onCheckedChange = { onEvent(UiEvent.SelectHourEnabled(it)) },
-            )
-            this += MenuItem.SwitchMenu(
-                key = "millisecond_enabled",
-                titleRes = R.string.menu_title_millisecond_enabled,
-                descriptionRes = if (millisecondEnabled) {
-                    R.string.menu_description_millisecond_enabled_on
-                } else {
-                    R.string.menu_description_millisecond_enabled_off
-                },
-                checked = millisecondEnabled,
-                onCheckedChange = { onEvent(UiEvent.SelectMillisecondEnabled(it)) },
-            )
-        }
-        this += MenuItem.SwitchMenu(
-            key = "fullscreen",
-            titleRes = R.string.menu_title_fullscreen,
-            descriptionRes = if (fullscreen) {
-                R.string.menu_description_fullscreen_on
-            } else {
-                R.string.menu_description_fullscreen_off
-            },
-            checked = fullscreen,
-            onCheckedChange = { onEvent(UiEvent.SelectFullscreen(it)) },
-        )
-        this += MenuItem.TextMenu(
-            key = "font",
-            titleRes = R.string.menu_title_font,
-            descriptionRes = fontDescription(font),
-            onClick = { onEvent(UiEvent.ClickFontMenu(font)) },
-        )
-        this += MenuItem.TextWithIconMenu(
-            key = "orientation",
-            titleRes = R.string.menu_title_orientation,
-            descriptionRes = orientation.description,
-            iconRes = orientation.icon,
-            onClick = { onEvent(UiEvent.ClickOrientationMenu(orientation)) },
-        )
-        this += MenuItem.FixedTextMenu(
-            key = "version",
-            titleRes = R.string.menu_title_version,
-            description = BuildConfig.VERSION_NAME,
-        )
-    }
-
 @Composable
 private fun SettingsScreenContent(
     uiState: UiState,
     onEvent: (UiEvent) -> Unit,
 ) {
-    val menuItems = uiState.toMenuItems(onEvent)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -359,82 +182,186 @@ private fun SettingsScreenContent(
                 .padding(paddingValues),
             contentPadding = PaddingValues(bottom = 16.dp),
         ) {
-            items(
-                items = menuItems,
-                key = { it.key },
-            ) {
-                when (it) {
-                    is MenuItem.ModeMenu -> {
-                        ModeSelector(
-                            modifier = Modifier.animateItem(),
-                            selectedMode = it.mode,
-                            onModeSelected = it.onModeSelected,
-                        )
-                    }
-
-                    is MenuItem.ColorMenu -> {
-                        ColorMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            descriptionRes = it.descriptionRes,
-                            color = it.color,
-                            onClick = it.onChangeRequest,
-                        )
-                    }
-
-                    is MenuItem.SliderMenu -> {
-                        SliderMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            value = it.value,
-                            valueRange = it.valueRange,
-                            steps = it.steps,
-                            valueFormatter = it.valueFormatter,
-                            onValueChange = it.onValueChange,
-                        )
-                    }
-
-                    is MenuItem.SwitchMenu -> {
-                        SwitchMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            descriptionRes = it.descriptionRes,
-                            checked = it.checked,
-                            onCheckedChange = it.onCheckedChange,
-                        )
-                    }
-
-                    is MenuItem.TextMenu -> {
-                        TextMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            descriptionRes = it.descriptionRes,
-                            onClick = it.onClick,
-                        )
-                    }
-
-                    is MenuItem.TextWithIconMenu -> {
-                        TextWithIconMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            descriptionRes = it.descriptionRes,
-                            iconRes = it.iconRes,
-                            onClick = it.onClick,
-                        )
-                    }
-
-                    is MenuItem.FixedTextMenu -> {
-                        FixedTextMenuRow(
-                            modifier = Modifier.animateItem(),
-                            titleRes = it.titleRes,
-                            description = it.description,
-                        )
-                    }
-                }
-            }
+            settingsItems(
+                uiState = uiState,
+                onEvent = onEvent,
+            )
         }
     }
 }
+
+private fun LazyListScope.settingsItems(
+    uiState: UiState,
+    onEvent: (UiEvent) -> Unit,
+) {
+    item(key = "mode") {
+        ModeSelector(
+            modifier = Modifier.animateItem(),
+            selectedMode = uiState.mode.selectedMode,
+            onModeSelected = { onEvent(UiEvent.SelectMode(it)) },
+        )
+    }
+    item(key = "foreground_color") {
+        val color = Color(uiState.foregroundColor.color)
+        ColorMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_foreground_color,
+            descriptionRes = R.string.menu_description_foreground_color,
+            color = color,
+            onClick = { onEvent(UiEvent.ClickForegroundColor(it)) },
+        )
+    }
+    item(key = "background_color") {
+        val color = Color(uiState.backgroundColor.color)
+        ColorMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_background_color,
+            descriptionRes = R.string.menu_description_background_color,
+            color = color,
+            onClick = { onEvent(UiEvent.ClickBackgroundColor(it)) },
+        )
+    }
+    item(key = "button_opacity") {
+        SliderMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_button_opacity,
+            value = uiState.buttonOpacity.value,
+            valueRange = 0f..100f,
+            steps = 99,
+            valueFormatter = { "${it.toInt()}%" },
+            onValueChange = { onEvent(UiEvent.SelectButtonOpacity(it / 100f)) },
+        )
+    }
+    item(key = "volume") {
+        SliderMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_volume,
+            value = uiState.volume.value,
+            valueRange = 0f..10f,
+            steps = 9,
+            valueFormatter = { it.toInt().toString() },
+            onValueChange = { onEvent(UiEvent.SelectVolume(it.toInt())) },
+        )
+    }
+    if (uiState.mode.selectedMode == Mode.CLOCK) {
+        clockSettingsItems(
+            uiState = uiState,
+            onEvent = onEvent,
+        )
+    } else {
+        timerStopwatchSettingsItems(
+            uiState = uiState,
+            onEvent = onEvent,
+        )
+    }
+    item(key = "fullscreen") {
+        SwitchMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_fullscreen,
+            descriptionRes = uiState.fullscreen.enabled.descriptionRes(
+                enabledRes = R.string.menu_description_fullscreen_on,
+                disabledRes = R.string.menu_description_fullscreen_off,
+            ),
+            checked = uiState.fullscreen.enabled,
+            onCheckedChange = { onEvent(UiEvent.SelectFullscreen(it)) },
+        )
+    }
+    item(key = "font") {
+        TextMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_font,
+            descriptionRes = fontDescription(uiState.font.font),
+            onClick = { onEvent(UiEvent.ClickFontMenu(uiState.font.font)) },
+        )
+    }
+    item(key = "orientation") {
+        TextWithIconMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_orientation,
+            descriptionRes = uiState.orientation.orientation.description,
+            iconRes = uiState.orientation.orientation.icon,
+            onClick = { onEvent(UiEvent.ClickOrientationMenu(uiState.orientation.orientation)) },
+        )
+    }
+    item(key = "version") {
+        FixedTextMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_version,
+            description = BuildConfig.VERSION_NAME,
+        )
+    }
+}
+
+private fun LazyListScope.clockSettingsItems(
+    uiState: UiState,
+    onEvent: (UiEvent) -> Unit,
+) {
+    item(key = "hour_format") {
+        SwitchMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_hour_notation,
+            descriptionRes = uiState.clock.hourFormat24.enabled.descriptionRes(
+                enabledRes = R.string.menu_description_hour_notation_on,
+                disabledRes = R.string.menu_description_hour_notation_off,
+            ),
+            checked = uiState.clock.hourFormat24.enabled,
+            onCheckedChange = { onEvent(UiEvent.SelectHourFormat24(it)) },
+        )
+    }
+    item(key = "second_enabled") {
+        SwitchMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_second_enabled,
+            descriptionRes = uiState.clock.secondEnabled.enabled.descriptionRes(
+                enabledRes = R.string.menu_description_second_enabled_on,
+                disabledRes = R.string.menu_description_second_enabled_off,
+            ),
+            checked = uiState.clock.secondEnabled.enabled,
+            onCheckedChange = { onEvent(UiEvent.SelectSecondEnabled(it)) },
+        )
+    }
+}
+
+private fun LazyListScope.timerStopwatchSettingsItems(
+    uiState: UiState,
+    onEvent: (UiEvent) -> Unit,
+) {
+    item(key = "hour_enabled") {
+        SwitchMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_hour_enabled,
+            descriptionRes = uiState.timerStopwatch.hourEnabled.enabled.descriptionRes(
+                enabledRes = R.string.menu_description_hour_enabled_on,
+                disabledRes = R.string.menu_description_hour_enabled_off,
+            ),
+            checked = uiState.timerStopwatch.hourEnabled.enabled,
+            onCheckedChange = { onEvent(UiEvent.SelectHourEnabled(it)) },
+        )
+    }
+    item(key = "millisecond_enabled") {
+        SwitchMenuRow(
+            modifier = Modifier.animateItem(),
+            titleRes = R.string.menu_title_millisecond_enabled,
+            descriptionRes = uiState.timerStopwatch.millisecondEnabled.enabled.descriptionRes(
+                enabledRes = R.string.menu_description_millisecond_enabled_on,
+                disabledRes = R.string.menu_description_millisecond_enabled_off,
+            ),
+            checked = uiState.timerStopwatch.millisecondEnabled.enabled,
+            onCheckedChange = { onEvent(UiEvent.SelectMillisecondEnabled(it)) },
+        )
+    }
+}
+
+@StringRes
+private fun Boolean.descriptionRes(
+    @StringRes enabledRes: Int,
+    @StringRes disabledRes: Int,
+): Int =
+    if (this) {
+        enabledRes
+    } else {
+        disabledRes
+    }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -814,13 +741,15 @@ private fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreenContent(
             uiState = UiState(
-                mode = Mode.TIMER,
-                hourEnabled = true,
-                millisecondEnabled = true,
-                volume = 7,
-                fullscreen = true,
-                orientation = Orientation.LANDSCAPE,
-                buttonOpacity = 0.72f,
+                mode = SettingsViewModel.ModeSetting(Mode.TIMER),
+                buttonOpacity = SettingsViewModel.SliderSetting(72),
+                volume = SettingsViewModel.SliderSetting(7),
+                timerStopwatch = SettingsViewModel.TimerStopwatchSettings(
+                    hourEnabled = SettingsViewModel.ToggleSetting(true),
+                    millisecondEnabled = SettingsViewModel.ToggleSetting(true),
+                ),
+                fullscreen = SettingsViewModel.ToggleSetting(true),
+                orientation = SettingsViewModel.OrientationSetting(Orientation.LANDSCAPE),
             ),
             onEvent = {},
         )

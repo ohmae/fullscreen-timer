@@ -35,18 +35,22 @@ class SettingsViewModel @Inject constructor(
     val uiStateFlow: StateFlow<UiState> = settingsRepository.flow
         .map {
             UiState(
-                mode = it.mode,
-                foregroundColor = it.foregroundColor,
-                backgroundColor = it.backgroundColor,
-                hourEnabled = it.hourEnabled,
-                hourFormat24 = it.hourFormat24,
-                millisecondEnabled = it.millisecondEnabled,
-                secondEnabled = it.secondEnabled,
-                volume = it.soundVolume,
-                fullscreen = it.fullscreen,
-                font = it.font,
-                orientation = it.orientation,
-                buttonOpacity = it.buttonOpacity,
+                mode = ModeSetting(it.mode),
+                foregroundColor = ColorSetting(it.foregroundColor),
+                backgroundColor = ColorSetting(it.backgroundColor),
+                buttonOpacity = SliderSetting((it.buttonOpacity * 100).toInt()),
+                volume = SliderSetting(it.soundVolume),
+                clock = ClockSettings(
+                    hourFormat24 = ToggleSetting(it.hourFormat24),
+                    secondEnabled = ToggleSetting(it.secondEnabled),
+                ),
+                timerStopwatch = TimerStopwatchSettings(
+                    hourEnabled = ToggleSetting(it.hourEnabled),
+                    millisecondEnabled = ToggleSetting(it.millisecondEnabled),
+                ),
+                fullscreen = ToggleSetting(it.fullscreen),
+                font = FontSetting(it.font),
+                orientation = OrientationSetting(it.orientation),
             )
         }
         .distinctUntilChanged()
@@ -57,18 +61,50 @@ class SettingsViewModel @Inject constructor(
         )
 
     data class UiState(
-        val mode: Mode = Mode.CLOCK,
-        val foregroundColor: Int = android.graphics.Color.WHITE,
-        val backgroundColor: Int = android.graphics.Color.BLACK,
-        val hourEnabled: Boolean = false,
-        val hourFormat24: Boolean = true,
-        val millisecondEnabled: Boolean = true,
-        val secondEnabled: Boolean = true,
-        val volume: Int = 10,
-        val fullscreen: Boolean = true,
+        val mode: ModeSetting = ModeSetting(),
+        val foregroundColor: ColorSetting = ColorSetting(android.graphics.Color.WHITE),
+        val backgroundColor: ColorSetting = ColorSetting(android.graphics.Color.BLACK),
+        val buttonOpacity: SliderSetting = SliderSetting(100),
+        val volume: SliderSetting = SliderSetting(10),
+        val clock: ClockSettings = ClockSettings(),
+        val timerStopwatch: TimerStopwatchSettings = TimerStopwatchSettings(),
+        val fullscreen: ToggleSetting = ToggleSetting(true),
+        val font: FontSetting = FontSetting(),
+        val orientation: OrientationSetting = OrientationSetting(),
+    )
+
+    data class ModeSetting(
+        val selectedMode: Mode = Mode.CLOCK,
+    )
+
+    data class ColorSetting(
+        val color: Int,
+    )
+
+    data class SliderSetting(
+        val value: Int,
+    )
+
+    data class ClockSettings(
+        val hourFormat24: ToggleSetting = ToggleSetting(true),
+        val secondEnabled: ToggleSetting = ToggleSetting(true),
+    )
+
+    data class TimerStopwatchSettings(
+        val hourEnabled: ToggleSetting = ToggleSetting(false),
+        val millisecondEnabled: ToggleSetting = ToggleSetting(true),
+    )
+
+    data class ToggleSetting(
+        val enabled: Boolean,
+    )
+
+    data class FontSetting(
         val font: Font = Font.LED_7SEGMENT,
+    )
+
+    data class OrientationSetting(
         val orientation: Orientation = Orientation.UNSPECIFIED,
-        val buttonOpacity: Float = 1f,
     )
 
     private fun updateMode(
