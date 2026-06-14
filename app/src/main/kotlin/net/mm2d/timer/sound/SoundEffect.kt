@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import net.mm2d.timer.settings.SettingsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.seconds
 
 @Singleton
 class SoundEffect @Inject constructor(
@@ -46,7 +47,7 @@ class SoundEffect @Inject constructor(
             ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10).let { tone ->
                 repeat(3) {
                     tone.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
-                    delay(1000)
+                    delay(1.seconds)
                 }
                 job = null
             }

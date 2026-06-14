@@ -8,7 +8,6 @@
 package net.mm2d.timer.util
 
 import android.os.Bundle
-import java.io.Serializable
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -25,13 +24,3 @@ fun longBundle(
     key: String,
     value: Long,
 ): Bundle = buildBundle { putLong(key, value) }
-
-fun stringBundle(
-    key: String,
-    value: String,
-): Bundle = buildBundle { putString(key, value) }
-
-fun serializableBundle(
-    key: String,
-    value: Serializable,
-): Bundle = buildBundle { putSerializable(key, value) }
