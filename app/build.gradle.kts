@@ -14,7 +14,7 @@ plugins {
 val applicationName = "Timer"
 val versionMajor = 0
 val versionMinor = 11
-val versionPatch = 6
+val versionPatch = 7
 
 android {
     namespace = "net.mm2d.timer"
