@@ -11,14 +11,6 @@ pluginManagement {
         }
         mavenCentral()
     }
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "dagger.hilt.android.plugin" ->
-                    useModule("com.google.dagger:hilt-android-gradle-plugin:${requested.version}")
-            }
-        }
-    }
 }
 
 @Suppress("UnstableApiUsage")
