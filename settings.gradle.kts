@@ -21,6 +21,7 @@ dependencyResolutionManagement {
             includeGroupAndSubgroups("com.android")
             includeGroupAndSubgroups("com.google")
             includeGroupAndSubgroups("androidx")
+            includeGroupAndSubgroups("org.chromium")
         }
         mavenCentral()
     }
