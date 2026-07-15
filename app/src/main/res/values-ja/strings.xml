@@ -57,5 +57,5 @@
     <string name="options_menu_source_code">ソースコード</string>
     <string name="options_menu_privacy_policy">プライバシーポリシー</string>
     <string name="options_menu_play_store">Google Playストア</string>
-    <string name="options_menu_relevant_ads">広告の関連性</string>
+    <string name="options_menu_privacy_options">プライバシー設定</string>
 </resources>

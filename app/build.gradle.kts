@@ -35,7 +35,6 @@ android {
         debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
-            enableAndroidTestCoverage = true
         }
         release {
             isShrinkResources = true
