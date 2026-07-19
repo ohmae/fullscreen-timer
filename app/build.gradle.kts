@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinCompose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kover)
     alias(libs.plugins.dependencyGuard)
 
     // for release
@@ -103,16 +104,19 @@ dependencies {
     implementation(libs.androidxWebkit)
     implementation(libs.material)
     implementation(libs.playAppUpdate)
+    debugImplementation(libs.androidxComposeUiTooling)
 
     implementation(libs.hiltAndroid)
     ksp(libs.hiltAndroidCompiler)
-    ksp(libs.kotlinMetadataJvm)
 
     implementation(libs.colorChooser)
 
     testImplementation(libs.junit)
-    debugImplementation(platform(libs.androidxComposeBom))
-    debugImplementation(libs.androidxComposeUiTooling)
+    testImplementation(libs.mockk)
+    testImplementation(libs.truth)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidxJunit)
+    testImplementation(libs.kotlinxCoroutinesTest)
 
     // for release
 }

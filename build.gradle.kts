@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.kotlinCompose) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.kover) apply false
+    alias(libs.plugins.dependencyGuard) apply false
     alias(libs.plugins.versionCatalogUpdate)
 
     // for release
