@@ -49,6 +49,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         compose = true
@@ -80,6 +81,8 @@ androidComponents {
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.desugarJdkLibs)
+
     implementation(platform(libs.androidxComposeBom))
     implementation(libs.androidxCore)
     implementation(libs.androidxAppCompat)
