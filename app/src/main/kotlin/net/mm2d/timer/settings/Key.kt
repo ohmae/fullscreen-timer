@@ -76,12 +76,12 @@ enum class DataStoreFile {
 
 fun preferences(
     file: DataStoreFile,
-    migrations: List<DataMigration<Preferences>> = listOf(),
+    produceMigrations: (Context) -> List<DataMigration<Preferences>> = { emptyList() },
 ): ReadOnlyProperty<Context, DataStore<Preferences>> =
     preferencesDataStore(
         name = file.fileName(),
         corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() },
-        produceMigrations = { migrations },
+        produceMigrations = produceMigrations,
     )
 
 fun Preferences.edit(

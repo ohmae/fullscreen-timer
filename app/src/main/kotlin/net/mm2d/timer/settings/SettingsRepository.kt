@@ -34,10 +34,12 @@ class SettingsRepository @Inject constructor(
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.MAIN,
-        migrations = listOf(
-            MigrationForData(),
-            MigrationForVersion(),
-        ),
+        produceMigrations = {
+            listOf(
+                MigrationForData(),
+                MigrationForVersion(),
+            )
+        },
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())

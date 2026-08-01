@@ -27,7 +27,7 @@ class StopwatchRunningStateRepository @Inject constructor(
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.STOPWATCH_STATE,
-        migrations = listOf(MigrationForData()),
+        produceMigrations = { listOf(MigrationForData()) },
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
