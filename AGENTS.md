@@ -18,7 +18,8 @@
 - **ローカルデータ保存**: DataStore
 
 ## アーキテクチャと設計方針
-- **アーキテクチャパターン**: MVVM
+
+- **アーキテクチャパターン**: MVVM + MVI
 - **状態管理**: UIの状態はViewModel内で `StateFlow` を用いて管理し、Activity/Fragment/Composableから監視すること
 
 ## コーディング規約
