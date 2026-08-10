@@ -63,6 +63,8 @@ androidxComposeMaterialIconsExtended = { group = "androidx.compose.material", na
 androidxComposeUi = { group = "androidx.compose.ui", name = "ui" }
 androidxComposeUiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidxComposeUiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidxComposeUiTestJunit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidxComposeUiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 playAppUpdate = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "playAppUpdate" }
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
