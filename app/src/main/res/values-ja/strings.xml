@@ -57,8 +57,6 @@
     <string name="minus_30s">-30秒</string>
     <string name="minus_5s">-5秒</string>
     <string name="reset">リセット</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
 
     <string name="options_menu_license">オープンソースライセンス</string>
     <string name="options_menu_source_code">ソースコード</string>
