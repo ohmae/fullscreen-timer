@@ -74,6 +74,7 @@ class MainViewModel @Inject constructor(
             UiEvent.ClickSecondButton -> onClickSecondButton()
             UiEvent.ClickTime -> onClickTime()
             UiEvent.ClickSettings -> emitEffect(UiEffect.OpenSettings)
+            UiEvent.DismissTimerDialog -> dismissTimerDialog()
             is UiEvent.SelectTimerTime -> selectTimerTime(event.timeMillis)
             is UiEvent.HandleLaunchRequest -> handleLaunchRequest(event.request)
             UiEvent.PersistRunningState -> persistRunningState()
@@ -183,6 +184,7 @@ class MainViewModel @Inject constructor(
                 mode = mode,
                 timeMillis = timeMillis,
                 started = false,
+                timerDialog = null,
             )
         }
         if (mode == Mode.CLOCK) startTicker()
@@ -256,7 +258,12 @@ class MainViewModel @Inject constructor(
     private fun selectTimerTime(
         timeMillis: Long,
     ) {
-        mutableUiState.update { it.copy(timerTimeMillis = timeMillis) }
+        mutableUiState.update {
+            it.copy(
+                timerTimeMillis = timeMillis,
+                timerDialog = null,
+            )
+        }
         if (mutableUiState.value.mode == Mode.TIMER) {
             stopTicker()
             timerController.deactivate()
@@ -427,12 +434,18 @@ class MainViewModel @Inject constructor(
     }
 
     private fun showTimerDialog() {
-        emitEffect(
-            UiEffect.ShowTimerDialog(
-                timeMillis = mutableUiState.value.timerTimeMillis,
-                hourEnabled = mutableUiState.value.hourEnabled,
-            ),
-        )
+        mutableUiState.update { state ->
+            state.copy(
+                timerDialog = TimerDialogState(
+                    timeMillis = state.timerTimeMillis,
+                    hourEnabled = state.hourEnabled,
+                ),
+            )
+        }
+    }
+
+    private fun dismissTimerDialog() {
+        mutableUiState.update { it.copy(timerDialog = null) }
     }
 
     private fun persistRunningState() {
@@ -516,6 +529,7 @@ class MainViewModel @Inject constructor(
         val millisecondEnabled: Boolean = true,
         val secondEnabled: Boolean = true,
         val timerTimeMillis: Long = SettingsRepository.TIMER_TIME_DEFAULT,
+        val timerDialog: TimerDialogState? = null,
     ) {
         val firstButton: Button
             get() = when (mode) {
@@ -555,6 +569,8 @@ class MainViewModel @Inject constructor(
 
         data object ClickSettings : UiEvent
 
+        data object DismissTimerDialog : UiEvent
+
         data class SelectTimerTime(
             val timeMillis: Long,
         ) : UiEvent
@@ -569,15 +585,15 @@ class MainViewModel @Inject constructor(
     sealed interface UiEffect {
         data object OpenSettings : UiEffect
 
-        data class ShowTimerDialog(
-            val timeMillis: Long,
-            val hourEnabled: Boolean,
-        ) : UiEffect
-
         data object PlaySound : UiEffect
 
         data object PlayStopSound : UiEffect
     }
+
+    data class TimerDialogState(
+        val timeMillis: Long,
+        val hourEnabled: Boolean,
+    )
 
     private companion object {
         const val CLOCK_INTERVAL_MILLIS = 1_000L

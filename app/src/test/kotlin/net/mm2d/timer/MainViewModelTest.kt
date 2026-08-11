@@ -127,6 +127,44 @@ class MainViewModelTest {
         }
 
     @Test
+    fun `onEvent タイマー設定操作でダイアログ状態を表示して閉じる`() =
+        runTest(mainDispatcherRule.testDispatcher) {
+            settingsFlow.value = createSettings(mode = Mode.TIMER, timerTime = 30_000L)
+            val viewModel = createViewModel()
+            runCurrent()
+
+            viewModel.onEvent(UiEvent.ClickSecondButton)
+
+            assertThat(viewModel.uiStateFlow.value.timerDialog).isEqualTo(
+                MainViewModel.TimerDialogState(
+                    timeMillis = 30_000L,
+                    hourEnabled = false,
+                ),
+            )
+
+            viewModel.onEvent(UiEvent.DismissTimerDialog)
+
+            assertThat(viewModel.uiStateFlow.value.timerDialog).isNull()
+        }
+
+    @Test
+    fun `onEvent タイマー設定時間を選択してダイアログ状態を閉じる`() =
+        runTest(mainDispatcherRule.testDispatcher) {
+            settingsFlow.value = createSettings(mode = Mode.TIMER, timerTime = 30_000L)
+            val viewModel = createViewModel()
+            runCurrent()
+            viewModel.onEvent(UiEvent.ClickSecondButton)
+
+            viewModel.onEvent(UiEvent.SelectTimerTime(90_000L))
+            runCurrent()
+
+            assertThat(viewModel.uiStateFlow.value.timerDialog).isNull()
+            assertThat(viewModel.uiStateFlow.value.timerTimeMillis).isEqualTo(90_000L)
+            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(90_000L)
+            coVerify(exactly = 1) { settingsRepository.updateTimerTime(90_000L) }
+        }
+
+    @Test
     fun `初期化 実行中タイマーを復元して保存状態を消費する`() =
         runTest(mainDispatcherRule.testDispatcher) {
             settingsFlow.value = createSettings(mode = Mode.TIMER, timerTime = 1_000L)

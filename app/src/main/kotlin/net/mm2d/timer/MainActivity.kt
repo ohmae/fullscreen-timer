@@ -57,10 +57,6 @@ class MainActivity : AppCompatActivity() {
         savedInstanceState: Bundle?,
     ) {
         super.onCreate(savedInstanceState)
-        TimeDialog.registerListener(this, TIMER_DIALOG_REQUEST_KEY) {
-            viewModel.onEvent(UiEvent.SelectTimerTime(it))
-        }
-
         fullscreenHelper = FullscreenHelper(window)
         setContent {
             AppTheme {
@@ -107,16 +103,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         when (effect) {
             UiEffect.OpenSettings -> SettingsActivity.start(this)
-
-            is UiEffect.ShowTimerDialog -> TimeDialog.show(
-                activity = this,
-                requestKey = TIMER_DIALOG_REQUEST_KEY,
-                time = effect.timeMillis,
-                hourEnabled = effect.hourEnabled,
-            )
-
             UiEffect.PlaySound -> soundEffect.play()
-
             UiEffect.PlayStopSound -> soundEffect.playStop()
         }
     }
@@ -139,10 +126,6 @@ class MainActivity : AppCompatActivity() {
         MainLaunchRequestParser.parse(intent)?.let {
             viewModel.onEvent(UiEvent.HandleLaunchRequest(it))
         }
-    }
-
-    private companion object {
-        const val TIMER_DIALOG_REQUEST_KEY = "MainActivity:Time"
     }
 }
 
@@ -170,6 +153,18 @@ private fun MainScreenRoute(
             if (event.animatesButtonOpacity) animationRequest++
         },
     )
+    uiState.timerDialog?.let {
+        TimeDialog(
+            timeMillis = it.timeMillis,
+            hourEnabled = it.hourEnabled,
+            onSelectTime = { timeMillis ->
+                onEvent(UiEvent.SelectTimerTime(timeMillis))
+            },
+            onDismissRequest = {
+                onEvent(UiEvent.DismissTimerDialog)
+            },
+        )
+    }
 }
 
 private val UiEvent.animatesButtonOpacity: Boolean
