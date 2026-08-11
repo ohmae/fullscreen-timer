@@ -8,9 +8,10 @@
 package net.mm2d.timer.main
 
 import net.mm2d.timer.settings.TimerRunningState
+import javax.inject.Inject
 
-class TimerController(
-    private val timeProvider: TimeProvider = SystemTimeProvider,
+class TimerController @Inject constructor(
+    private val timeProvider: TimeProvider,
 ) {
     var started: Boolean = false
         private set
