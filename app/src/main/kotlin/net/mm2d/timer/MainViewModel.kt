@@ -542,6 +542,7 @@ class MainViewModel @Inject constructor(
         PAUSE,
         RESET,
         TIMER,
+        SETTINGS,
     }
 
     sealed interface UiEvent {

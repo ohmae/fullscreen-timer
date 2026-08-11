@@ -8,6 +8,13 @@
     <string name="label_stopwatch">ストップウォッチ</string>
     <string name="label_timer">タイマー</string>
 
+    <string name="action_start">開始</string>
+    <string name="action_pause">一時停止</string>
+    <string name="action_reset">リセット</string>
+    <string name="action_set_timer">タイマーを設定</string>
+    <string name="action_open_settings">設定を開く</string>
+    <string name="action_toggle_timer_state">開始または一時停止</string>
+
     <string name="menu_title_foreground_color">表示色</string>
     <string name="menu_description_foreground_color">時刻面の文字色を設定します</string>
     <string name="menu_title_background_color">背景色</string>
