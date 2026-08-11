@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
@@ -105,7 +106,7 @@ fun TimeDialog(
                 Row(
                     modifier = Modifier
                         .align(Alignment.End)
-                        .padding(top = 8.dp, end = 16.dp, bottom = 8.dp),
+                        .padding(vertical = 8.dp, horizontal = 16.dp),
                 ) {
                     TextButton(
                         onClick = {
@@ -117,6 +118,7 @@ fun TimeDialog(
                     ) {
                         Text(stringResource(R.string.reset))
                     }
+                    Spacer(modifier = Modifier.weight(1f))
                     TextButton(onClick = onDismissRequest) {
                         Text(stringResource(R.string.cancel))
                     }
