@@ -196,6 +196,7 @@ class MainActivity : AppCompatActivity() {
             Button.PAUSE -> R.drawable.ic_pause
             Button.RESET -> R.drawable.ic_reset
             Button.TIMER -> R.drawable.ic_timer
+            Button.SETTINGS -> R.drawable.ic_settings
         }
         setImageResource(imageResource)
     }

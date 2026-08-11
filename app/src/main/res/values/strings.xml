@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Fullscreen Timer</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -6,6 +6,13 @@
     <string name="label_clock">clock</string>
     <string name="label_stopwatch">stopwatch</string>
     <string name="label_timer">timer</string>
+
+    <string name="action_start">Start</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_set_timer">Set timer</string>
+    <string name="action_open_settings">Open settings</string>
+    <string name="action_toggle_timer_state">Start or pause</string>
 
     <string name="menu_title_foreground_color">Foreground color</string>
     <string name="menu_description_foreground_color">Set the color of the clock text</string>
