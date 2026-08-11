@@ -10,6 +10,7 @@ package net.mm2d.timer
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHeightIsEqualTo
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertLeftPositionInRootIsEqualTo
 import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.v2.createComposeRule
@@ -27,6 +28,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import java.util.Calendar
 
 @Suppress("NonAsciiCharacters")
 @RunWith(RobolectricTestRunner::class)
@@ -68,7 +70,41 @@ class MainScreenTest {
 
         composeRule.onAllNodesWithContentDescription("Start").assertCountEquals(0)
         composeRule.onAllNodesWithContentDescription("Reset").assertCountEquals(0)
-        composeRule.onNodeWithContentDescription("Open settings").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Open settings")
+            .assertIsDisplayed()
+            .assertLeftPositionInRootIsEqualTo(704.dp)
+    }
+
+    @Test
+    fun `表示 時計モードの12時間表記と秒を表示する`() {
+        setContent(
+            UiState(
+                initialized = true,
+                mode = Mode.CLOCK,
+                timeMillis = clockTimeMillis(hour = 13, minute = 24, second = 56),
+                hourFormat24 = false,
+                secondEnabled = true,
+                shouldUseDarkForeground = true,
+            ),
+        )
+
+        composeRule.onNodeWithContentDescription("01:24:56 PM").assertIsDisplayed()
+    }
+
+    @Test
+    fun `表示 時計モードで秒を無効にすると時分だけを表示する`() {
+        setContent(
+            UiState(
+                initialized = true,
+                mode = Mode.CLOCK,
+                timeMillis = clockTimeMillis(hour = 13, minute = 24, second = 56),
+                hourFormat24 = true,
+                secondEnabled = false,
+                shouldUseDarkForeground = true,
+            ),
+        )
+
+        composeRule.onNodeWithContentDescription("13:24").assertIsDisplayed()
     }
 
     @Test
@@ -144,4 +180,14 @@ class MainScreenTest {
             }
         }
     }
+
+    private fun clockTimeMillis(
+        hour: Int,
+        minute: Int,
+        second: Int,
+    ): Long =
+        Calendar.getInstance().also {
+            it.set(2026, Calendar.AUGUST, 11, hour, minute, second)
+            it.set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
 }
