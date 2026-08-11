@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.take
 
 fun <T> Flow<T>.observe(
     owner: LifecycleOwner,
@@ -23,14 +22,5 @@ fun <T> Flow<T>.observe(
     action: suspend (T) -> Unit,
 ) = flowWithLifecycle(owner.lifecycle, minActiveState)
     .distinctUntilChanged()
-    .onEach(action)
-    .launchIn(owner.lifecycleScope)
-
-fun <T> Flow<T>.observeOnce(
-    owner: LifecycleOwner,
-    minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
-    action: suspend (T) -> Unit,
-) = flowWithLifecycle(owner.lifecycle, minActiveState)
-    .take(1)
     .onEach(action)
     .launchIn(owner.lifecycleScope)

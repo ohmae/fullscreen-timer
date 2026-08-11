@@ -39,6 +39,7 @@ import net.mm2d.timer.settings.TimerRunningState
 import net.mm2d.timer.settings.TimerRunningStateRepository
 import net.mm2d.timer.util.shouldUseDarkForeground
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -363,7 +364,7 @@ class MainViewModel @Inject constructor(
         tickerJob = viewModelScope.launch {
             while (true) {
                 val nextDelayMillis = updateTick() ?: break
-                delay(nextDelayMillis.coerceAtLeast(MINIMUM_DELAY_MILLIS))
+                delay(nextDelayMillis.milliseconds.coerceAtLeast(MINIMUM_DELAY_MILLIS))
             }
         }
     }
@@ -580,6 +581,6 @@ class MainViewModel @Inject constructor(
 
     private companion object {
         const val CLOCK_INTERVAL_MILLIS = 1_000L
-        const val MINIMUM_DELAY_MILLIS = 1L
+        val MINIMUM_DELAY_MILLIS = 1.milliseconds
     }
 }
