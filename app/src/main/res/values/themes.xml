@@ -26,14 +26,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Timer.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="colorPrimary">@color/black</item>
-    </style>
-
-    <style name="Theme.Timer.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="colorSurface">@color/black</item>
-    </style>
-
     <style name="Theme.Timer.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorSecondary">@color/blue_500</item>
