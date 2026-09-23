@@ -77,6 +77,9 @@ import net.mm2d.timer.SettingsViewModel.UiEffect.ToPrivacyPolicy
 import net.mm2d.timer.SettingsViewModel.UiEffect.ToSourceCode
 import net.mm2d.timer.SettingsViewModel.UiEffect.ToUp
 import net.mm2d.timer.SettingsViewModel.UiEvent
+import net.mm2d.timer.SettingsViewModel.UiEvent.DismissDialog
+import net.mm2d.timer.SettingsViewModel.UiEvent.SelectBackgroundColor
+import net.mm2d.timer.SettingsViewModel.UiEvent.SelectForegroundColor
 import net.mm2d.timer.SettingsViewModel.UiState
 import net.mm2d.timer.dialog.FontDialog
 import net.mm2d.timer.dialog.OrientationDialog
@@ -139,15 +142,16 @@ private fun DialogContent(
         is DialogUiState.Dismiss -> Unit
 
         is DialogUiState.BackgroundColorSelect -> ColorChooserDialog(
-            initialColor = dialogUiState.color,
-            onChooseColor = { onEvent(UiEvent.SelectBackgroundColor(it)) },
-            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
+            onDismissRequest = { onEvent(DismissDialog) },
+            onConfirm = { onEvent(SelectBackgroundColor(it)) },
+            initialColor = dialogUiState.color
         )
 
+
         is DialogUiState.ForegroundColorSelect -> ColorChooserDialog(
-            initialColor = dialogUiState.color,
-            onChooseColor = { onEvent(UiEvent.SelectForegroundColor(it)) },
-            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
+            onDismissRequest = { onEvent(DismissDialog) },
+            onConfirm = { onEvent(SelectForegroundColor(it)) },
+            initialColor = dialogUiState.color
         )
 
         is DialogUiState.FontSelect -> FontDialog(
