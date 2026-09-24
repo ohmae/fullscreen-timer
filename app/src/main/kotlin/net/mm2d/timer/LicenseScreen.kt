@@ -7,6 +7,7 @@
 
 package net.mm2d.timer
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.webkit.RenderProcessGoneDetail
@@ -64,37 +65,49 @@ fun LicenseScreen(
         var key: Int by remember { mutableIntStateOf(0) }
         key(key) {
             AndroidView(
-                factory = { context ->
-                    NestedScrollingWebView(context).apply {
-                        settings.setSupportZoom(false)
-                        settings.displayZoomControls = false
-                        webViewClient = object : WebViewClient() {
-                            override fun shouldOverrideUrlLoading(
-                                view: WebView,
-                                request: WebResourceRequest,
-                            ): Boolean {
-                                val uri = request.url ?: return true
-                                return Launcher.openCustomTabs(context, uri)
-                            }
-
-                            override fun onRenderProcessGone(
-                                view: WebView,
-                                detail: RenderProcessGoneDetail,
-                            ): Boolean {
-                                (view.parent as? ViewGroup)?.removeView(view)
-                                view.destroy()
-                                key++
-                                return true
-                            }
-                        }
-                        loadUrl("file:///android_asset/license.html")
-                        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-                    }
-                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
+                factory = { context ->
+                    NestedScrollingWebView(context).also {
+                        setUpWebView(it) {
+                            key++
+                        }
+                    }
+                },
             )
         }
     }
+}
+
+@SuppressLint("SetJavaScriptEnabled")
+private fun setUpWebView(
+    webView: WebView,
+    onRenderProcessGone: () -> Unit,
+) {
+    webView.settings.setSupportZoom(false)
+    webView.settings.displayZoomControls = false
+    val context = webView.context
+    @SuppressLint("MissingOnRenderProcessGone")
+    webView.webViewClient = object : WebViewClient() {
+        override fun shouldOverrideUrlLoading(
+            view: WebView,
+            request: WebResourceRequest,
+        ): Boolean {
+            val uri = request.url ?: return true
+            return Launcher.openCustomTabs(context, uri)
+        }
+
+        override fun onRenderProcessGone(
+            view: WebView,
+            detail: RenderProcessGoneDetail,
+        ): Boolean {
+            (view.parent as? ViewGroup)?.removeView(view)
+            view.destroy()
+            onRenderProcessGone()
+            return true
+        }
+    }
+    webView.loadUrl("file:///android_asset/license.html")
+    webView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
 }
