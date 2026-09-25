@@ -117,7 +117,7 @@ fun SettingsScreen(
             }
     }
 
-    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    val uiState by viewModel.getUiStateStream().collectAsStateWithLifecycle()
     SettingsScreenContent(
         uiState = uiState,
         onEvent = viewModel::onEvent,
@@ -197,12 +197,12 @@ private fun LazyListScope.settingsItems(
     item(key = "mode") {
         ModeSelector(
             modifier = Modifier.animateItem(),
-            selectedMode = uiState.mode.selectedMode,
+            selectedMode = uiState.mode,
             onModeSelected = { onEvent(UiEvent.SelectMode(it)) },
         )
     }
     item(key = "foreground_color") {
-        val color = Color(uiState.foregroundColor.color)
+        val color = Color(uiState.foregroundColor)
         ColorMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_foreground_color,
@@ -212,7 +212,7 @@ private fun LazyListScope.settingsItems(
         )
     }
     item(key = "background_color") {
-        val color = Color(uiState.backgroundColor.color)
+        val color = Color(uiState.backgroundColor)
         ColorMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_background_color,
@@ -225,7 +225,7 @@ private fun LazyListScope.settingsItems(
         SliderMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_button_opacity,
-            value = uiState.buttonOpacity.value,
+            value = uiState.buttonOpacity,
             valueRange = 0f..100f,
             steps = 99,
             valueFormatter = { "${it.toInt()}%" },
@@ -236,14 +236,14 @@ private fun LazyListScope.settingsItems(
         SliderMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_volume,
-            value = uiState.volume.value,
+            value = uiState.volume,
             valueRange = 0f..10f,
             steps = 9,
             valueFormatter = { it.toInt().toString() },
             onValueChange = { onEvent(UiEvent.SelectVolume(it.toInt())) },
         )
     }
-    if (uiState.mode.selectedMode == Mode.CLOCK) {
+    if (uiState.mode == Mode.CLOCK) {
         clockSettingsItems(
             uiState = uiState,
             onEvent = onEvent,
@@ -258,11 +258,11 @@ private fun LazyListScope.settingsItems(
         SwitchMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_fullscreen,
-            descriptionRes = uiState.fullscreen.enabled.descriptionRes(
+            descriptionRes = uiState.fullscreen.descriptionRes(
                 enabledRes = R.string.menu_description_fullscreen_on,
                 disabledRes = R.string.menu_description_fullscreen_off,
             ),
-            checked = uiState.fullscreen.enabled,
+            checked = uiState.fullscreen,
             onCheckedChange = { onEvent(UiEvent.SelectFullscreen(it)) },
         )
     }
@@ -270,17 +270,17 @@ private fun LazyListScope.settingsItems(
         TextMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_font,
-            descriptionRes = fontDescription(uiState.font.font),
-            onClick = { onEvent(UiEvent.ClickFontMenu(uiState.font.font)) },
+            descriptionRes = fontDescription(uiState.font),
+            onClick = { onEvent(UiEvent.ClickFontMenu(uiState.font)) },
         )
     }
     item(key = "orientation") {
         TextWithIconMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_orientation,
-            descriptionRes = uiState.orientation.orientation.description,
-            iconRes = uiState.orientation.orientation.icon,
-            onClick = { onEvent(UiEvent.ClickOrientationMenu(uiState.orientation.orientation)) },
+            descriptionRes = uiState.orientation.description,
+            iconRes = uiState.orientation.icon,
+            onClick = { onEvent(UiEvent.ClickOrientationMenu(uiState.orientation)) },
         )
     }
     item(key = "version") {
@@ -300,11 +300,11 @@ private fun LazyListScope.clockSettingsItems(
         SwitchMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_hour_notation,
-            descriptionRes = uiState.clock.hourFormat24.enabled.descriptionRes(
+            descriptionRes = uiState.hourFormat24.descriptionRes(
                 enabledRes = R.string.menu_description_hour_notation_on,
                 disabledRes = R.string.menu_description_hour_notation_off,
             ),
-            checked = uiState.clock.hourFormat24.enabled,
+            checked = uiState.hourFormat24,
             onCheckedChange = { onEvent(UiEvent.SelectHourFormat24(it)) },
         )
     }
@@ -312,11 +312,11 @@ private fun LazyListScope.clockSettingsItems(
         SwitchMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_second_enabled,
-            descriptionRes = uiState.clock.secondEnabled.enabled.descriptionRes(
+            descriptionRes = uiState.secondEnabled.descriptionRes(
                 enabledRes = R.string.menu_description_second_enabled_on,
                 disabledRes = R.string.menu_description_second_enabled_off,
             ),
-            checked = uiState.clock.secondEnabled.enabled,
+            checked = uiState.secondEnabled,
             onCheckedChange = { onEvent(UiEvent.SelectSecondEnabled(it)) },
         )
     }
@@ -330,11 +330,11 @@ private fun LazyListScope.timerStopwatchSettingsItems(
         SwitchMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_hour_enabled,
-            descriptionRes = uiState.timerStopwatch.hourEnabled.enabled.descriptionRes(
+            descriptionRes = uiState.hourEnabled.descriptionRes(
                 enabledRes = R.string.menu_description_hour_enabled_on,
                 disabledRes = R.string.menu_description_hour_enabled_off,
             ),
-            checked = uiState.timerStopwatch.hourEnabled.enabled,
+            checked = uiState.hourEnabled,
             onCheckedChange = { onEvent(UiEvent.SelectHourEnabled(it)) },
         )
     }
@@ -342,11 +342,11 @@ private fun LazyListScope.timerStopwatchSettingsItems(
         SwitchMenuRow(
             modifier = Modifier.animateItem(),
             titleRes = R.string.menu_title_millisecond_enabled,
-            descriptionRes = uiState.timerStopwatch.millisecondEnabled.enabled.descriptionRes(
+            descriptionRes = uiState.millisecondEnabled.descriptionRes(
                 enabledRes = R.string.menu_description_millisecond_enabled_on,
                 disabledRes = R.string.menu_description_millisecond_enabled_off,
             ),
-            checked = uiState.timerStopwatch.millisecondEnabled.enabled,
+            checked = uiState.millisecondEnabled,
             onCheckedChange = { onEvent(UiEvent.SelectMillisecondEnabled(it)) },
         )
     }
@@ -741,15 +741,13 @@ private fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreenContent(
             uiState = UiState(
-                mode = SettingsViewModel.ModeSetting(Mode.TIMER),
-                buttonOpacity = SettingsViewModel.SliderSetting(72),
-                volume = SettingsViewModel.SliderSetting(7),
-                timerStopwatch = SettingsViewModel.TimerStopwatchSettings(
-                    hourEnabled = SettingsViewModel.ToggleSetting(true),
-                    millisecondEnabled = SettingsViewModel.ToggleSetting(true),
-                ),
-                fullscreen = SettingsViewModel.ToggleSetting(true),
-                orientation = SettingsViewModel.OrientationSetting(Orientation.LANDSCAPE),
+                mode = Mode.TIMER,
+                buttonOpacity = 72,
+                volume = 7,
+                hourEnabled = true,
+                millisecondEnabled = true,
+                fullscreen = true,
+                orientation = Orientation.LANDSCAPE,
             ),
             onEvent = {},
         )

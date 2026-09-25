@@ -15,7 +15,6 @@
 
         <item name="colorControlNormal">@color/white</item>
 
-        <item name="alertDialogTheme">@style/Theme.Timer.Dialog</item>
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
@@ -24,15 +23,5 @@
     <style name="Theme.Timer.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.Timer.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
-        <item name="colorPrimary">@color/blue_500</item>
-        <item name="colorSecondary">@color/blue_500</item>
-        <item name="colorSurface">@color/gray_900</item>
-        <item name="android:windowBackground">@color/gray_900</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/gray_500</item>
-        <item name="colorOnSurface">@color/gray_500</item>
     </style>
 </resources>

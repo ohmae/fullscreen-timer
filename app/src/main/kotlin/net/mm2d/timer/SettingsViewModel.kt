@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -32,25 +33,21 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 ) : ViewModel() {
-    val uiStateFlow: StateFlow<UiState> = settingsRepository.flow
+    private val uiStateFlow: StateFlow<UiState> = settingsRepository.flow
         .map {
             UiState(
-                mode = ModeSetting(it.mode),
-                foregroundColor = ColorSetting(it.foregroundColor),
-                backgroundColor = ColorSetting(it.backgroundColor),
-                buttonOpacity = SliderSetting((it.buttonOpacity * 100).toInt()),
-                volume = SliderSetting(it.soundVolume),
-                clock = ClockSettings(
-                    hourFormat24 = ToggleSetting(it.hourFormat24),
-                    secondEnabled = ToggleSetting(it.secondEnabled),
-                ),
-                timerStopwatch = TimerStopwatchSettings(
-                    hourEnabled = ToggleSetting(it.hourEnabled),
-                    millisecondEnabled = ToggleSetting(it.millisecondEnabled),
-                ),
-                fullscreen = ToggleSetting(it.fullscreen),
-                font = FontSetting(it.font),
-                orientation = OrientationSetting(it.orientation),
+                mode = it.mode,
+                foregroundColor = it.foregroundColor,
+                backgroundColor = it.backgroundColor,
+                buttonOpacity = (it.buttonOpacity * 100).toInt(),
+                volume = it.soundVolume,
+                hourFormat24 = it.hourFormat24,
+                secondEnabled = it.secondEnabled,
+                hourEnabled = it.hourEnabled,
+                millisecondEnabled = it.millisecondEnabled,
+                fullscreen = it.fullscreen,
+                font = it.font,
+                orientation = it.orientation,
             )
         }
         .distinctUntilChanged()
@@ -61,51 +58,21 @@ class SettingsViewModel @Inject constructor(
         )
 
     data class UiState(
-        val mode: ModeSetting = ModeSetting(),
-        val foregroundColor: ColorSetting = ColorSetting(android.graphics.Color.WHITE),
-        val backgroundColor: ColorSetting = ColorSetting(android.graphics.Color.BLACK),
-        val buttonOpacity: SliderSetting = SliderSetting(100),
-        val volume: SliderSetting = SliderSetting(10),
-        val clock: ClockSettings = ClockSettings(),
-        val timerStopwatch: TimerStopwatchSettings = TimerStopwatchSettings(),
-        val fullscreen: ToggleSetting = ToggleSetting(true),
-        val font: FontSetting = FontSetting(),
-        val orientation: OrientationSetting = OrientationSetting(),
-    )
-
-    data class ModeSetting(
-        val selectedMode: Mode = Mode.CLOCK,
-    )
-
-    data class ColorSetting(
-        val color: Int,
-    )
-
-    data class SliderSetting(
-        val value: Int,
-    )
-
-    data class ClockSettings(
-        val hourFormat24: ToggleSetting = ToggleSetting(true),
-        val secondEnabled: ToggleSetting = ToggleSetting(true),
-    )
-
-    data class TimerStopwatchSettings(
-        val hourEnabled: ToggleSetting = ToggleSetting(false),
-        val millisecondEnabled: ToggleSetting = ToggleSetting(true),
-    )
-
-    data class ToggleSetting(
-        val enabled: Boolean,
-    )
-
-    data class FontSetting(
+        val mode: Mode = Mode.CLOCK,
+        val foregroundColor: Int = android.graphics.Color.WHITE,
+        val backgroundColor: Int = android.graphics.Color.BLACK,
+        val buttonOpacity: Int = 100,
+        val volume: Int = 10,
+        val hourFormat24: Boolean = true,
+        val secondEnabled: Boolean = true,
+        val hourEnabled: Boolean = false,
+        val millisecondEnabled: Boolean = true,
+        val fullscreen: Boolean = true,
         val font: Font = Font.LED_7SEGMENT,
-    )
-
-    data class OrientationSetting(
         val orientation: Orientation = Orientation.UNSPECIFIED,
     )
+
+    fun getUiStateStream(): StateFlow<UiState> = uiStateFlow
 
     private fun updateMode(
         mode: Mode,
@@ -205,7 +172,7 @@ class SettingsViewModel @Inject constructor(
 
     private val dialogUiStateFlow: MutableStateFlow<DialogUiState> = MutableStateFlow(DialogUiState.Dismiss)
 
-    fun getDialogUiStateStream(): StateFlow<DialogUiState> = dialogUiStateFlow
+    fun getDialogUiStateStream(): StateFlow<DialogUiState> = dialogUiStateFlow.asStateFlow()
 
     private fun dismissDialog() {
         dialogUiStateFlow.value = DialogUiState.Dismiss

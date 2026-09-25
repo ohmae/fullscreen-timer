@@ -137,7 +137,7 @@ fun <K> K.floatKey(): Preferences.Key<Float>
           K : Key {
     if (BuildConfig.DEBUG) {
         require(name.endsWith(SUFFIX_FLOAT)) {
-            "$this is used for Long, suffix \"$SUFFIX_FLOAT\" is required."
+            "$this is used for Float, suffix \"$SUFFIX_FLOAT\" is required."
         }
     }
     return floatPreferencesKey(name)

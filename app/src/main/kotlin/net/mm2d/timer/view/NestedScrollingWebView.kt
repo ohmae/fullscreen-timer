@@ -11,16 +11,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewConfiguration
-import android.view.ViewGroup
 import android.webkit.WebView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.NestedScrollingChild
 import androidx.core.view.NestedScrollingChildHelper
 import androidx.core.view.ViewCompat
-import androidx.core.view.forEach
-import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
 
 class NestedScrollingWebView
@@ -36,24 +31,11 @@ class NestedScrollingWebView
     private var startY: Float = 0f
     private var prevY: Float = 0f
     private var scrolling: Boolean = false
-    private var appBarLayout: AppBarLayout? = null
-    private var behavior: Behavior? = null
 
     init {
         isNestedScrollingEnabled = true
         touchSlop = ViewConfiguration.get(context).scaledTouchSlop
         setBackgroundColor(0)
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        behavior = (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior as? Behavior
-        (parent as? ViewGroup)?.forEach {
-            if (it is AppBarLayout) {
-                appBarLayout = it
-                return
-            }
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -97,9 +79,6 @@ class NestedScrollingWebView
             stopNestedScroll()
             scrolling = false
         }
-        appBarLayout?.let {
-            it.setExpanded(it.bottom > it.height / 2)
-        }
     }
 
     override fun setNestedScrollingEnabled(
@@ -112,13 +91,9 @@ class NestedScrollingWebView
 
     override fun startNestedScroll(
         axes: Int,
-    ): Boolean {
-        behavior?.scrollByUser = true
-        return helper.startNestedScroll(axes)
-    }
+    ): Boolean = helper.startNestedScroll(axes)
 
     override fun stopNestedScroll() {
-        behavior?.scrollByUser = false
         helper.stopNestedScroll()
     }
 
@@ -156,25 +131,4 @@ class NestedScrollingWebView
         velocityX: Float,
         velocityY: Float,
     ): Boolean = helper.dispatchNestedPreFling(velocityX, velocityY)
-
-    class Behavior(
-        context: Context,
-        attrs: AttributeSet?,
-    ) : AppBarLayout.ScrollingViewBehavior(context, attrs) {
-        var scrollByUser = true
-        private var prevBottom = 0
-
-        override fun onDependentViewChanged(
-            parent: CoordinatorLayout,
-            child: View,
-            dependency: View,
-        ): Boolean {
-            if (!scrollByUser) {
-                val dy = dependency.bottom - prevBottom
-                child.scrollBy(0, dy)
-            }
-            prevBottom = dependency.bottom
-            return super.onDependentViewChanged(parent, child, dependency)
-        }
-    }
 }
