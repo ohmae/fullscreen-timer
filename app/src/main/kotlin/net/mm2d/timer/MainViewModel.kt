@@ -50,11 +50,11 @@ class MainViewModel @Inject constructor(
     private val stopwatchController: StopwatchController,
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
-    private val mutableUiState = MutableStateFlow(UiState())
-    val uiStateFlow: StateFlow<UiState> = mutableUiState.asStateFlow()
+    private val uiStateFlow = MutableStateFlow(UiState())
+    fun getUiStateStream(): StateFlow<UiState> = uiStateFlow.asStateFlow()
 
     private val uiEffectChannel = Channel<UiEffect>(Channel.BUFFERED)
-    val uiEffectFlow: Flow<UiEffect> = uiEffectChannel.receiveAsFlow()
+    fun getUiEffectStream(): Flow<UiEffect> = uiEffectChannel.receiveAsFlow()
 
     private var currentSettings: Settings? = null
     private var pendingLaunchRequest: MainLaunchRequest? = null
@@ -104,7 +104,7 @@ class MainViewModel @Inject constructor(
         stopwatchController.setHourEnabled(settings.hourEnabled)
         stopwatchController.setMillisecondEnabled(settings.millisecondEnabled)
         timerController.setMillisecondEnabled(settings.millisecondEnabled)
-        mutableUiState.value = settings.toUiState(initialized = true)
+        uiStateFlow.value = settings.toUiState(initialized = true)
         activateMode(settings.mode)
 
         if (timerRunningState.started) {
@@ -127,9 +127,9 @@ class MainViewModel @Inject constructor(
         stopwatchController.setHourEnabled(settings.hourEnabled)
         stopwatchController.setMillisecondEnabled(settings.millisecondEnabled)
         timerController.setMillisecondEnabled(settings.millisecondEnabled)
-        mutableUiState.update { state -> settings.toUiState(state = state) }
+        uiStateFlow.update { state -> settings.toUiState(state = state) }
 
-        if (settings.mode != mutableUiState.value.mode) {
+        if (settings.mode != uiStateFlow.value.mode) {
             activateMode(settings.mode)
         } else if (
             settings.mode == Mode.TIMER &&
@@ -184,12 +184,12 @@ class MainViewModel @Inject constructor(
             Mode.STOPWATCH -> stopwatchController.reset()
 
             Mode.TIMER -> {
-                val timerTimeMillis = currentSettings?.timerTime ?: mutableUiState.value.timerTimeMillis
+                val timerTimeMillis = currentSettings?.timerTime ?: uiStateFlow.value.timerTimeMillis
                 timerController.setTime(timerTimeMillis)
                 timerTimeMillis
             }
         }
-        mutableUiState.update {
+        uiStateFlow.update {
             it.copy(
                 mode = mode,
                 timeMillis = timeMillis,
@@ -201,8 +201,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onClickFirstButton() {
-        if (!mutableUiState.value.initialized) return
-        when (mutableUiState.value.mode) {
+        if (!uiStateFlow.value.initialized) return
+        when (uiStateFlow.value.mode) {
             Mode.CLOCK -> Unit
 
             Mode.STOPWATCH -> {
@@ -229,8 +229,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onClickSecondButton() {
-        if (!mutableUiState.value.initialized) return
-        when (mutableUiState.value.mode) {
+        if (!uiStateFlow.value.initialized) return
+        when (uiStateFlow.value.mode) {
             Mode.CLOCK -> Unit
 
             Mode.STOPWATCH -> {
@@ -250,7 +250,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onClickTime() {
-        when (mutableUiState.value.mode) {
+        when (uiStateFlow.value.mode) {
             Mode.CLOCK -> Unit
 
             Mode.STOPWATCH -> onClickFirstButton()
@@ -268,13 +268,13 @@ class MainViewModel @Inject constructor(
     private fun selectTimerTime(
         timeMillis: Long,
     ) {
-        mutableUiState.update {
+        uiStateFlow.update {
             it.copy(
                 timerTimeMillis = timeMillis,
                 timerDialog = null,
             )
         }
-        if (mutableUiState.value.mode == Mode.TIMER) {
+        if (uiStateFlow.value.mode == Mode.TIMER) {
             stopTicker()
             timerController.deactivate()
             timerController.setTime(timeMillis)
@@ -288,11 +288,11 @@ class MainViewModel @Inject constructor(
     private fun handleLaunchRequest(
         request: MainLaunchRequest,
     ) {
-        if (!mutableUiState.value.initialized) {
+        if (!uiStateFlow.value.initialized) {
             pendingLaunchRequest = request
             return
         }
-        if (request.mode != mutableUiState.value.mode) activateMode(request.mode)
+        if (request.mode != uiStateFlow.value.mode) activateMode(request.mode)
         viewModelScope.launch {
             settingsRepository.updateMode(request.mode)
         }
@@ -392,7 +392,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun updateTick(): Long? =
-        when (mutableUiState.value.mode) {
+        when (uiStateFlow.value.mode) {
             Mode.CLOCK -> {
                 val timeMillis = timeProvider.currentTimeMillis()
                 updateTimeState(timeMillis, started = false)
@@ -435,7 +435,7 @@ class MainViewModel @Inject constructor(
         timeMillis: Long,
         started: Boolean,
     ) {
-        mutableUiState.update {
+        uiStateFlow.update {
             it.copy(
                 timeMillis = timeMillis,
                 started = started,
@@ -444,7 +444,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun showTimerDialog() {
-        mutableUiState.update { state ->
+        uiStateFlow.update { state ->
             state.copy(
                 timerDialog = TimerDialogState(
                     timeMillis = state.timerTimeMillis,
@@ -455,11 +455,11 @@ class MainViewModel @Inject constructor(
     }
 
     private fun dismissTimerDialog() {
-        mutableUiState.update { it.copy(timerDialog = null) }
+        uiStateFlow.update { it.copy(timerDialog = null) }
     }
 
     private fun persistRunningState() {
-        when (mutableUiState.value.mode) {
+        when (uiStateFlow.value.mode) {
             Mode.CLOCK -> Unit
 
             Mode.STOPWATCH -> {

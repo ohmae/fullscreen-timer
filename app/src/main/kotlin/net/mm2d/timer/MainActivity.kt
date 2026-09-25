@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 CompositionLocalProvider(
                     LocalLayoutDirection provides LayoutDirection.Ltr,
                 ) {
-                    val uiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+                    val uiState by viewModel.getUiStateStream().collectAsStateWithLifecycle()
                     MainScreenRoute(
                         uiState = uiState,
                         onEvent = viewModel::onEvent,
@@ -75,12 +75,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.uiStateFlow
+        viewModel.getUiStateStream()
             .filter { it.initialized }
             .map { WindowState(it.fullscreen, it.orientation, it.keepScreenOn) }
             .distinctUntilChanged()
             .observe(this, action = ::renderWindow)
-        viewModel.uiEffectFlow
+        viewModel.getUiEffectStream()
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach(::handleEffect)
             .launchIn(lifecycleScope)
