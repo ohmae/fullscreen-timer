@@ -35,7 +35,60 @@ class TimerControllerTest {
         assertThat(update).isEqualTo(
             TimeUpdate.Running(
                 timeMillis = 58_747L,
-                nextDelayMillis = 7L,
+                nextDelayMillis = 8L,
+            ),
+        )
+    }
+
+    @Test
+    fun `tick ミリ秒無効時は1秒インターバルで次の遅延を計算する`() {
+        controller.setMillisecondEnabled(false)
+        timeProvider.currentTimeMillis = 1_000L
+        controller.setTime(60_000L)
+        controller.start()
+        timeProvider.currentTimeMillis = 1_250L
+
+        val update = controller.tick()
+
+        assertThat(update).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 59_750L,
+                nextDelayMillis = 751L,
+            ),
+        )
+    }
+
+    @Test
+    fun `tick ミリ秒無効時は表示秒数が変わる境界で更新する`() {
+        controller.setMillisecondEnabled(false)
+        controller.setTime(59_000L)
+        controller.start()
+
+        assertThat(controller.tick()).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 59_000L,
+                nextDelayMillis = 1L,
+            ),
+        )
+        timeProvider.currentTimeMillis = 1L
+        assertThat(controller.tick()).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 58_999L,
+                nextDelayMillis = 1_000L,
+            ),
+        )
+    }
+
+    @Test
+    fun `tick ミリ秒無効時も終了時刻を超えて待機しない`() {
+        controller.setMillisecondEnabled(false)
+        controller.setTime(999L)
+        controller.start()
+
+        assertThat(controller.tick()).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 999L,
+                nextDelayMillis = 999L,
             ),
         )
     }
@@ -77,7 +130,7 @@ class TimerControllerTest {
     }
 
     @Test
-    fun `tick 10ms境界ちょうどの場合は次の遅延時間を10msとする`() {
+    fun `tick 10ms境界ちょうどの場合は表示が変わる1ms後に更新する`() {
         timeProvider.currentTimeMillis = 1_000L
         controller.setTime(60_000L)
         controller.start()
@@ -88,6 +141,13 @@ class TimerControllerTest {
         assertThat(update).isEqualTo(
             TimeUpdate.Running(
                 timeMillis = 59_000L,
+                nextDelayMillis = 1L,
+            ),
+        )
+        timeProvider.currentTimeMillis = 2_001L
+        assertThat(controller.tick()).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 58_999L,
                 nextDelayMillis = 10L,
             ),
         )
@@ -109,7 +169,7 @@ class TimerControllerTest {
         assertThat(controller.tick()).isEqualTo(
             TimeUpdate.Running(
                 timeMillis = 7_000L,
-                nextDelayMillis = 10L,
+                nextDelayMillis = 1L,
             ),
         )
     }

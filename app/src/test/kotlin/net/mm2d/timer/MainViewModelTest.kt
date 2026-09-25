@@ -16,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import net.mm2d.timer.MainViewModel.UiEffect
@@ -40,6 +41,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("NonAsciiCharacters")
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -104,6 +106,59 @@ class MainViewModelTest {
             assertThat(viewModel.uiStateFlow.value.started).isFalse()
             assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(1_250L)
             assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlaySound)
+        }
+
+    @Test
+    fun `設定変更 実行中ストップウォッチのミリ秒表示を有効にすると更新間隔を切り替える`() =
+        runTest(mainDispatcherRule.testDispatcher) {
+            settingsFlow.value = createSettings(millisecondEnabled = false)
+            val viewModel = createViewModel()
+            runCurrent()
+            viewModel.onEvent(UiEvent.ClickFirstButton)
+            runCurrent()
+
+            advanceTimeBy(500L.milliseconds)
+            timeProvider.currentTimeMillis = 500L
+            settingsFlow.value = settingsFlow.value.copy(millisecondEnabled = true)
+            runCurrent()
+            val timeAfterSettingsChange = viewModel.uiStateFlow.value.timeMillis
+
+            timeProvider.currentTimeMillis = 510L
+            advanceTimeBy(10L.milliseconds)
+            runCurrent()
+            val timeAfterTenMillis = viewModel.uiStateFlow.value.timeMillis
+            viewModel.onEvent(UiEvent.ClickFirstButton)
+
+            assertThat(timeAfterSettingsChange).isEqualTo(500L)
+            assertThat(timeAfterTenMillis).isEqualTo(510L)
+        }
+
+    @Test
+    fun `設定変更 実行中タイマーのミリ秒表示を有効にすると更新間隔を切り替える`() =
+        runTest(mainDispatcherRule.testDispatcher) {
+            settingsFlow.value = createSettings(mode = Mode.TIMER, millisecondEnabled = false)
+            val viewModel = createViewModel()
+            runCurrent()
+            viewModel.onEvent(UiEvent.ClickFirstButton)
+            runCurrent()
+
+            timeProvider.currentTimeMillis = 1L
+            advanceTimeBy(10L.milliseconds)
+            runCurrent()
+            advanceTimeBy(490L.milliseconds)
+            timeProvider.currentTimeMillis = 500L
+            settingsFlow.value = settingsFlow.value.copy(millisecondEnabled = true)
+            runCurrent()
+            val timeAfterSettingsChange = viewModel.uiStateFlow.value.timeMillis
+
+            timeProvider.currentTimeMillis = 510L
+            advanceTimeBy(10L.milliseconds)
+            runCurrent()
+            val timeAfterTenMillis = viewModel.uiStateFlow.value.timeMillis
+            viewModel.onEvent(UiEvent.ClickFirstButton)
+
+            assertThat(timeAfterSettingsChange).isEqualTo(59_500L)
+            assertThat(timeAfterTenMillis).isEqualTo(59_490L)
         }
 
     @Test
@@ -266,6 +321,7 @@ class MainViewModelTest {
             mode: Mode = Mode.STOPWATCH,
             foregroundColor: Int = 0xFFFFFFFF.toInt(),
             timerTime: Long = 60_000L,
+            millisecondEnabled: Boolean = true,
         ): Settings =
             Settings(
                 versionAtInstall = 1,
@@ -276,7 +332,7 @@ class MainViewModelTest {
                 backgroundColor = 0xFF000000.toInt(),
                 hourEnabled = false,
                 hourFormat24 = true,
-                millisecondEnabled = true,
+                millisecondEnabled = millisecondEnabled,
                 secondEnabled = true,
                 timerTime = timerTime,
                 soundVolume = 10,

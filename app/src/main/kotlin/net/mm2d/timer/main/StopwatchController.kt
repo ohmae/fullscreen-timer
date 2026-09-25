@@ -54,6 +54,8 @@ class StopwatchController @Inject constructor(
         start()
     }
 
+    private var intervalMillis: Long = TIMER_INTERVAL_MILLIS
+
     fun setHourEnabled(
         hourEnabled: Boolean,
     ) {
@@ -64,6 +66,16 @@ class StopwatchController @Inject constructor(
         }
     }
 
+    fun setMillisecondEnabled(
+        millisecondEnabled: Boolean,
+    ) {
+        intervalMillis = if (millisecondEnabled) {
+            TIMER_INTERVAL_MILLIS
+        } else {
+            ONE_SECOND_INTERVAL_MILLIS
+        }
+    }
+
     fun tick(): TimeUpdate {
         val currentTimeMillis = calculateTime()
         if (currentTimeMillis >= maximumTimeMillis) {
@@ -71,9 +83,10 @@ class StopwatchController @Inject constructor(
             started = false
             return TimeUpdate.Finished(timeMillis = maximumTimeMillis)
         }
+        val nextDelay = intervalMillis - currentTimeMillis % intervalMillis
         return TimeUpdate.Running(
             timeMillis = currentTimeMillis,
-            nextDelayMillis = TIMER_INTERVAL_MILLIS - currentTimeMillis % TIMER_INTERVAL_MILLIS,
+            nextDelayMillis = if (nextDelay == 0L) intervalMillis else nextDelay,
         )
     }
 
@@ -105,6 +118,7 @@ class StopwatchController @Inject constructor(
 
     private companion object {
         const val TIMER_INTERVAL_MILLIS = 10L
+        const val ONE_SECOND_INTERVAL_MILLIS = 1_000L
         const val MAX_WITH_HOUR_MILLIS = 10 * 3_600_000L - TIMER_INTERVAL_MILLIS
         const val MAX_WITHOUT_HOUR_MILLIS = 100 * 60_000L - TIMER_INTERVAL_MILLIS
     }

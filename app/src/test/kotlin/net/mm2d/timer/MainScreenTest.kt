@@ -44,7 +44,7 @@ class MainScreenTest {
                 initialized = true,
                 mode = Mode.STOPWATCH,
                 timeMillis = 83_456L,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -64,7 +64,7 @@ class MainScreenTest {
                 initialized = true,
                 mode = Mode.CLOCK,
                 timeMillis = 0L,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -84,7 +84,7 @@ class MainScreenTest {
                 timeMillis = clockTimeMillis(hour = 13, minute = 24, second = 56),
                 hourFormat24 = false,
                 secondEnabled = true,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -100,7 +100,7 @@ class MainScreenTest {
                 timeMillis = clockTimeMillis(hour = 13, minute = 24, second = 56),
                 hourFormat24 = true,
                 secondEnabled = false,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -116,7 +116,7 @@ class MainScreenTest {
                 timeMillis = 3_661_230L,
                 started = true,
                 hourEnabled = true,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -133,7 +133,7 @@ class MainScreenTest {
                 mode = Mode.STOPWATCH,
                 timeMillis = 83_456L,
                 millisecondEnabled = false,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
         )
 
@@ -149,7 +149,7 @@ class MainScreenTest {
                 initialized = true,
                 mode = Mode.STOPWATCH,
                 timeMillis = 83_456L,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
             onEvent = events::add,
         )

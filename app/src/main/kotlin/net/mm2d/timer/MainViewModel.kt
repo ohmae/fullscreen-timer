@@ -37,7 +37,7 @@ import net.mm2d.timer.settings.StopwatchRunningState
 import net.mm2d.timer.settings.StopwatchRunningStateRepository
 import net.mm2d.timer.settings.TimerRunningState
 import net.mm2d.timer.settings.TimerRunningStateRepository
-import net.mm2d.timer.util.shouldUseDarkForeground
+import net.mm2d.timer.util.isDarkColor
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -102,6 +102,8 @@ class MainViewModel @Inject constructor(
     ) {
         currentSettings = settings
         stopwatchController.setHourEnabled(settings.hourEnabled)
+        stopwatchController.setMillisecondEnabled(settings.millisecondEnabled)
+        timerController.setMillisecondEnabled(settings.millisecondEnabled)
         mutableUiState.value = settings.toUiState(initialized = true)
         activateMode(settings.mode)
 
@@ -123,6 +125,8 @@ class MainViewModel @Inject constructor(
         val previousSettings = currentSettings
         currentSettings = settings
         stopwatchController.setHourEnabled(settings.hourEnabled)
+        stopwatchController.setMillisecondEnabled(settings.millisecondEnabled)
+        timerController.setMillisecondEnabled(settings.millisecondEnabled)
         mutableUiState.update { state -> settings.toUiState(state = state) }
 
         if (settings.mode != mutableUiState.value.mode) {
@@ -135,6 +139,12 @@ class MainViewModel @Inject constructor(
             timerController.deactivate()
             timerController.setTime(settings.timerTime)
             updateTimeState(timeMillis = settings.timerTime, started = false)
+        } else if (
+            previousSettings?.millisecondEnabled != settings.millisecondEnabled &&
+            settings.mode != Mode.CLOCK &&
+            tickerJob?.isActive == true
+        ) {
+            startTicker()
         }
     }
 
@@ -482,7 +492,7 @@ class MainViewModel @Inject constructor(
             mode = mode,
             foregroundColor = foregroundColor,
             backgroundColor = backgroundColor,
-            shouldUseDarkForeground = backgroundColor.shouldUseDarkForeground(),
+            useLightContent = backgroundColor.isDarkColor(),
             fullscreen = fullscreen,
             buttonOpacity = buttonOpacity,
             font = font,
@@ -500,7 +510,7 @@ class MainViewModel @Inject constructor(
         state.copy(
             foregroundColor = foregroundColor,
             backgroundColor = backgroundColor,
-            shouldUseDarkForeground = backgroundColor.shouldUseDarkForeground(),
+            useLightContent = backgroundColor.isDarkColor(),
             fullscreen = fullscreen,
             buttonOpacity = buttonOpacity,
             font = font,
@@ -519,7 +529,7 @@ class MainViewModel @Inject constructor(
         val started: Boolean = false,
         val foregroundColor: Int = Color.WHITE,
         val backgroundColor: Int = Color.BLACK,
-        val shouldUseDarkForeground: Boolean = false,
+        val useLightContent: Boolean = true,
         val fullscreen: Boolean = true,
         val buttonOpacity: Float = 1f,
         val font: Font = Font.LED_7SEGMENT,

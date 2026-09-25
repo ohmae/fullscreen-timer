@@ -59,29 +59,18 @@ internal fun ClockDisplay(
         },
         contentAlignment = Alignment.Center,
     ) {
-        val normalDigitCount = NORMAL_DIGIT_COUNT + if (value.leadingDigit == null) 0 else 1
-        val colonCount = COLON_COUNT + if (value.leadingDigit == null) 0 else 1
-        val widthScore =
-            normalDigitCount * NORMAL_DIGIT_WIDTH_SCORE +
-                colonCount * COLON_WIDTH_SCORE +
-                value.smallPair.size * SMALL_DIGIT_WIDTH_SCORE
-        val amPmWidth = if (value.amPm == null) 0.dp else AM_PM_WIDTH
-        val unit = minOf(
-            (maxWidth - amPmWidth).coerceAtLeast(0.dp) / widthScore,
-            maxHeight / NORMAL_DIGIT_HEIGHT_SCORE,
-        )
-        val normalDigitSize = DigitSize(
-            width = unit * NORMAL_DIGIT_WIDTH_SCORE,
-            height = unit * NORMAL_DIGIT_HEIGHT_SCORE,
-        )
-        val colonSize = DigitSize(
-            width = unit * COLON_WIDTH_SCORE,
-            height = unit * NORMAL_DIGIT_HEIGHT_SCORE,
-        )
-        val smallDigitSize = DigitSize(
-            width = unit * SMALL_DIGIT_WIDTH_SCORE,
-            height = unit * SMALL_DIGIT_HEIGHT_SCORE,
-        )
+        val hasLeadingDigit = value.leadingDigit != null
+        val hasSmallDigits = value.smallTens != null
+        val hasAmPm = value.amPm != null
+        val layoutSizes = remember(maxWidth, maxHeight, hasLeadingDigit, hasSmallDigits, hasAmPm) {
+            calculateLayoutSizes(
+                maxWidth = maxWidth,
+                maxHeight = maxHeight,
+                hasLeadingDigit = hasLeadingDigit,
+                hasSmallDigits = hasSmallDigits,
+                hasAmPm = hasAmPm,
+            )
+        }
 
         Row(
             verticalAlignment = Alignment.Bottom,
@@ -90,7 +79,7 @@ internal fun ClockDisplay(
                 AmPmLabel(
                     text = it,
                     foregroundColor = Color(uiState.foregroundColor),
-                    height = normalDigitSize.height,
+                    height = layoutSizes.normalDigitSize.height,
                 )
             }
             value.leadingDigit?.let {
@@ -98,39 +87,53 @@ internal fun ClockDisplay(
                     number = it,
                     font = uiState.font,
                     foregroundColor = Color(uiState.foregroundColor),
-                    size = normalDigitSize,
+                    size = layoutSizes.normalDigitSize,
                 )
                 Colon(
                     foregroundColor = Color(uiState.foregroundColor),
-                    size = colonSize,
+                    size = layoutSizes.colonSize,
                 )
             }
-            value.leftPair.forEach {
-                Digit(
-                    number = it,
-                    font = uiState.font,
-                    foregroundColor = Color(uiState.foregroundColor),
-                    size = normalDigitSize,
-                )
-            }
+            Digit(
+                number = value.leftTens,
+                font = uiState.font,
+                foregroundColor = Color(uiState.foregroundColor),
+                size = layoutSizes.normalDigitSize,
+            )
+            Digit(
+                number = value.leftOnes,
+                font = uiState.font,
+                foregroundColor = Color(uiState.foregroundColor),
+                size = layoutSizes.normalDigitSize,
+            )
             Colon(
                 foregroundColor = Color(uiState.foregroundColor),
-                size = colonSize,
+                size = layoutSizes.colonSize,
             )
-            value.rightPair.forEach {
+            Digit(
+                number = value.rightTens,
+                font = uiState.font,
+                foregroundColor = Color(uiState.foregroundColor),
+                size = layoutSizes.normalDigitSize,
+            )
+            Digit(
+                number = value.rightOnes,
+                font = uiState.font,
+                foregroundColor = Color(uiState.foregroundColor),
+                size = layoutSizes.normalDigitSize,
+            )
+            if (value.smallTens != null && value.smallOnes != null) {
                 Digit(
-                    number = it,
+                    number = value.smallTens,
                     font = uiState.font,
                     foregroundColor = Color(uiState.foregroundColor),
-                    size = normalDigitSize,
+                    size = layoutSizes.smallDigitSize,
                 )
-            }
-            value.smallPair.forEach {
                 Digit(
-                    number = it,
+                    number = value.smallOnes,
                     font = uiState.font,
                     foregroundColor = Color(uiState.foregroundColor),
-                    size = smallDigitSize,
+                    size = layoutSizes.smallDigitSize,
                 )
             }
         }
@@ -219,11 +222,55 @@ private data class DigitSize(
     val height: Dp,
 )
 
+private data class ClockLayoutSizes(
+    val normalDigitSize: DigitSize,
+    val colonSize: DigitSize,
+    val smallDigitSize: DigitSize,
+)
+
+private fun calculateLayoutSizes(
+    maxWidth: Dp,
+    maxHeight: Dp,
+    hasLeadingDigit: Boolean,
+    hasSmallDigits: Boolean,
+    hasAmPm: Boolean,
+): ClockLayoutSizes {
+    val normalDigitCount = NORMAL_DIGIT_COUNT + if (hasLeadingDigit) 1 else 0
+    val colonCount = COLON_COUNT + if (hasLeadingDigit) 1 else 0
+    val smallDigitCount = if (hasSmallDigits) 2 else 0
+    val widthScore =
+        normalDigitCount * NORMAL_DIGIT_WIDTH_SCORE +
+            colonCount * COLON_WIDTH_SCORE +
+            smallDigitCount * SMALL_DIGIT_WIDTH_SCORE
+    val amPmWidth = if (hasAmPm) AM_PM_WIDTH else 0.dp
+    val unit = minOf(
+        (maxWidth - amPmWidth).coerceAtLeast(0.dp) / widthScore,
+        maxHeight / NORMAL_DIGIT_HEIGHT_SCORE,
+    )
+    return ClockLayoutSizes(
+        normalDigitSize = DigitSize(
+            width = unit * NORMAL_DIGIT_WIDTH_SCORE,
+            height = unit * NORMAL_DIGIT_HEIGHT_SCORE,
+        ),
+        colonSize = DigitSize(
+            width = unit * COLON_WIDTH_SCORE,
+            height = unit * NORMAL_DIGIT_HEIGHT_SCORE,
+        ),
+        smallDigitSize = DigitSize(
+            width = unit * SMALL_DIGIT_WIDTH_SCORE,
+            height = unit * SMALL_DIGIT_HEIGHT_SCORE,
+        ),
+    )
+}
+
 private data class DisplayValue(
     val leadingDigit: Int?,
-    val leftPair: List<Int>,
-    val rightPair: List<Int>,
-    val smallPair: List<Int>,
+    val leftTens: Int,
+    val leftOnes: Int,
+    val rightTens: Int,
+    val rightOnes: Int,
+    val smallTens: Int?,
+    val smallOnes: Int?,
     val amPm: String?,
     val contentDescription: String,
 ) {
@@ -259,9 +306,12 @@ private data class DisplayValue(
             }
             return DisplayValue(
                 leadingDigit = null,
-                leftPair = hour.toPair(),
-                rightPair = minute.toPair(),
-                smallPair = if (uiState.secondEnabled) second.toPair() else emptyList(),
+                leftTens = (hour / 10).mod(10),
+                leftOnes = hour.mod(10),
+                rightTens = (minute / 10).mod(10),
+                rightOnes = minute.mod(10),
+                smallTens = if (uiState.secondEnabled) (second / 10).mod(10) else null,
+                smallOnes = if (uiState.secondEnabled) second.mod(10) else null,
                 amPm = amPm,
                 contentDescription = buildString {
                     append(hour.twoDigits())
@@ -290,9 +340,12 @@ private data class DisplayValue(
             val minutes = if (uiState.hourEnabled) totalMinutes % 60 else totalMinutes
             return DisplayValue(
                 leadingDigit = if (uiState.hourEnabled) hours.mod(10) else null,
-                leftPair = minutes.toPair(),
-                rightPair = seconds.toPair(),
-                smallPair = if (uiState.millisecondEnabled) hundredths.toPair() else emptyList(),
+                leftTens = (minutes / 10).mod(10),
+                leftOnes = minutes.mod(10),
+                rightTens = (seconds / 10).mod(10),
+                rightOnes = seconds.mod(10),
+                smallTens = if (uiState.millisecondEnabled) (hundredths / 10).mod(10) else null,
+                smallOnes = if (uiState.millisecondEnabled) hundredths.mod(10) else null,
                 amPm = null,
                 contentDescription = buildString {
                     if (uiState.hourEnabled) {
@@ -311,8 +364,6 @@ private data class DisplayValue(
         }
     }
 }
-
-private fun Int.toPair(): List<Int> = listOf((this / 10).mod(10), mod(10))
 
 private fun Int.twoDigits(): String = toString().padStart(2, '0')
 

@@ -30,13 +30,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import net.mm2d.timer.MainViewModel.UiEffect
 import net.mm2d.timer.MainViewModel.UiEvent
 import net.mm2d.timer.MainViewModel.UiState
 import net.mm2d.timer.dialog.TimeDialog
 import net.mm2d.timer.main.MainLaunchRequestParser
+import net.mm2d.timer.settings.Orientation
 import net.mm2d.timer.sound.SoundEffect
 import net.mm2d.timer.ui.theme.AppTheme
 import net.mm2d.timer.util.FullscreenHelper
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fullscreenHelper: FullscreenHelper
     private val viewModel: MainViewModel by viewModels()
-    private var renderedState: UiState? = null
+    private var renderedWindowState: WindowState? = null
 
     override fun onCreate(
         savedInstanceState: Bundle?,
@@ -71,7 +75,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.uiStateFlow.observe(this, action = ::renderWindow)
+        viewModel.uiStateFlow
+            .filter { it.initialized }
+            .map { WindowState(it.fullscreen, it.orientation, it.keepScreenOn) }
+            .distinctUntilChanged()
+            .observe(this, action = ::renderWindow)
         viewModel.uiEffectFlow
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach(::handleEffect)
@@ -82,10 +90,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderWindow(
-        state: UiState,
+        state: WindowState,
     ) {
-        if (!state.initialized) return
-        val previousState = renderedState
+        val previousState = renderedWindowState
         if (previousState?.fullscreen != state.fullscreen) fullscreenHelper.invoke(state.fullscreen)
         if (previousState?.orientation != state.orientation) requestedOrientation = state.orientation.value
         if (previousState?.keepScreenOn != state.keepScreenOn) {
@@ -95,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             }
         }
-        renderedState = state
+        renderedWindowState = state
     }
 
     private fun handleEffect(
@@ -173,3 +180,9 @@ private val UiEvent.animatesButtonOpacity: Boolean
         this == UiEvent.ClickTime
 
 private const val BUTTON_ANIMATION_DURATION_MILLIS = 1_500
+
+private data class WindowState(
+    val fullscreen: Boolean,
+    val orientation: Orientation,
+    val keepScreenOn: Boolean,
+)

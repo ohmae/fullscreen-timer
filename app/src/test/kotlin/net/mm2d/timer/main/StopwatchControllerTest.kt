@@ -40,6 +40,23 @@ class StopwatchControllerTest {
     }
 
     @Test
+    fun `tick ミリ秒無効時は1秒インターバルで次の遅延を計算する`() {
+        controller.setMillisecondEnabled(false)
+        controller.setTime(1_000L)
+        controller.start()
+        timeProvider.currentTimeMillis = 1_250L
+
+        val update = controller.tick()
+
+        assertThat(update).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 2_250L,
+                nextDelayMillis = 750L,
+            ),
+        )
+    }
+
+    @Test
     fun `stop 経過時間を保存して停止する`() {
         controller.setTime(1_000L)
         controller.start()

@@ -47,6 +47,18 @@ class TimerController @Inject constructor(
         start()
     }
 
+    private var intervalMillis: Long = TIMER_INTERVAL_MILLIS
+
+    fun setMillisecondEnabled(
+        millisecondEnabled: Boolean,
+    ) {
+        intervalMillis = if (millisecondEnabled) {
+            TIMER_INTERVAL_MILLIS
+        } else {
+            ONE_SECOND_INTERVAL_MILLIS
+        }
+    }
+
     fun tick(): TimeUpdate {
         val currentTimeMillis = calculateTime()
         if (currentTimeMillis <= 0L) {
@@ -54,10 +66,10 @@ class TimerController @Inject constructor(
             started = false
             return TimeUpdate.Finished(timeMillis = 0L)
         }
-        val remainder = currentTimeMillis % TIMER_INTERVAL_MILLIS
+        val remainder = currentTimeMillis % intervalMillis
         return TimeUpdate.Running(
             timeMillis = currentTimeMillis,
-            nextDelayMillis = if (remainder == 0L) TIMER_INTERVAL_MILLIS else remainder,
+            nextDelayMillis = minOf(remainder + 1L, currentTimeMillis),
         )
     }
 
@@ -89,5 +101,6 @@ class TimerController @Inject constructor(
 
     private companion object {
         const val TIMER_INTERVAL_MILLIS = 10L
+        const val ONE_SECOND_INTERVAL_MILLIS = 1_000L
     }
 }

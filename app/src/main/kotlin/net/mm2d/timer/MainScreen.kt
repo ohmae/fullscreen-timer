@@ -82,7 +82,10 @@ fun MainScreen(
             },
         )
         MainControls(
-            uiState = uiState,
+            firstButton = uiState.firstButton,
+            secondButton = uiState.secondButton,
+            buttonOpacity = uiState.buttonOpacity,
+            useLightContent = uiState.useLightContent,
             onEvent = onEvent,
         )
     }
@@ -90,7 +93,10 @@ fun MainScreen(
 
 @Composable
 private fun MainControls(
-    uiState: UiState,
+    firstButton: Button,
+    secondButton: Button,
+    buttonOpacity: Float,
+    useLightContent: Boolean,
     onEvent: (UiEvent) -> Unit,
 ) {
     Row(
@@ -104,21 +110,21 @@ private fun MainControls(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         MainControlButton(
-            button = uiState.firstButton,
-            buttonOpacity = uiState.buttonOpacity,
-            useLightContent = uiState.shouldUseDarkForeground,
+            button = firstButton,
+            buttonOpacity = buttonOpacity,
+            useLightContent = useLightContent,
             onClick = { onEvent(UiEvent.ClickFirstButton) },
         )
         MainControlButton(
-            button = uiState.secondButton,
-            buttonOpacity = uiState.buttonOpacity,
-            useLightContent = uiState.shouldUseDarkForeground,
+            button = secondButton,
+            buttonOpacity = buttonOpacity,
+            useLightContent = useLightContent,
             onClick = { onEvent(UiEvent.ClickSecondButton) },
         )
         MainControlButton(
             button = Button.SETTINGS,
-            buttonOpacity = uiState.buttonOpacity,
-            useLightContent = uiState.shouldUseDarkForeground,
+            buttonOpacity = buttonOpacity,
+            useLightContent = useLightContent,
             onClick = { onEvent(UiEvent.ClickSettings) },
         )
     }
@@ -200,7 +206,7 @@ private fun MainScreenPreview() {
                 timeMillis = 83_456L,
                 foregroundColor = android.graphics.Color.WHITE,
                 backgroundColor = android.graphics.Color.BLACK,
-                shouldUseDarkForeground = true,
+                useLightContent = true,
             ),
             onEvent = {},
         )
