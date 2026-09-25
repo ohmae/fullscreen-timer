@@ -118,7 +118,7 @@ class MainViewModelTest {
             assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlaySound)
 
             timeProvider.currentTimeMillis = 100L
-            mainDispatcherRule.testDispatcher.scheduler.advanceTimeBy(1L)
+            mainDispatcherRule.testDispatcher.scheduler.advanceTimeBy(10L)
             runCurrent()
 
             assertThat(viewModel.uiStateFlow.value.started).isFalse()

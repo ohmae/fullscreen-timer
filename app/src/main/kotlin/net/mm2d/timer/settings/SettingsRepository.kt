@@ -9,6 +9,7 @@ package net.mm2d.timer.settings
 
 import android.content.Context
 import android.graphics.Color
+import androidx.annotation.VisibleForTesting
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -193,7 +194,8 @@ class SettingsRepository @Inject constructor(
         override suspend fun cleanUp() = Unit
     }
 
-    private class MigrationForVersion : DataMigration<Preferences> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal class MigrationForVersion : DataMigration<Preferences> {
         override suspend fun shouldMigrate(
             currentData: Preferences,
         ): Boolean = currentData[VERSION_AT_LAST_LAUNCHED] != BuildConfig.VERSION_CODE
@@ -202,7 +204,7 @@ class SettingsRepository @Inject constructor(
             currentData: Preferences,
         ): Preferences =
             currentData.edit { preferences ->
-                preferences[VERSION_AT_INSTALL]?.let {
+                if (preferences[VERSION_AT_INSTALL] == null) {
                     preferences[VERSION_AT_INSTALL] = BuildConfig.VERSION_CODE
                 }
                 preferences[VERSION_AT_LAST_LAUNCHED]?.let {
@@ -221,11 +223,17 @@ class SettingsRepository @Inject constructor(
 
         private val DATA_VERSION =
             Key.Main.DATA_VERSION_INT.intKey()
-        private val VERSION_AT_INSTALL =
+
+        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+        internal val VERSION_AT_INSTALL =
             Key.Main.VERSION_AT_INSTALL_INT.intKey()
-        private val VERSION_AT_LAST_LAUNCHED =
+
+        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+        internal val VERSION_AT_LAST_LAUNCHED =
             Key.Main.VERSION_AT_LAST_LAUNCHED_INT.intKey()
-        private val VERSION_BEFORE_UPDATE =
+
+        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+        internal val VERSION_BEFORE_UPDATE =
             Key.Main.VERSION_BEFORE_UPDATE_INT.intKey()
         private val MODE =
             Key.Main.MODE_STRING.stringKey()

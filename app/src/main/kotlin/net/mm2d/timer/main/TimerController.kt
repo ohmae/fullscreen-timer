@@ -54,9 +54,10 @@ class TimerController @Inject constructor(
             started = false
             return TimeUpdate.Finished(timeMillis = 0L)
         }
+        val remainder = currentTimeMillis % TIMER_INTERVAL_MILLIS
         return TimeUpdate.Running(
             timeMillis = currentTimeMillis,
-            nextDelayMillis = currentTimeMillis % TIMER_INTERVAL_MILLIS,
+            nextDelayMillis = if (remainder == 0L) TIMER_INTERVAL_MILLIS else remainder,
         )
     }
 
@@ -64,6 +65,9 @@ class TimerController @Inject constructor(
         state: TimerRunningState,
     ): Boolean {
         if (!state.started) return false
+        val restoredTimeMillis =
+            state.milestone - (timeProvider.currentTimeMillis() - state.start)
+        if (restoredTimeMillis <= 0L) return false
         started = true
         startTimeMillis = state.start
         timeMillis = state.milestone

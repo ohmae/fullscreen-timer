@@ -517,7 +517,7 @@ private fun ColorMenuRow(
         }
         Spacer(modifier = Modifier.width(8.dp))
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .size(24.dp)
                 .clip(CircleShape)
                 .background(color)

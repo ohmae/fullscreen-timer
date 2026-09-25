@@ -27,30 +27,54 @@ class SoundEffect @Inject constructor(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var volume: Int = 0
     private var job: Job? = null
+    private var toneGenerator: ToneGenerator? = null
 
     init {
         scope.launch {
             settingsRepository.flow.collect {
-                volume = it.soundVolume
+                updateVolume(it.soundVolume)
             }
         }
     }
 
+    private fun updateVolume(
+        newVolume: Int,
+    ) {
+        if (volume == newVolume) return
+        volume = newVolume
+        toneGenerator?.release()
+        toneGenerator = null
+    }
+
     fun play() {
-        ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10)
-            .startTone(ToneGenerator.TONE_PROP_BEEP)
+        playTone(ToneGenerator.TONE_PROP_BEEP)
     }
 
     fun playStop() {
         job?.cancel()
         job = scope.launch {
-            ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10).let { tone ->
-                repeat(3) {
-                    tone.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
-                    delay(1.seconds)
-                }
-                job = null
+            repeat(3) {
+                playTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE)
+                delay(1.seconds)
             }
+            job = null
+        }
+    }
+
+    private fun playTone(
+        toneType: Int,
+    ) {
+        if (volume <= 0) return
+        getOrCreateToneGenerator()?.startTone(toneType)
+    }
+
+    @Synchronized
+    private fun getOrCreateToneGenerator(): ToneGenerator? {
+        if (volume <= 0) return null
+        return toneGenerator ?: runCatching {
+            ToneGenerator(AudioManager.STREAM_SYSTEM, volume * 10)
+        }.getOrNull()?.also {
+            toneGenerator = it
         }
     }
 }

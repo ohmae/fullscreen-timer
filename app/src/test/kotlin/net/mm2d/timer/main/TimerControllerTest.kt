@@ -77,6 +77,23 @@ class TimerControllerTest {
     }
 
     @Test
+    fun `tick 10ms境界ちょうどの場合は次の遅延時間を10msとする`() {
+        timeProvider.currentTimeMillis = 1_000L
+        controller.setTime(60_000L)
+        controller.start()
+        timeProvider.currentTimeMillis = 2_000L
+
+        val update = controller.tick()
+
+        assertThat(update).isEqualTo(
+            TimeUpdate.Running(
+                timeMillis = 59_000L,
+                nextDelayMillis = 10L,
+            ),
+        )
+    }
+
+    @Test
     fun `restore 実行中の保存状態を復元する`() {
         timeProvider.currentTimeMillis = 4_000L
 
@@ -92,9 +109,25 @@ class TimerControllerTest {
         assertThat(controller.tick()).isEqualTo(
             TimeUpdate.Running(
                 timeMillis = 7_000L,
-                nextDelayMillis = 0L,
+                nextDelayMillis = 10L,
             ),
         )
+    }
+
+    @Test
+    fun `restore 期限切れの保存状態は復元しない`() {
+        timeProvider.currentTimeMillis = 15_000L
+
+        val restored = controller.restore(
+            TimerRunningState(
+                started = true,
+                start = 1_000L,
+                milestone = 10_000L,
+            ),
+        )
+
+        assertThat(restored).isFalse()
+        assertThat(controller.started).isFalse()
     }
 
     @Test
