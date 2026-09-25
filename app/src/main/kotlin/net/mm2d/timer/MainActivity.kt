@@ -10,9 +10,9 @@ package net.mm2d.timer
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
@@ -49,7 +49,7 @@ import net.mm2d.timer.util.observe
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     @Inject
     lateinit var soundEffect: SoundEffect
 

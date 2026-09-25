@@ -11,13 +11,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import net.mm2d.timer.ui.theme.AppTheme
 
-class LicenseActivity : AppCompatActivity() {
+class LicenseActivity : ComponentActivity() {
     override fun onCreate(
         savedInstanceState: Bundle?,
     ) {

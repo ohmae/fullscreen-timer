@@ -11,16 +11,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import net.mm2d.timer.ui.theme.AppTheme
 
 @AndroidEntryPoint
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : ComponentActivity() {
     override fun onCreate(
         savedInstanceState: Bundle?,
     ) {

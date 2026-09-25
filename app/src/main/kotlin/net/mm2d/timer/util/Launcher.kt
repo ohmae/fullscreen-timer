@@ -9,6 +9,7 @@ package net.mm2d.timer.util
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
@@ -44,7 +45,7 @@ object Launcher {
                     CustomTabsIntent.COLOR_SCHEME_LIGHT
                 }
             val params = CustomTabColorSchemeParams.Builder()
-                .setToolbarColor(context.resolveColor(android.R.attr.colorPrimary))
+                .setToolbarColor(Color.BLACK)
                 .build()
             val intent = CustomTabsIntent.Builder(CustomTabsHelper.session)
                 .setShowTitle(true)
