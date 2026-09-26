@@ -80,11 +80,11 @@ class MainViewModelTest {
             val viewModel = createViewModel()
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.initialized).isTrue()
-            assertThat(viewModel.uiStateFlow.value.mode).isEqualTo(Mode.STOPWATCH)
-            assertThat(viewModel.uiStateFlow.value.foregroundColor).isEqualTo(0xFF123456.toInt())
-            assertThat(viewModel.uiStateFlow.value.timerTimeMillis).isEqualTo(30_000L)
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(0L)
+            assertThat(viewModel.getUiStateStream().value.initialized).isTrue()
+            assertThat(viewModel.getUiStateStream().value.mode).isEqualTo(Mode.STOPWATCH)
+            assertThat(viewModel.getUiStateStream().value.foregroundColor).isEqualTo(0xFF123456.toInt())
+            assertThat(viewModel.getUiStateStream().value.timerTimeMillis).isEqualTo(30_000L)
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(0L)
         }
 
     @Test
@@ -97,15 +97,15 @@ class MainViewModelTest {
             viewModel.onEvent(UiEvent.ClickFirstButton)
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.started).isTrue()
-            assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlaySound)
+            assertThat(viewModel.getUiStateStream().value.started).isTrue()
+            assertThat(viewModel.getUiEffectStream().first()).isEqualTo(UiEffect.PlaySound)
 
             timeProvider.currentTimeMillis = 2_250L
             viewModel.onEvent(UiEvent.ClickFirstButton)
 
-            assertThat(viewModel.uiStateFlow.value.started).isFalse()
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(1_250L)
-            assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlaySound)
+            assertThat(viewModel.getUiStateStream().value.started).isFalse()
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(1_250L)
+            assertThat(viewModel.getUiEffectStream().first()).isEqualTo(UiEffect.PlaySound)
         }
 
     @Test
@@ -121,12 +121,12 @@ class MainViewModelTest {
             timeProvider.currentTimeMillis = 500L
             settingsFlow.value = settingsFlow.value.copy(millisecondEnabled = true)
             runCurrent()
-            val timeAfterSettingsChange = viewModel.uiStateFlow.value.timeMillis
+            val timeAfterSettingsChange = viewModel.getUiStateStream().value.timeMillis
 
             timeProvider.currentTimeMillis = 510L
             advanceTimeBy(10L.milliseconds)
             runCurrent()
-            val timeAfterTenMillis = viewModel.uiStateFlow.value.timeMillis
+            val timeAfterTenMillis = viewModel.getUiStateStream().value.timeMillis
             viewModel.onEvent(UiEvent.ClickFirstButton)
 
             assertThat(timeAfterSettingsChange).isEqualTo(500L)
@@ -149,12 +149,12 @@ class MainViewModelTest {
             timeProvider.currentTimeMillis = 500L
             settingsFlow.value = settingsFlow.value.copy(millisecondEnabled = true)
             runCurrent()
-            val timeAfterSettingsChange = viewModel.uiStateFlow.value.timeMillis
+            val timeAfterSettingsChange = viewModel.getUiStateStream().value.timeMillis
 
             timeProvider.currentTimeMillis = 510L
             advanceTimeBy(10L.milliseconds)
             runCurrent()
-            val timeAfterTenMillis = viewModel.uiStateFlow.value.timeMillis
+            val timeAfterTenMillis = viewModel.getUiStateStream().value.timeMillis
             viewModel.onEvent(UiEvent.ClickFirstButton)
 
             assertThat(timeAfterSettingsChange).isEqualTo(59_500L)
@@ -170,15 +170,15 @@ class MainViewModelTest {
 
             viewModel.onEvent(UiEvent.ClickFirstButton)
             runCurrent()
-            assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlaySound)
+            assertThat(viewModel.getUiEffectStream().first()).isEqualTo(UiEffect.PlaySound)
 
             timeProvider.currentTimeMillis = 100L
             mainDispatcherRule.testDispatcher.scheduler.advanceTimeBy(10L)
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.started).isFalse()
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(0L)
-            assertThat(viewModel.uiEffectFlow.first()).isEqualTo(UiEffect.PlayStopSound)
+            assertThat(viewModel.getUiStateStream().value.started).isFalse()
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(0L)
+            assertThat(viewModel.getUiEffectStream().first()).isEqualTo(UiEffect.PlayStopSound)
         }
 
     @Test
@@ -190,7 +190,7 @@ class MainViewModelTest {
 
             viewModel.onEvent(UiEvent.ClickSecondButton)
 
-            assertThat(viewModel.uiStateFlow.value.timerDialog).isEqualTo(
+            assertThat(viewModel.getUiStateStream().value.timerDialog).isEqualTo(
                 MainViewModel.TimerDialogState(
                     timeMillis = 30_000L,
                     hourEnabled = false,
@@ -199,7 +199,7 @@ class MainViewModelTest {
 
             viewModel.onEvent(UiEvent.DismissTimerDialog)
 
-            assertThat(viewModel.uiStateFlow.value.timerDialog).isNull()
+            assertThat(viewModel.getUiStateStream().value.timerDialog).isNull()
         }
 
     @Test
@@ -213,9 +213,9 @@ class MainViewModelTest {
             viewModel.onEvent(UiEvent.SelectTimerTime(90_000L))
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.timerDialog).isNull()
-            assertThat(viewModel.uiStateFlow.value.timerTimeMillis).isEqualTo(90_000L)
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(90_000L)
+            assertThat(viewModel.getUiStateStream().value.timerDialog).isNull()
+            assertThat(viewModel.getUiStateStream().value.timerTimeMillis).isEqualTo(90_000L)
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(90_000L)
             coVerify(exactly = 1) { settingsRepository.updateTimerTime(90_000L) }
         }
 
@@ -235,8 +235,8 @@ class MainViewModelTest {
             val viewModel = createViewModel()
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.started).isTrue()
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(700L)
+            assertThat(viewModel.getUiStateStream().value.started).isTrue()
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(700L)
             coVerify(exactly = 1) {
                 timerStateRepository.updateState(TimerRunningState(started = false))
             }
@@ -284,9 +284,9 @@ class MainViewModelTest {
             )
             runCurrent()
 
-            assertThat(viewModel.uiStateFlow.value.mode).isEqualTo(Mode.TIMER)
-            assertThat(viewModel.uiStateFlow.value.started).isTrue()
-            assertThat(viewModel.uiStateFlow.value.timeMillis).isEqualTo(30_000L)
+            assertThat(viewModel.getUiStateStream().value.mode).isEqualTo(Mode.TIMER)
+            assertThat(viewModel.getUiStateStream().value.started).isTrue()
+            assertThat(viewModel.getUiStateStream().value.timeMillis).isEqualTo(30_000L)
             coVerify(exactly = 1) { settingsRepository.updateMode(Mode.TIMER) }
 
             viewModel.onEvent(
@@ -297,7 +297,7 @@ class MainViewModelTest {
                     ),
                 ),
             )
-            assertThat(viewModel.uiStateFlow.value.started).isFalse()
+            assertThat(viewModel.getUiStateStream().value.started).isFalse()
         }
 
     private fun createViewModel(): MainViewModel =
