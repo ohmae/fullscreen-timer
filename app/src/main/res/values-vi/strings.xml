@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Đồng hồ hẹn giờ toàn màn hình</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Hủy</string>
+
+    <string name="label_clock">đồng hồ</string>
+    <string name="label_stopwatch">đồng hồ bấm giờ</string>
+    <string name="label_timer">hẹn giờ</string>
+
+    <string name="action_start">Bắt đầu</string>
+    <string name="action_pause">Tạm dừng</string>
+    <string name="action_reset">Đặt lại</string>
+    <string name="action_set_timer">Đặt hẹn giờ</string>
+    <string name="action_open_settings">Mở cài đặt</string>
+    <string name="action_toggle_timer_state">Bắt đầu hoặc tạm dừng</string>
+
+    <string name="menu_title_foreground_color">Màu chữ</string>
+    <string name="menu_description_foreground_color">Đặt màu chữ trên mặt đồng hồ</string>
+    <string name="menu_title_background_color">Màu nền</string>
+    <string name="menu_description_background_color">Đặt màu nền của mặt đồng hồ</string>
+    <string name="menu_title_button_opacity">Độ mờ của nút</string>
+    <string name="menu_title_volume">Âm lượng hiệu ứng âm thanh</string>
+    <string name="menu_title_hour_enabled">Hiển thị giờ</string>
+    <string name="menu_description_hour_enabled_on">Hiển thị giờ</string>
+    <string name="menu_description_hour_enabled_off">Không hiển thị giờ</string>
+    <string name="menu_title_hour_notation">Định dạng 24 giờ</string>
+    <string name="menu_description_hour_notation_on">Định dạng 24 giờ</string>
+    <string name="menu_description_hour_notation_off">Định dạng 12 giờ</string>
+    <string name="menu_title_millisecond_enabled">Hiển thị phần thập phân của giây</string>
+    <string name="menu_description_millisecond_enabled_on">Hiển thị phần thập phân của giây</string>
+    <string name="menu_description_millisecond_enabled_off">Không hiển thị phần thập phân của giây</string>
+    <string name="menu_title_second_enabled">Hiển thị giây</string>
+    <string name="menu_description_second_enabled_on">Hiển thị giây</string>
+    <string name="menu_description_second_enabled_off">Không hiển thị giây</string>
+    <string name="menu_title_fullscreen">Toàn màn hình ở màn hình chính</string>
+    <string name="menu_description_fullscreen_on">Hiển thị toàn màn hình</string>
+    <string name="menu_description_fullscreen_off">Không hiển thị toàn màn hình</string>
+    <string name="menu_title_font">Phông chữ</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Hướng màn hình</string>
+    <string name="menu_description_unspecified">Ứng dụng không chỉ định hướng màn hình. Hệ thống sẽ quyết định hướng hiển thị</string>
+    <string name="menu_description_portrait">Khóa hướng dọc</string>
+    <string name="menu_description_landscape">Khóa hướng ngang</string>
+    <string name="menu_description_reverse_portrait">Khóa hướng dọc ngược</string>
+    <string name="menu_description_reverse_landscape">Khóa hướng ngang ngược</string>
+    <string name="menu_title_version">Phiên bản</string>
+
+    <string name="timer_time_hour">Giờ</string>
+    <string name="timer_time_minute">Phút</string>
+    <string name="timer_time_second">Giây</string>
+    <string name="timer_time_value_range">Nhập từ 0 đến %1$d</string>
+    <string name="timer_time_decrease">Giảm %1$s</string>
+    <string name="timer_time_increase">Tăng %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d phút</string>
+
+    <string name="reset">Đặt lại</string>
+
+    <string name="options_menu_license">Giấy phép mã nguồn mở</string>
+    <string name="options_menu_source_code">Mã nguồn</string>
+    <string name="options_menu_privacy_policy">Chính sách quyền riêng tư</string>
+    <string name="options_menu_play_store">Cửa hàng Google Play</string>
+    <string name="options_menu_privacy_options">Tùy chọn quyền riêng tư</string>
+</resources>

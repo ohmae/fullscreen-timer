@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minuteur plein écran</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+
+    <string name="label_clock">horloge</string>
+    <string name="label_stopwatch">chronomètre</string>
+    <string name="label_timer">minuteur</string>
+
+    <string name="action_start">Démarrer</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_reset">Réinitialiser</string>
+    <string name="action_set_timer">Régler le minuteur</string>
+    <string name="action_open_settings">Ouvrir les paramètres</string>
+    <string name="action_toggle_timer_state">Démarrer ou mettre en pause</string>
+
+    <string name="menu_title_foreground_color">Couleur du texte</string>
+    <string name="menu_description_foreground_color">Définir la couleur du texte de l\'horloge</string>
+    <string name="menu_title_background_color">Couleur d\'arrière-plan</string>
+    <string name="menu_description_background_color">Définir la couleur d\'arrière-plan de l\'horloge</string>
+    <string name="menu_title_button_opacity">Opacité des boutons</string>
+    <string name="menu_title_volume">Volume des effets sonores</string>
+    <string name="menu_title_hour_enabled">Affichage des \"heures\"</string>
+    <string name="menu_description_hour_enabled_on">Afficher les \"heures\"</string>
+    <string name="menu_description_hour_enabled_off">Ne pas afficher les \"heures\"</string>
+    <string name="menu_title_hour_notation">Format 24 heures</string>
+    <string name="menu_description_hour_notation_on">Format 24 heures</string>
+    <string name="menu_description_hour_notation_off">Format 12 heures</string>
+    <string name="menu_title_millisecond_enabled">Affichage des \"fractions de seconde\"</string>
+    <string name="menu_description_millisecond_enabled_on">Afficher les \"fractions de seconde\"</string>
+    <string name="menu_description_millisecond_enabled_off">Ne pas afficher les \"fractions de seconde\"</string>
+    <string name="menu_title_second_enabled">Affichage des \"secondes\"</string>
+    <string name="menu_description_second_enabled_on">Afficher les \"secondes\"</string>
+    <string name="menu_description_second_enabled_off">Ne pas afficher les \"secondes\"</string>
+    <string name="menu_title_fullscreen">Plein écran sur l\'écran principal</string>
+    <string name="menu_description_fullscreen_on">Afficher en plein écran</string>
+    <string name="menu_description_fullscreen_off">Ne pas afficher en plein écran</string>
+    <string name="menu_title_font">Police</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Orientation de l\'écran</string>
+    <string name="menu_description_unspecified">L\'application ne définit pas l\'orientation de l\'écran. Le système choisit l\'orientation</string>
+    <string name="menu_description_portrait">Fixer en portrait</string>
+    <string name="menu_description_landscape">Fixer en paysage</string>
+    <string name="menu_description_reverse_portrait">Fixer en portrait inversé</string>
+    <string name="menu_description_reverse_landscape">Fixer en paysage inversé</string>
+    <string name="menu_title_version">Version</string>
+
+    <string name="timer_time_hour">Heures</string>
+    <string name="timer_time_minute">Minutes</string>
+    <string name="timer_time_second">Secondes</string>
+    <string name="timer_time_value_range">Entrez de 0 à %1$d</string>
+    <string name="timer_time_decrease">Diminuer %1$s</string>
+    <string name="timer_time_increase">Augmenter %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d min</string>
+
+    <string name="reset">réinitialiser</string>
+
+    <string name="options_menu_license">Licences open source</string>
+    <string name="options_menu_source_code">Code source</string>
+    <string name="options_menu_privacy_policy">Politique de confidentialité</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Options de confidentialité</string>
+</resources>

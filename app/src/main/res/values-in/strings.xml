@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Timer Layar Penuh</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+
+    <string name="label_clock">jam</string>
+    <string name="label_stopwatch">stopwatch</string>
+    <string name="label_timer">timer</string>
+
+    <string name="action_start">Mulai</string>
+    <string name="action_pause">Jeda</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_set_timer">Atur timer</string>
+    <string name="action_open_settings">Buka setelan</string>
+    <string name="action_toggle_timer_state">Mulai atau jeda</string>
+
+    <string name="menu_title_foreground_color">Warna teks</string>
+    <string name="menu_description_foreground_color">Atur warna teks jam</string>
+    <string name="menu_title_background_color">Warna latar belakang</string>
+    <string name="menu_description_background_color">Atur warna latar belakang jam</string>
+    <string name="menu_title_button_opacity">Opasitas tombol</string>
+    <string name="menu_title_volume">Volume efek suara</string>
+    <string name="menu_title_hour_enabled">Tampilan \"jam\"</string>
+    <string name="menu_description_hour_enabled_on">Tampilkan \"jam\"</string>
+    <string name="menu_description_hour_enabled_off">Jangan tampilkan \"jam\"</string>
+    <string name="menu_title_hour_notation">Format 24 jam</string>
+    <string name="menu_description_hour_notation_on">Format 24 jam</string>
+    <string name="menu_description_hour_notation_off">Format 12 jam</string>
+    <string name="menu_title_millisecond_enabled">Tampilan \"sepersekian detik\"</string>
+    <string name="menu_description_millisecond_enabled_on">Tampilkan \"sepersekian detik\"</string>
+    <string name="menu_description_millisecond_enabled_off">Jangan tampilkan \"sepersekian detik\"</string>
+    <string name="menu_title_second_enabled">Tampilan \"detik\"</string>
+    <string name="menu_description_second_enabled_on">Tampilkan \"detik\"</string>
+    <string name="menu_description_second_enabled_off">Jangan tampilkan \"detik\"</string>
+    <string name="menu_title_fullscreen">Layar penuh pada layar utama</string>
+    <string name="menu_description_fullscreen_on">Tampilkan dalam layar penuh</string>
+    <string name="menu_description_fullscreen_off">Jangan tampilkan dalam layar penuh</string>
+    <string name="menu_title_font">Font</string>
+    <string name="menu_description_font_led_7segment">LED 7 segmen</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Orientasi layar</string>
+    <string name="menu_description_unspecified">Aplikasi tidak menentukan orientasi layar. Sistem akan menentukan orientasinya</string>
+    <string name="menu_description_portrait">Kunci ke potret</string>
+    <string name="menu_description_landscape">Kunci ke lanskap</string>
+    <string name="menu_description_reverse_portrait">Kunci ke potret terbalik</string>
+    <string name="menu_description_reverse_landscape">Kunci ke lanskap terbalik</string>
+    <string name="menu_title_version">Versi</string>
+
+    <string name="timer_time_hour">Jam</string>
+    <string name="timer_time_minute">Menit</string>
+    <string name="timer_time_second">Detik</string>
+    <string name="timer_time_value_range">Masukkan 0–%1$d</string>
+    <string name="timer_time_decrease">Kurangi %1$s</string>
+    <string name="timer_time_increase">Tambah %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d mnt</string>
+
+    <string name="reset">reset</string>
+
+    <string name="options_menu_license">Lisensi sumber terbuka</string>
+    <string name="options_menu_source_code">Kode sumber</string>
+    <string name="options_menu_privacy_policy">Kebijakan privasi</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Opsi privasi</string>
+</resources>

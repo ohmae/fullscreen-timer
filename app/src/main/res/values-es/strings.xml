@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Temporizador de pantalla completa</string>
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="label_clock">reloj</string>
+    <string name="label_stopwatch">cronómetro</string>
+    <string name="label_timer">temporizador</string>
+
+    <string name="action_start">Iniciar</string>
+    <string name="action_pause">Pausar</string>
+    <string name="action_reset">Restablecer</string>
+    <string name="action_set_timer">Ajustar temporizador</string>
+    <string name="action_open_settings">Abrir ajustes</string>
+    <string name="action_toggle_timer_state">Iniciar o pausar</string>
+
+    <string name="menu_title_foreground_color">Color de texto</string>
+    <string name="menu_description_foreground_color">Establece el color del texto del reloj</string>
+    <string name="menu_title_background_color">Color de fondo</string>
+    <string name="menu_description_background_color">Establece el color de fondo del reloj</string>
+    <string name="menu_title_button_opacity">Opacidad de botones</string>
+    <string name="menu_title_volume">Volumen de sonido</string>
+    <string name="menu_title_hour_enabled">Mostrar \"hora\"</string>
+    <string name="menu_description_hour_enabled_on">Mostrar \"hora\"</string>
+    <string name="menu_description_hour_enabled_off">No mostrar \"hora\"</string>
+    <string name="menu_title_hour_notation">Formato de 24 horas</string>
+    <string name="menu_description_hour_notation_on">Formato de 24 horas</string>
+    <string name="menu_description_hour_notation_off">Formato de 12 horas</string>
+    <string name="menu_title_millisecond_enabled">Mostrar \"fracciones de segundo\"</string>
+    <string name="menu_description_millisecond_enabled_on">Mostrar \"fracciones de segundo\"</string>
+    <string name="menu_description_millisecond_enabled_off">No mostrar \"fracciones de segundo\"</string>
+    <string name="menu_title_second_enabled">Mostrar \"segundos\"</string>
+    <string name="menu_description_second_enabled_on">Mostrar \"segundos\"</string>
+    <string name="menu_description_second_enabled_off">No mostrar \"segundos\"</string>
+    <string name="menu_title_fullscreen">Pantalla completa en pantalla principal</string>
+    <string name="menu_description_fullscreen_on">Mostrar en pantalla completa</string>
+    <string name="menu_description_fullscreen_off">No mostrar en pantalla completa</string>
+    <string name="menu_title_font">Fuente</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Orientación de pantalla</string>
+    <string name="menu_description_unspecified">La app no establece la orientación de la pantalla. El sistema decide la orientación</string>
+    <string name="menu_description_portrait">Fijar en vertical</string>
+    <string name="menu_description_landscape">Fijar en horizontal</string>
+    <string name="menu_description_reverse_portrait">Fijar en vertical inverso</string>
+    <string name="menu_description_reverse_landscape">Fijar en horizontal inverso</string>
+    <string name="menu_title_version">Versión</string>
+
+    <string name="timer_time_hour">Horas</string>
+    <string name="timer_time_minute">Minutos</string>
+    <string name="timer_time_second">Segundos</string>
+    <string name="timer_time_value_range">Introduce de 0 a %1$d</string>
+    <string name="timer_time_decrease">Reducir %1$s</string>
+    <string name="timer_time_increase">Aumentar %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d min</string>
+
+    <string name="reset">restablecer</string>
+
+    <string name="options_menu_license">Licencias de código abierto</string>
+    <string name="options_menu_source_code">Código fuente</string>
+    <string name="options_menu_privacy_policy">Política de privacidad</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Opciones de privacidad</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Timer op volledig scherm</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
+
+    <string name="label_clock">klok</string>
+    <string name="label_stopwatch">stopwatch</string>
+    <string name="label_timer">timer</string>
+
+    <string name="action_start">Starten</string>
+    <string name="action_pause">Pauzeren</string>
+    <string name="action_reset">Resetten</string>
+    <string name="action_set_timer">Timer instellen</string>
+    <string name="action_open_settings">Instellingen openen</string>
+    <string name="action_toggle_timer_state">Starten of pauzeren</string>
+
+    <string name="menu_title_foreground_color">Tekstkleur</string>
+    <string name="menu_description_foreground_color">Stel de kleur van de kloktekst in</string>
+    <string name="menu_title_background_color">Achtergrondkleur</string>
+    <string name="menu_description_background_color">Stel de achtergrondkleur van de klok in</string>
+    <string name="menu_title_button_opacity">Dekking van knoppen</string>
+    <string name="menu_title_volume">Volume van geluidseffecten</string>
+    <string name="menu_title_hour_enabled">Uren weergeven</string>
+    <string name="menu_description_hour_enabled_on">Uren weergeven</string>
+    <string name="menu_description_hour_enabled_off">Uren niet weergeven</string>
+    <string name="menu_title_hour_notation">24-uursnotatie</string>
+    <string name="menu_description_hour_notation_on">24-uursnotatie</string>
+    <string name="menu_description_hour_notation_off">12-uursnotatie</string>
+    <string name="menu_title_millisecond_enabled">Delen van seconden weergeven</string>
+    <string name="menu_description_millisecond_enabled_on">Delen van seconden weergeven</string>
+    <string name="menu_description_millisecond_enabled_off">Delen van seconden niet weergeven</string>
+    <string name="menu_title_second_enabled">Seconden weergeven</string>
+    <string name="menu_description_second_enabled_on">Seconden weergeven</string>
+    <string name="menu_description_second_enabled_off">Seconden niet weergeven</string>
+    <string name="menu_title_fullscreen">Volledig scherm op het hoofdscherm</string>
+    <string name="menu_description_fullscreen_on">Op volledig scherm weergeven</string>
+    <string name="menu_description_fullscreen_off">Niet op volledig scherm weergeven</string>
+    <string name="menu_title_font">Lettertype</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Schermstand</string>
+    <string name="menu_description_unspecified">De app stelt de schermstand niet in. Het systeem bepaalt de stand</string>
+    <string name="menu_description_portrait">Vastzetten in staande stand</string>
+    <string name="menu_description_landscape">Vastzetten in liggende stand</string>
+    <string name="menu_description_reverse_portrait">Vastzetten in omgekeerde staande stand</string>
+    <string name="menu_description_reverse_landscape">Vastzetten in omgekeerde liggende stand</string>
+    <string name="menu_title_version">Versie</string>
+
+    <string name="timer_time_hour">Uren</string>
+    <string name="timer_time_minute">Minuten</string>
+    <string name="timer_time_second">Seconden</string>
+    <string name="timer_time_value_range">Voer een getal van 0 tot %1$d in</string>
+    <string name="timer_time_decrease">%1$s verlagen</string>
+    <string name="timer_time_increase">%1$s verhogen</string>
+    <string name="timer_time_preset_minutes">%1$d min</string>
+
+    <string name="reset">Resetten</string>
+
+    <string name="options_menu_license">Opensourcelicenties</string>
+    <string name="options_menu_source_code">Broncode</string>
+    <string name="options_menu_privacy_policy">Privacybeleid</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Privacyopties</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">전체화면 타이머</string>
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+
+    <string name="label_clock">시계</string>
+    <string name="label_stopwatch">스톱워치</string>
+    <string name="label_timer">타이머</string>
+
+    <string name="action_start">시작</string>
+    <string name="action_pause">일시정지</string>
+    <string name="action_reset">재설정</string>
+    <string name="action_set_timer">타이머 설정</string>
+    <string name="action_open_settings">설정 열기</string>
+    <string name="action_toggle_timer_state">시작 또는 일시정지</string>
+
+    <string name="menu_title_foreground_color">글자 색상</string>
+    <string name="menu_description_foreground_color">시계 글자의 색상을 설정합니다</string>
+    <string name="menu_title_background_color">배경 색상</string>
+    <string name="menu_description_background_color">시계 배경 색상을 설정합니다</string>
+    <string name="menu_title_button_opacity">버튼 불투명도</string>
+    <string name="menu_title_volume">효과음 볼륨</string>
+    <string name="menu_title_hour_enabled">\"시간\" 표시</string>
+    <string name="menu_description_hour_enabled_on">\"시간\"을 표시합니다</string>
+    <string name="menu_description_hour_enabled_off">\"시간\"을 표시하지 않습니다</string>
+    <string name="menu_title_hour_notation">24시간 형식</string>
+    <string name="menu_description_hour_notation_on">24시간 형식</string>
+    <string name="menu_description_hour_notation_off">12시간 형식</string>
+    <string name="menu_title_millisecond_enabled">\"소수점 초\" 표시</string>
+    <string name="menu_description_millisecond_enabled_on">\"소수점 초\"를 표시합니다</string>
+    <string name="menu_description_millisecond_enabled_off">\"소수점 초\"를 표시하지 않습니다</string>
+    <string name="menu_title_second_enabled">\"초\" 표시</string>
+    <string name="menu_description_second_enabled_on">\"초\"를 표시합니다</string>
+    <string name="menu_description_second_enabled_off">\"초\"를 표시하지 않습니다</string>
+    <string name="menu_title_fullscreen">메인 화면 전체화면 표시</string>
+    <string name="menu_description_fullscreen_on">전체화면으로 표시합니다</string>
+    <string name="menu_description_fullscreen_off">전체화면으로 표시하지 않습니다</string>
+    <string name="menu_title_font">글꼴</string>
+    <string name="menu_description_font_led_7segment">7세그먼트 LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">화면 방향</string>
+    <string name="menu_description_unspecified">앱에서 화면 방향을 지정하지 않습니다. 시스템에서 화면 방향을 결정합니다</string>
+    <string name="menu_description_portrait">세로 모드로 고정</string>
+    <string name="menu_description_landscape">가로 모드로 고정</string>
+    <string name="menu_description_reverse_portrait">역세로 모드로 고정</string>
+    <string name="menu_description_reverse_landscape">역가로 모드로 고정</string>
+    <string name="menu_title_version">버전</string>
+
+    <string name="timer_time_hour">시간</string>
+    <string name="timer_time_minute">분</string>
+    <string name="timer_time_second">초</string>
+    <string name="timer_time_value_range">0~%1$d 입력</string>
+    <string name="timer_time_decrease">%1$s 감소</string>
+    <string name="timer_time_increase">%1$s 증가</string>
+    <string name="timer_time_preset_minutes">%1$d분</string>
+
+    <string name="reset">재설정</string>
+
+    <string name="options_menu_license">오픈소스 라이선스</string>
+    <string name="options_menu_source_code">소스 코드</string>
+    <string name="options_menu_privacy_policy">개인정보처리방침</string>
+    <string name="options_menu_play_store">Google Play 스토어</string>
+    <string name="options_menu_privacy_options">개인정보 보호 설정</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ตัวจับเวลาเต็มหน้าจอ</string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
+
+    <string name="label_clock">นาฬิกา</string>
+    <string name="label_stopwatch">นาฬิกาจับเวลา</string>
+    <string name="label_timer">ตัวจับเวลา</string>
+
+    <string name="action_start">เริ่ม</string>
+    <string name="action_pause">หยุดชั่วคราว</string>
+    <string name="action_reset">รีเซ็ต</string>
+    <string name="action_set_timer">ตั้งเวลา</string>
+    <string name="action_open_settings">เปิดการตั้งค่า</string>
+    <string name="action_toggle_timer_state">เริ่มหรือหยุดชั่วคราว</string>
+
+    <string name="menu_title_foreground_color">สีข้อความ</string>
+    <string name="menu_description_foreground_color">ตั้งค่าสีตัวเลขบนนาฬิกา</string>
+    <string name="menu_title_background_color">สีพื้นหลัง</string>
+    <string name="menu_description_background_color">ตั้งค่าสีพื้นหลังนาฬิกา</string>
+    <string name="menu_title_button_opacity">ความทึบของปุ่ม</string>
+    <string name="menu_title_volume">ระดับเสียงเอฟเฟกต์</string>
+    <string name="menu_title_hour_enabled">แสดงชั่วโมง</string>
+    <string name="menu_description_hour_enabled_on">แสดงชั่วโมง</string>
+    <string name="menu_description_hour_enabled_off">ไม่แสดงชั่วโมง</string>
+    <string name="menu_title_hour_notation">รูปแบบ 24 ชั่วโมง</string>
+    <string name="menu_description_hour_notation_on">รูปแบบ 24 ชั่วโมง</string>
+    <string name="menu_description_hour_notation_off">รูปแบบ 12 ชั่วโมง</string>
+    <string name="menu_title_millisecond_enabled">แสดงเศษส่วนของวินาที</string>
+    <string name="menu_description_millisecond_enabled_on">แสดงเศษส่วนของวินาที</string>
+    <string name="menu_description_millisecond_enabled_off">ไม่แสดงเศษส่วนของวินาที</string>
+    <string name="menu_title_second_enabled">แสดงวินาที</string>
+    <string name="menu_description_second_enabled_on">แสดงวินาที</string>
+    <string name="menu_description_second_enabled_off">ไม่แสดงวินาที</string>
+    <string name="menu_title_fullscreen">เต็มหน้าจอในหน้าหลัก</string>
+    <string name="menu_description_fullscreen_on">แสดงเต็มหน้าจอ</string>
+    <string name="menu_description_fullscreen_off">ไม่แสดงเต็มหน้าจอ</string>
+    <string name="menu_title_font">แบบอักษร</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">การวางแนวหน้าจอ</string>
+    <string name="menu_description_unspecified">แอปไม่กำหนดการวางแนวหน้าจอ ระบบจะเป็นผู้กำหนด</string>
+    <string name="menu_description_portrait">ล็อกแนวตั้ง</string>
+    <string name="menu_description_landscape">ล็อกแนวนอน</string>
+    <string name="menu_description_reverse_portrait">ล็อกแนวตั้งกลับหัว</string>
+    <string name="menu_description_reverse_landscape">ล็อกแนวนอนกลับด้าน</string>
+    <string name="menu_title_version">เวอร์ชัน</string>
+
+    <string name="timer_time_hour">ชั่วโมง</string>
+    <string name="timer_time_minute">นาที</string>
+    <string name="timer_time_second">วินาที</string>
+    <string name="timer_time_value_range">ป้อนค่าตั้งแต่ 0 ถึง %1$d</string>
+    <string name="timer_time_decrease">ลด %1$s</string>
+    <string name="timer_time_increase">เพิ่ม %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d นาที</string>
+
+    <string name="reset">รีเซ็ต</string>
+
+    <string name="options_menu_license">ใบอนุญาตโอเพนซอร์ส</string>
+    <string name="options_menu_source_code">ซอร์สโค้ด</string>
+    <string name="options_menu_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">ตัวเลือกความเป็นส่วนตัว</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tam Ekran Zamanlayıcı</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+
+    <string name="label_clock">saat</string>
+    <string name="label_stopwatch">kronometre</string>
+    <string name="label_timer">zamanlayıcı</string>
+
+    <string name="action_start">Başlat</string>
+    <string name="action_pause">Duraklat</string>
+    <string name="action_reset">Sıfırla</string>
+    <string name="action_set_timer">Zamanlayıcı ayarla</string>
+    <string name="action_open_settings">Ayarları aç</string>
+    <string name="action_toggle_timer_state">Başlat veya duraklat</string>
+
+    <string name="menu_title_foreground_color">Metin rengi</string>
+    <string name="menu_description_foreground_color">Saat metninin rengini ayarlar</string>
+    <string name="menu_title_background_color">Arka plan rengi</string>
+    <string name="menu_description_background_color">Saat arka plan rengini ayarlar</string>
+    <string name="menu_title_button_opacity">Düğme opaklığı</string>
+    <string name="menu_title_volume">Ses efekti düzeyi</string>
+    <string name="menu_title_hour_enabled">\"Saat\" gösterimi</string>
+    <string name="menu_description_hour_enabled_on">\"Saat\" gösterilsin</string>
+    <string name="menu_description_hour_enabled_off">\"Saat\" gösterilmesin</string>
+    <string name="menu_title_hour_notation">24 saat biçimi</string>
+    <string name="menu_description_hour_notation_on">24 saat biçimi</string>
+    <string name="menu_description_hour_notation_off">12 saat biçimi</string>
+    <string name="menu_title_millisecond_enabled">\"Salise\" gösterimi</string>
+    <string name="menu_description_millisecond_enabled_on">\"Salise\" gösterilsin</string>
+    <string name="menu_description_millisecond_enabled_off">\"Salise\" gösterilmesin</string>
+    <string name="menu_title_second_enabled">\"Saniye\" gösterimi</string>
+    <string name="menu_description_second_enabled_on">\"Saniye\" gösterilsin</string>
+    <string name="menu_description_second_enabled_off">\"Saniye\" gösterilmesin</string>
+    <string name="menu_title_fullscreen">Ana ekranda tam ekran görünümü</string>
+    <string name="menu_description_fullscreen_on">Tam ekranda göster</string>
+    <string name="menu_description_fullscreen_off">Tam ekranda gösterme</string>
+    <string name="menu_title_font">Yazı tipi</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Ekran yönü</string>
+    <string name="menu_description_unspecified">Uygulama ekran yönünü belirlemez. Yönü sistem seçer</string>
+    <string name="menu_description_portrait">Dikey konuma sabitle</string>
+    <string name="menu_description_landscape">Yatay konuma sabitle</string>
+    <string name="menu_description_reverse_portrait">Ters dikey konuma sabitle</string>
+    <string name="menu_description_reverse_landscape">Ters yatay konuma sabitle</string>
+    <string name="menu_title_version">Sürüm</string>
+
+    <string name="timer_time_hour">Saat</string>
+    <string name="timer_time_minute">Dakika</string>
+    <string name="timer_time_second">Saniye</string>
+    <string name="timer_time_value_range">0–%1$d arası girin</string>
+    <string name="timer_time_decrease">%1$s azalt</string>
+    <string name="timer_time_increase">%1$s artır</string>
+    <string name="timer_time_preset_minutes">%1$d dk</string>
+
+    <string name="reset">sıfırla</string>
+
+    <string name="options_menu_license">Açık kaynak lisansları</string>
+    <string name="options_menu_source_code">Kaynak kodu</string>
+    <string name="options_menu_privacy_policy">Gizlilik politikası</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Gizlilik seçenekleri</string>
+</resources>

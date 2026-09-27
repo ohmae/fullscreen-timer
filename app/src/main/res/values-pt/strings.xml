@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Temporizador de tela cheia</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="label_clock">relógio</string>
+    <string name="label_stopwatch">cronômetro</string>
+    <string name="label_timer">temporizador</string>
+
+    <string name="action_start">Iniciar</string>
+    <string name="action_pause">Pausar</string>
+    <string name="action_reset">Redefinir</string>
+    <string name="action_set_timer">Definir temporizador</string>
+    <string name="action_open_settings">Abrir configurações</string>
+    <string name="action_toggle_timer_state">Iniciar ou pausar</string>
+
+    <string name="menu_title_foreground_color">Cor do texto</string>
+    <string name="menu_description_foreground_color">Define a cor do texto do relógio</string>
+    <string name="menu_title_background_color">Cor de fundo</string>
+    <string name="menu_description_background_color">Define a cor de fundo do relógio</string>
+    <string name="menu_title_button_opacity">Opacidade dos botões</string>
+    <string name="menu_title_volume">Volume do som</string>
+    <string name="menu_title_hour_enabled">Exibição de \"hora\"</string>
+    <string name="menu_description_hour_enabled_on">Exibir \"hora\"</string>
+    <string name="menu_description_hour_enabled_off">Não exibir \"hora\"</string>
+    <string name="menu_title_hour_notation">Formato de 24 horas</string>
+    <string name="menu_description_hour_notation_on">Formato de 24 horas</string>
+    <string name="menu_description_hour_notation_off">Formato de 12 horas</string>
+    <string name="menu_title_millisecond_enabled">Exibição de \"fração de segundo\"</string>
+    <string name="menu_description_millisecond_enabled_on">Exibir \"fração de segundo\"</string>
+    <string name="menu_description_millisecond_enabled_off">Não exibir \"fração de segundo\"</string>
+    <string name="menu_title_second_enabled">Exibição de \"segundo\"</string>
+    <string name="menu_description_second_enabled_on">Exibir \"segundo\"</string>
+    <string name="menu_description_second_enabled_off">Não exibir \"segundo\"</string>
+    <string name="menu_title_fullscreen">Tela cheia na tela principal</string>
+    <string name="menu_description_fullscreen_on">Exibir em tela cheia</string>
+    <string name="menu_description_fullscreen_off">Não exibir em tela cheia</string>
+    <string name="menu_title_font">Fonte</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Orientação da tela</string>
+    <string name="menu_description_unspecified">O app não define a orientação da tela. O sistema decide a orientação</string>
+    <string name="menu_description_portrait">Fixar em retrato</string>
+    <string name="menu_description_landscape">Fixar em paisagem</string>
+    <string name="menu_description_reverse_portrait">Fixar em retrato invertido</string>
+    <string name="menu_description_reverse_landscape">Fixar em paisagem invertida</string>
+    <string name="menu_title_version">Versão</string>
+
+    <string name="timer_time_hour">Horas</string>
+    <string name="timer_time_minute">Minutos</string>
+    <string name="timer_time_second">Segundos</string>
+    <string name="timer_time_value_range">Insira de 0 a %1$d</string>
+    <string name="timer_time_decrease">Diminuir %1$s</string>
+    <string name="timer_time_increase">Aumentar %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d min</string>
+
+    <string name="reset">redefinir</string>
+
+    <string name="options_menu_license">Licenças de código aberto</string>
+    <string name="options_menu_source_code">Código-fonte</string>
+    <string name="options_menu_privacy_policy">Política de privacidade</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Opções de privacidade</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vollbild-Timer</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+
+    <string name="label_clock">Uhr</string>
+    <string name="label_stopwatch">Stoppuhr</string>
+    <string name="label_timer">Timer</string>
+
+    <string name="action_start">Start</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_reset">Zurücksetzen</string>
+    <string name="action_set_timer">Timer einstellen</string>
+    <string name="action_open_settings">Einstellungen öffnen</string>
+    <string name="action_toggle_timer_state">Starten oder pausieren</string>
+
+    <string name="menu_title_foreground_color">Textfarbe</string>
+    <string name="menu_description_foreground_color">Farbe des Uhrzeittexts einstellen</string>
+    <string name="menu_title_background_color">Hintergrundfarbe</string>
+    <string name="menu_description_background_color">Hintergrundfarbe der Uhr einstellen</string>
+    <string name="menu_title_button_opacity">Deckkraft der Schaltflächen</string>
+    <string name="menu_title_volume">Lautstärke Toneffekte</string>
+    <string name="menu_title_hour_enabled">Anzeige von \"Stunden\"</string>
+    <string name="menu_description_hour_enabled_on">\"Stunden\" anzeigen</string>
+    <string name="menu_description_hour_enabled_off">\"Stunden\" nicht anzeigen</string>
+    <string name="menu_title_hour_notation">24-Stunden-Format</string>
+    <string name="menu_description_hour_notation_on">24-Stunden-Format</string>
+    <string name="menu_description_hour_notation_off">12-Stunden-Format</string>
+    <string name="menu_title_millisecond_enabled">Anzeige von \"Sekundenbruchteilen\"</string>
+    <string name="menu_description_millisecond_enabled_on">\"Sekundenbruchteile\" anzeigen</string>
+    <string name="menu_description_millisecond_enabled_off">\"Sekundenbruchteile\" nicht anzeigen</string>
+    <string name="menu_title_second_enabled">Anzeige von \"Sekunden\"</string>
+    <string name="menu_description_second_enabled_on">\"Sekunden\" anzeigen</string>
+    <string name="menu_description_second_enabled_off">\"Sekunden\" nicht anzeigen</string>
+    <string name="menu_title_fullscreen">Vollbildansicht auf dem Hauptbildschirm</string>
+    <string name="menu_description_fullscreen_on">Im Vollbildmodus anzeigen</string>
+    <string name="menu_description_fullscreen_off">Nicht im Vollbildmodus anzeigen</string>
+    <string name="menu_title_font">Schriftart</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Bildschirmausrichtung</string>
+    <string name="menu_description_unspecified">Die App legt die Bildschirmausrichtung nicht fest. Das System bestimmt die Ausrichtung</string>
+    <string name="menu_description_portrait">Auf Hochformat fixieren</string>
+    <string name="menu_description_landscape">Auf Querformat fixieren</string>
+    <string name="menu_description_reverse_portrait">Auf umgekehrtes Hochformat fixieren</string>
+    <string name="menu_description_reverse_landscape">Auf umgekehrtes Querformat fixieren</string>
+    <string name="menu_title_version">Version</string>
+
+    <string name="timer_time_hour">Stunden</string>
+    <string name="timer_time_minute">Minuten</string>
+    <string name="timer_time_second">Sekunden</string>
+    <string name="timer_time_value_range">0–%1$d eingeben</string>
+    <string name="timer_time_decrease">%1$s verringern</string>
+    <string name="timer_time_increase">%1$s erhöhen</string>
+    <string name="timer_time_preset_minutes">%1$d Min.</string>
+
+    <string name="reset">zurücksetzen</string>
+
+    <string name="options_menu_license">Open-Source-Lizenzen</string>
+    <string name="options_menu_source_code">Quellcode</string>
+    <string name="options_menu_privacy_policy">Datenschutzerklärung</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Datenschutzeinstellungen</string>
+</resources>

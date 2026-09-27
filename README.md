@@ -11,6 +11,37 @@
 
 [Google Play](https://play.google.com/store/apps/details?id=net.mm2d.timer)
 
+# Supported Languages
+
+This app supports the following languages:
+
+| Language | File Link |
+| --- | --- |
+| English (Default) | [values/strings.xml](./app/src/main/res/values/strings.xml) |
+| Japanese (日本語) | [values-ja/strings.xml](./app/src/main/res/values-ja/strings.xml) |
+| Spanish (Español) | [values-es/strings.xml](./app/src/main/res/values-es/strings.xml) |
+| Portuguese (Português) | [values-pt/strings.xml](./app/src/main/res/values-pt/strings.xml) |
+| Korean (한국어) | [values-ko/strings.xml](./app/src/main/res/values-ko/strings.xml) |
+| Indonesian (Bahasa Indonesia) | [values-in/strings.xml](./app/src/main/res/values-in/strings.xml) |
+| Arabic (العربية) | [values-ar/strings.xml](./app/src/main/res/values-ar/strings.xml) |
+| Russian (Русский) | [values-ru/strings.xml](./app/src/main/res/values-ru/strings.xml) |
+| Turkish (Türkçe) | [values-tr/strings.xml](./app/src/main/res/values-tr/strings.xml) |
+| French (Français) | [values-fr/strings.xml](./app/src/main/res/values-fr/strings.xml) |
+| German (Deutsch) | [values-de/strings.xml](./app/src/main/res/values-de/strings.xml) |
+| Italian (Italiano) | [values-it/strings.xml](./app/src/main/res/values-it/strings.xml) |
+| Chinese (Simplified) (简体中文) | [values-zh-rCN/strings.xml](./app/src/main/res/values-zh-rCN/strings.xml) |
+| Chinese (Traditional) (繁體中文) | [values-zh-rTW/strings.xml](./app/src/main/res/values-zh-rTW/strings.xml) |
+| Hindi (हिन्दी) | [values-hi/strings.xml](./app/src/main/res/values-hi/strings.xml) |
+| Vietnamese (Tiếng Việt) | [values-vi/strings.xml](./app/src/main/res/values-vi/strings.xml) |
+| Polish (Polski) | [values-pl/strings.xml](./app/src/main/res/values-pl/strings.xml) |
+| Persian (فارسی) | [values-fa/strings.xml](./app/src/main/res/values-fa/strings.xml) |
+| Ukrainian (Українська) | [values-uk/strings.xml](./app/src/main/res/values-uk/strings.xml) |
+| Dutch (Nederlands) | [values-nl/strings.xml](./app/src/main/res/values-nl/strings.xml) |
+| Thai (ไทย) | [values-th/strings.xml](./app/src/main/res/values-th/strings.xml) |
+| Uzbek (Oʻzbekcha) | [values-uz/strings.xml](./app/src/main/res/values-uz/strings.xml) |
+| Bengali (বাংলা) | [values-bn/strings.xml](./app/src/main/res/values-bn/strings.xml) |
+| Urdu (اردو) | [values-ur/strings.xml](./app/src/main/res/values-ur/strings.xml) |
+
 # Intent Control
 
 This app accepts control by Intent from other apps.

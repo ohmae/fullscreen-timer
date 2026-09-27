@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">تایمر تمام‌صفحه</string>
+    <string name="ok">تأیید</string>
+    <string name="cancel">لغو</string>
+
+    <string name="label_clock">ساعت</string>
+    <string name="label_stopwatch">کرنومتر</string>
+    <string name="label_timer">تایمر</string>
+
+    <string name="action_start">شروع</string>
+    <string name="action_pause">مکث</string>
+    <string name="action_reset">بازنشانی</string>
+    <string name="action_set_timer">تنظیم تایمر</string>
+    <string name="action_open_settings">باز کردن تنظیمات</string>
+    <string name="action_toggle_timer_state">شروع یا مکث</string>
+
+    <string name="menu_title_foreground_color">رنگ متن</string>
+    <string name="menu_description_foreground_color">تنظیم رنگ نوشته‌های صفحه ساعت</string>
+    <string name="menu_title_background_color">رنگ پس‌زمینه</string>
+    <string name="menu_description_background_color">تنظیم رنگ پس‌زمینه صفحه ساعت</string>
+    <string name="menu_title_button_opacity">میزان کدری دکمه‌ها</string>
+    <string name="menu_title_volume">بلندی صدای جلوه‌های صوتی</string>
+    <string name="menu_title_hour_enabled">نمایش ساعت</string>
+    <string name="menu_description_hour_enabled_on">نمایش ساعت</string>
+    <string name="menu_description_hour_enabled_off">عدم نمایش ساعت</string>
+    <string name="menu_title_hour_notation">قالب ۲۴ ساعته</string>
+    <string name="menu_description_hour_notation_on">قالب ۲۴ ساعته</string>
+    <string name="menu_description_hour_notation_off">قالب ۱۲ ساعته</string>
+    <string name="menu_title_millisecond_enabled">نمایش کسر ثانیه</string>
+    <string name="menu_description_millisecond_enabled_on">نمایش کسر ثانیه</string>
+    <string name="menu_description_millisecond_enabled_off">عدم نمایش کسر ثانیه</string>
+    <string name="menu_title_second_enabled">نمایش ثانیه</string>
+    <string name="menu_description_second_enabled_on">نمایش ثانیه</string>
+    <string name="menu_description_second_enabled_off">عدم نمایش ثانیه</string>
+    <string name="menu_title_fullscreen">نمایش تمام‌صفحه در صفحه اصلی</string>
+    <string name="menu_description_fullscreen_on">نمایش تمام‌صفحه</string>
+    <string name="menu_description_fullscreen_off">عدم نمایش تمام‌صفحه</string>
+    <string name="menu_title_font">قلم</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">جهت صفحه</string>
+    <string name="menu_description_unspecified">برنامه جهت صفحه را تعیین نمی‌کند. سیستم جهت نمایش را تعیین می‌کند</string>
+    <string name="menu_description_portrait">قفل در حالت عمودی</string>
+    <string name="menu_description_landscape">قفل در حالت افقی</string>
+    <string name="menu_description_reverse_portrait">قفل در حالت عمودی وارونه</string>
+    <string name="menu_description_reverse_landscape">قفل در حالت افقی وارونه</string>
+    <string name="menu_title_version">نسخه</string>
+
+    <string name="timer_time_hour">ساعت</string>
+    <string name="timer_time_minute">دقیقه</string>
+    <string name="timer_time_second">ثانیه</string>
+    <string name="timer_time_value_range">عددی بین ۰ و %1$d وارد کنید</string>
+    <string name="timer_time_decrease">کاهش %1$s</string>
+    <string name="timer_time_increase">افزایش %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d دقیقه</string>
+
+    <string name="reset">بازنشانی</string>
+
+    <string name="options_menu_license">مجوزهای متن‌باز</string>
+    <string name="options_menu_source_code">کد منبع</string>
+    <string name="options_menu_privacy_policy">خط‌مشی رازداری</string>
+    <string name="options_menu_play_store">فروشگاه Google Play</string>
+    <string name="options_menu_privacy_options">گزینه‌های حریم خصوصی</string>
+</resources>

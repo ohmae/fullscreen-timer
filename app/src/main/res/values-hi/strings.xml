@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">फ़ुलस्क्रीन टाइमर</string>
+    <string name="ok">ठीक है</string>
+    <string name="cancel">रद्द करें</string>
+
+    <string name="label_clock">घड़ी</string>
+    <string name="label_stopwatch">स्टॉपवॉच</string>
+    <string name="label_timer">टाइमर</string>
+
+    <string name="action_start">शुरू करें</string>
+    <string name="action_pause">रोकें</string>
+    <string name="action_reset">रीसेट करें</string>
+    <string name="action_set_timer">टाइमर सेट करें</string>
+    <string name="action_open_settings">सेटिंग खोलें</string>
+    <string name="action_toggle_timer_state">शुरू करें या रोकें</string>
+
+    <string name="menu_title_foreground_color">टेक्स्ट का रंग</string>
+    <string name="menu_description_foreground_color">घड़ी के टेक्स्ट का रंग सेट करें</string>
+    <string name="menu_title_background_color">बैकग्राउंड का रंग</string>
+    <string name="menu_description_background_color">घड़ी के बैकग्राउंड का रंग सेट करें</string>
+    <string name="menu_title_button_opacity">बटन की अपारदर्शिता</string>
+    <string name="menu_title_volume">ध्वनि प्रभाव वॉल्यूम</string>
+    <string name="menu_title_hour_enabled">\"घंटे\" का प्रदर्शन</string>
+    <string name="menu_description_hour_enabled_on">\"घंटे\" प्रदर्शित करें</string>
+    <string name="menu_description_hour_enabled_off">\"घंटे\" प्रदर्शित न करें</string>
+    <string name="menu_title_hour_notation">24-घंटे का प्रारूप</string>
+    <string name="menu_description_hour_notation_on">24-घंटे का प्रारूप</string>
+    <string name="menu_description_hour_notation_off">12-घंटे का प्रारूप</string>
+    <string name="menu_title_millisecond_enabled">\"सेकंड के अंश\" का प्रदर्शन</string>
+    <string name="menu_description_millisecond_enabled_on">\"सेकंड के अंश\" प्रदर्शित करें</string>
+    <string name="menu_description_millisecond_enabled_off">\"सेकंड के अंश\" प्रदर्शित न करें</string>
+    <string name="menu_title_second_enabled">\"सेकंड\" का प्रदर्शन</string>
+    <string name="menu_description_second_enabled_on">\"सेकंड\" प्रदर्शित करें</string>
+    <string name="menu_description_second_enabled_off">\"सेकंड\" प्रदर्शित न करें</string>
+    <string name="menu_title_fullscreen">मुख्य स्क्रीन पर फ़ुलस्क्रीन दृश्य</string>
+    <string name="menu_description_fullscreen_on">फ़ुलस्क्रीन में प्रदर्शित करें</string>
+    <string name="menu_description_fullscreen_off">फ़ुलस्क्रीन में प्रदर्शित न करें</string>
+    <string name="menu_title_font">फ़ॉन्ट</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">स्क्रीन ओरिएंटेशन</string>
+    <string name="menu_description_unspecified">यह ऐप स्क्रीन की दिशा तय नहीं करता। सिस्टम दिशा तय करता है</string>
+    <string name="menu_description_portrait">पोर्ट्रेट पर लॉक करें</string>
+    <string name="menu_description_landscape">लैंडस्केप पर लॉक करें</string>
+    <string name="menu_description_reverse_portrait">उल्टे पोर्ट्रेट पर लॉक करें</string>
+    <string name="menu_description_reverse_landscape">उल्टे लैंडस्केप पर लॉक करें</string>
+    <string name="menu_title_version">संस्करण</string>
+
+    <string name="timer_time_hour">घंटे</string>
+    <string name="timer_time_minute">मिनट</string>
+    <string name="timer_time_second">सेकंड</string>
+    <string name="timer_time_value_range">0–%1$d दर्ज करें</string>
+    <string name="timer_time_decrease">%1$s घटाएं</string>
+    <string name="timer_time_increase">%1$s बढ़ाएं</string>
+    <string name="timer_time_preset_minutes">%1$d मिनट</string>
+
+    <string name="reset">रीसेट</string>
+
+    <string name="options_menu_license">ओपन सोर्स लाइसेंस</string>
+    <string name="options_menu_source_code">स्रोत कोड</string>
+    <string name="options_menu_privacy_policy">गोपनीयता नीति</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">गोपनीयता विकल्प</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Повноекранний таймер</string>
+    <string name="ok">Гаразд</string>
+    <string name="cancel">Скасувати</string>
+
+    <string name="label_clock">годинник</string>
+    <string name="label_stopwatch">секундомір</string>
+    <string name="label_timer">таймер</string>
+
+    <string name="action_start">Почати</string>
+    <string name="action_pause">Призупинити</string>
+    <string name="action_reset">Скинути</string>
+    <string name="action_set_timer">Установити таймер</string>
+    <string name="action_open_settings">Відкрити налаштування</string>
+    <string name="action_toggle_timer_state">Почати або призупинити</string>
+
+    <string name="menu_title_foreground_color">Колір тексту</string>
+    <string name="menu_description_foreground_color">Установити колір цифр годинника</string>
+    <string name="menu_title_background_color">Колір тла</string>
+    <string name="menu_description_background_color">Установити колір тла годинника</string>
+    <string name="menu_title_button_opacity">Непрозорість кнопок</string>
+    <string name="menu_title_volume">Гучність звукових ефектів</string>
+    <string name="menu_title_hour_enabled">Показ годин</string>
+    <string name="menu_description_hour_enabled_on">Показувати години</string>
+    <string name="menu_description_hour_enabled_off">Не показувати години</string>
+    <string name="menu_title_hour_notation">24-годинний формат</string>
+    <string name="menu_description_hour_notation_on">24-годинний формат</string>
+    <string name="menu_description_hour_notation_off">12-годинний формат</string>
+    <string name="menu_title_millisecond_enabled">Показ часток секунди</string>
+    <string name="menu_description_millisecond_enabled_on">Показувати частки секунди</string>
+    <string name="menu_description_millisecond_enabled_off">Не показувати частки секунди</string>
+    <string name="menu_title_second_enabled">Показ секунд</string>
+    <string name="menu_description_second_enabled_on">Показувати секунди</string>
+    <string name="menu_description_second_enabled_off">Не показувати секунди</string>
+    <string name="menu_title_fullscreen">Повний екран на головному екрані</string>
+    <string name="menu_description_fullscreen_on">Показувати на весь екран</string>
+    <string name="menu_description_fullscreen_off">Не показувати на весь екран</string>
+    <string name="menu_title_font">Шрифт</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Орієнтація екрана</string>
+    <string name="menu_description_unspecified">Застосунок не задає орієнтацію екрана. Її визначає система</string>
+    <string name="menu_description_portrait">Зафіксувати вертикально</string>
+    <string name="menu_description_landscape">Зафіксувати горизонтально</string>
+    <string name="menu_description_reverse_portrait">Зафіксувати вертикально догори дриґом</string>
+    <string name="menu_description_reverse_landscape">Зафіксувати горизонтально у зворотному напрямку</string>
+    <string name="menu_title_version">Версія</string>
+
+    <string name="timer_time_hour">Години</string>
+    <string name="timer_time_minute">Хвилини</string>
+    <string name="timer_time_second">Секунди</string>
+    <string name="timer_time_value_range">Введіть число від 0 до %1$d</string>
+    <string name="timer_time_decrease">Зменшити %1$s</string>
+    <string name="timer_time_increase">Збільшити %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d хв</string>
+
+    <string name="reset">Скинути</string>
+
+    <string name="options_menu_license">Ліцензії з відкритим кодом</string>
+    <string name="options_menu_source_code">Вихідний код</string>
+    <string name="options_menu_privacy_policy">Політика конфіденційності</string>
+    <string name="options_menu_play_store">Магазин Google Play</string>
+    <string name="options_menu_privacy_options">Параметри конфіденційності</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">পূর্ণস্ক্রিন টাইমার</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="cancel">বাতিল</string>
+
+    <string name="label_clock">ঘড়ি</string>
+    <string name="label_stopwatch">স্টপওয়াচ</string>
+    <string name="label_timer">টাইমার</string>
+
+    <string name="action_start">শুরু করুন</string>
+    <string name="action_pause">বিরতি দিন</string>
+    <string name="action_reset">রিসেট করুন</string>
+    <string name="action_set_timer">টাইমার সেট করুন</string>
+    <string name="action_open_settings">সেটিংস খুলুন</string>
+    <string name="action_toggle_timer_state">শুরু করুন বা বিরতি দিন</string>
+
+    <string name="menu_title_foreground_color">লেখার রং</string>
+    <string name="menu_description_foreground_color">ঘড়ির লেখার রং সেট করুন</string>
+    <string name="menu_title_background_color">পটভূমির রং</string>
+    <string name="menu_description_background_color">ঘড়ির পটভূমির রং সেট করুন</string>
+    <string name="menu_title_button_opacity">বোতামের অস্বচ্ছতা</string>
+    <string name="menu_title_volume">সাউন্ড ইফেক্টের ভলিউম</string>
+    <string name="menu_title_hour_enabled">ঘণ্টা দেখানো</string>
+    <string name="menu_description_hour_enabled_on">ঘণ্টা দেখান</string>
+    <string name="menu_description_hour_enabled_off">ঘণ্টা দেখাবেন না</string>
+    <string name="menu_title_hour_notation">২৪ ঘণ্টার ফরম্যাট</string>
+    <string name="menu_description_hour_notation_on">২৪ ঘণ্টার ফরম্যাট</string>
+    <string name="menu_description_hour_notation_off">১২ ঘণ্টার ফরম্যাট</string>
+    <string name="menu_title_millisecond_enabled">সেকেন্ডের ভগ্নাংশ দেখানো</string>
+    <string name="menu_description_millisecond_enabled_on">সেকেন্ডের ভগ্নাংশ দেখান</string>
+    <string name="menu_description_millisecond_enabled_off">সেকেন্ডের ভগ্নাংশ দেখাবেন না</string>
+    <string name="menu_title_second_enabled">সেকেন্ড দেখানো</string>
+    <string name="menu_description_second_enabled_on">সেকেন্ড দেখান</string>
+    <string name="menu_description_second_enabled_off">সেকেন্ড দেখাবেন না</string>
+    <string name="menu_title_fullscreen">মূল স্ক্রিনে পূর্ণস্ক্রিন প্রদর্শন</string>
+    <string name="menu_description_fullscreen_on">পূর্ণস্ক্রিনে দেখান</string>
+    <string name="menu_description_fullscreen_off">পূর্ণস্ক্রিনে দেখাবেন না</string>
+    <string name="menu_title_font">ফন্ট</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">স্ক্রিনের দিক</string>
+    <string name="menu_description_unspecified">অ্যাপ স্ক্রিনের দিক নির্ধারণ করে না। সিস্টেম দিক নির্ধারণ করবে</string>
+    <string name="menu_description_portrait">উল্লম্ব দিকে লক করুন</string>
+    <string name="menu_description_landscape">অনুভূমিক দিকে লক করুন</string>
+    <string name="menu_description_reverse_portrait">উল্টো উল্লম্ব দিকে লক করুন</string>
+    <string name="menu_description_reverse_landscape">উল্টো অনুভূমিক দিকে লক করুন</string>
+    <string name="menu_title_version">সংস্করণ</string>
+
+    <string name="timer_time_hour">ঘণ্টা</string>
+    <string name="timer_time_minute">মিনিট</string>
+    <string name="timer_time_second">সেকেন্ড</string>
+    <string name="timer_time_value_range">০ থেকে %1$d পর্যন্ত লিখুন</string>
+    <string name="timer_time_decrease">%1$s কমান</string>
+    <string name="timer_time_increase">%1$s বাড়ান</string>
+    <string name="timer_time_preset_minutes">%1$d মিনিট</string>
+
+    <string name="reset">রিসেট</string>
+
+    <string name="options_menu_license">ওপেন সোর্স লাইসেন্স</string>
+    <string name="options_menu_source_code">সোর্স কোড</string>
+    <string name="options_menu_privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="options_menu_play_store">Google Play স্টোর</string>
+    <string name="options_menu_privacy_options">গোপনীয়তার বিকল্প</string>
+</resources>

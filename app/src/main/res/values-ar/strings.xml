@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مؤقت ملء الشاشة</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">إلغاء</string>
+
+    <string name="label_clock">ساعة</string>
+    <string name="label_stopwatch">ساعة إيقاف</string>
+    <string name="label_timer">مؤقت</string>
+
+    <string name="action_start">بدء</string>
+    <string name="action_pause">إيقاف مؤقت</string>
+    <string name="action_reset">إعادة ضبط</string>
+    <string name="action_set_timer">ضبط المؤقت</string>
+    <string name="action_open_settings">فتح الإعدادات</string>
+    <string name="action_toggle_timer_state">بدء أو إيقاف مؤقت</string>
+
+    <string name="menu_title_foreground_color">لون النص</string>
+    <string name="menu_description_foreground_color">تعيين لون نص الساعة</string>
+    <string name="menu_title_background_color">لون الخلفية</string>
+    <string name="menu_description_background_color">تعيين لون خلفية الساعة</string>
+    <string name="menu_title_button_opacity">عتامة الأزرار</string>
+    <string name="menu_title_volume">مستوى صوت المؤثرات</string>
+    <string name="menu_title_hour_enabled">عرض \"الساعة\"</string>
+    <string name="menu_description_hour_enabled_on">عرض \"الساعة\"</string>
+    <string name="menu_description_hour_enabled_off">عدم عرض \"الساعة\"</string>
+    <string name="menu_title_hour_notation">استخدام تنسيق 24 ساعة</string>
+    <string name="menu_description_hour_notation_on">تنسيق 24 ساعة</string>
+    <string name="menu_description_hour_notation_off">تنسيق 12 ساعة</string>
+    <string name="menu_title_millisecond_enabled">عرض \"أجزاء من الثانية\"</string>
+    <string name="menu_description_millisecond_enabled_on">عرض \"أجزاء من الثانية\"</string>
+    <string name="menu_description_millisecond_enabled_off">عدم عرض \"أجزاء من الثانية\"</string>
+    <string name="menu_title_second_enabled">عرض \"الثواني\"</string>
+    <string name="menu_description_second_enabled_on">عرض \"الثواني\"</string>
+    <string name="menu_description_second_enabled_off">عدم عرض \"الثواني\"</string>
+    <string name="menu_title_fullscreen">ملء الشاشة للشاشة الرئيسية</string>
+    <string name="menu_description_fullscreen_on">عرض بملء الشاشة</string>
+    <string name="menu_description_fullscreen_off">عدم العرض بملء الشاشة</string>
+    <string name="menu_title_font">الخط</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">اتجاه الشاشة</string>
+    <string name="menu_description_unspecified">لا يحدد التطبيق اتجاه الشاشة. يحدد النظام الاتجاه</string>
+    <string name="menu_description_portrait">تثبيت رأسي</string>
+    <string name="menu_description_landscape">تثبيت أفقي</string>
+    <string name="menu_description_reverse_portrait">تثبيت رأسي معكوس</string>
+    <string name="menu_description_reverse_landscape">تثبيت أفقي معكوس</string>
+    <string name="menu_title_version">الإصدار</string>
+
+    <string name="timer_time_hour">ساعات</string>
+    <string name="timer_time_minute">دقائق</string>
+    <string name="timer_time_second">ثوانٍ</string>
+    <string name="timer_time_value_range">أدخل من 0 إلى %1$d</string>
+    <string name="timer_time_decrease">تقليل %1$s</string>
+    <string name="timer_time_increase">زيادة %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d دقيقة</string>
+
+    <string name="reset">إعادة ضبط</string>
+
+    <string name="options_menu_license">تراخيص مفتوحة المصدر</string>
+    <string name="options_menu_source_code">الشفرة المصدرية</string>
+    <string name="options_menu_privacy_policy">سياسة الخصوصية</string>
+    <string name="options_menu_play_store">متجر Google Play</string>
+    <string name="options_menu_privacy_options">خيارات الخصوصية</string>
+</resources>

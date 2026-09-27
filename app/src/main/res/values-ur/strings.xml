@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">فل اسکرین ٹائمر</string>
+    <string name="ok">ٹھیک ہے</string>
+    <string name="cancel">منسوخ کریں</string>
+
+    <string name="label_clock">گھڑی</string>
+    <string name="label_stopwatch">اسٹاپ واچ</string>
+    <string name="label_timer">ٹائمر</string>
+
+    <string name="action_start">شروع کریں</string>
+    <string name="action_pause">وقفہ دیں</string>
+    <string name="action_reset">دوبارہ ترتیب دیں</string>
+    <string name="action_set_timer">ٹائمر سیٹ کریں</string>
+    <string name="action_open_settings">ترتیبات کھولیں</string>
+    <string name="action_toggle_timer_state">شروع کریں یا وقفہ دیں</string>
+
+    <string name="menu_title_foreground_color">متن کا رنگ</string>
+    <string name="menu_description_foreground_color">گھڑی کے متن کا رنگ سیٹ کریں</string>
+    <string name="menu_title_background_color">پس منظر کا رنگ</string>
+    <string name="menu_description_background_color">گھڑی کے پس منظر کا رنگ سیٹ کریں</string>
+    <string name="menu_title_button_opacity">بٹنوں کی غیر شفافیت</string>
+    <string name="menu_title_volume">صوتی اثرات کا والیوم</string>
+    <string name="menu_title_hour_enabled">گھنٹے دکھائیں</string>
+    <string name="menu_description_hour_enabled_on">گھنٹے دکھائیں</string>
+    <string name="menu_description_hour_enabled_off">گھنٹے نہ دکھائیں</string>
+    <string name="menu_title_hour_notation">۲۴ گھنٹے کی شکل</string>
+    <string name="menu_description_hour_notation_on">۲۴ گھنٹے کی شکل</string>
+    <string name="menu_description_hour_notation_off">۱۲ گھنٹے کی شکل</string>
+    <string name="menu_title_millisecond_enabled">سیکنڈ کا اعشاری حصہ دکھائیں</string>
+    <string name="menu_description_millisecond_enabled_on">سیکنڈ کا اعشاری حصہ دکھائیں</string>
+    <string name="menu_description_millisecond_enabled_off">سیکنڈ کا اعشاری حصہ نہ دکھائیں</string>
+    <string name="menu_title_second_enabled">سیکنڈ دکھائیں</string>
+    <string name="menu_description_second_enabled_on">سیکنڈ دکھائیں</string>
+    <string name="menu_description_second_enabled_off">سیکنڈ نہ دکھائیں</string>
+    <string name="menu_title_fullscreen">مرکزی اسکرین پر فل اسکرین منظر</string>
+    <string name="menu_description_fullscreen_on">فل اسکرین میں دکھائیں</string>
+    <string name="menu_description_fullscreen_off">فل اسکرین میں نہ دکھائیں</string>
+    <string name="menu_title_font">فونٹ</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">اسکرین کی سمت</string>
+    <string name="menu_description_unspecified">ایپ اسکرین کی سمت مقرر نہیں کرتی۔ سسٹم سمت طے کرتا ہے</string>
+    <string name="menu_description_portrait">عمودی سمت میں مقفل کریں</string>
+    <string name="menu_description_landscape">افقی سمت میں مقفل کریں</string>
+    <string name="menu_description_reverse_portrait">الٹی عمودی سمت میں مقفل کریں</string>
+    <string name="menu_description_reverse_landscape">الٹی افقی سمت میں مقفل کریں</string>
+    <string name="menu_title_version">ورژن</string>
+
+    <string name="timer_time_hour">گھنٹے</string>
+    <string name="timer_time_minute">منٹ</string>
+    <string name="timer_time_second">سیکنڈ</string>
+    <string name="timer_time_value_range">۰ سے %1$d تک درج کریں</string>
+    <string name="timer_time_decrease">%1$s کم کریں</string>
+    <string name="timer_time_increase">%1$s بڑھائیں</string>
+    <string name="timer_time_preset_minutes">%1$d منٹ</string>
+
+    <string name="reset">دوبارہ ترتیب دیں</string>
+
+    <string name="options_menu_license">اوپن سورس لائسنس</string>
+    <string name="options_menu_source_code">ماخذ کوڈ</string>
+    <string name="options_menu_privacy_policy">رازداری کی پالیسی</string>
+    <string name="options_menu_play_store">Google Play اسٹور</string>
+    <string name="options_menu_privacy_options">رازداری کے اختیارات</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Timer a schermo intero</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+
+    <string name="label_clock">orologio</string>
+    <string name="label_stopwatch">cronometro</string>
+    <string name="label_timer">timer</string>
+
+    <string name="action_start">Avvia</string>
+    <string name="action_pause">Pausa</string>
+    <string name="action_reset">Reimposta</string>
+    <string name="action_set_timer">Imposta timer</string>
+    <string name="action_open_settings">Apri impostazioni</string>
+    <string name="action_toggle_timer_state">Avvia o metti in pausa</string>
+
+    <string name="menu_title_foreground_color">Colore del testo</string>
+    <string name="menu_description_foreground_color">Imposta il colore del testo dell\'orologio</string>
+    <string name="menu_title_background_color">Colore di sfondo</string>
+    <string name="menu_description_background_color">Imposta il colore di sfondo dell\'orologio</string>
+    <string name="menu_title_button_opacity">Opacità pulsanti</string>
+    <string name="menu_title_volume">Volume effetti sonori</string>
+    <string name="menu_title_hour_enabled">Visualizzazione \"ora\"</string>
+    <string name="menu_description_hour_enabled_on">Visualizza \"ora\"</string>
+    <string name="menu_description_hour_enabled_off">Non visualizzare \"ora\"</string>
+    <string name="menu_title_hour_notation">Formato 24 ore</string>
+    <string name="menu_description_hour_notation_on">Formato 24 ore</string>
+    <string name="menu_description_hour_notation_off">Formato 12 ore</string>
+    <string name="menu_title_millisecond_enabled">Visualizzazione \"frazioni di secondo\"</string>
+    <string name="menu_description_millisecond_enabled_on">Visualizza \"frazioni di secondo\"</string>
+    <string name="menu_description_millisecond_enabled_off">Non visualizzare \"frazioni di secondo\"</string>
+    <string name="menu_title_second_enabled">Visualizzazione \"secondi\"</string>
+    <string name="menu_description_second_enabled_on">Visualizza \"secondi\"</string>
+    <string name="menu_description_second_enabled_off">Non visualizzare \"secondi\"</string>
+    <string name="menu_title_fullscreen">Schermo intero nella schermata principale</string>
+    <string name="menu_description_fullscreen_on">Mostra a schermo intero</string>
+    <string name="menu_description_fullscreen_off">Non mostrare a schermo intero</string>
+    <string name="menu_title_font">Carattere</string>
+    <string name="menu_description_font_led_7segment">LED a 7 segmenti</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Orientamento dello schermo</string>
+    <string name="menu_description_unspecified">L\'app non imposta l\'orientamento dello schermo. Il sistema decide l\'orientamento</string>
+    <string name="menu_description_portrait">Blocca in verticale</string>
+    <string name="menu_description_landscape">Blocca in orizzontale</string>
+    <string name="menu_description_reverse_portrait">Blocca in verticale inversa</string>
+    <string name="menu_description_reverse_landscape">Blocca in orizzontale inverso</string>
+    <string name="menu_title_version">Versione</string>
+
+    <string name="timer_time_hour">Ore</string>
+    <string name="timer_time_minute">Minuti</string>
+    <string name="timer_time_second">Secondi</string>
+    <string name="timer_time_value_range">Inserisci da 0 a %1$d</string>
+    <string name="timer_time_decrease">Diminuisci %1$s</string>
+    <string name="timer_time_increase">Aumenta %1$s</string>
+    <string name="timer_time_preset_minutes">%1$d min</string>
+
+    <string name="reset">reimposta</string>
+
+    <string name="options_menu_license">Licenze open source</string>
+    <string name="options_menu_source_code">Codice sorgente</string>
+    <string name="options_menu_privacy_policy">Informativa sulla privacy</string>
+    <string name="options_menu_play_store">Google Play Store</string>
+    <string name="options_menu_privacy_options">Opzioni sulla privacy</string>
+</resources>

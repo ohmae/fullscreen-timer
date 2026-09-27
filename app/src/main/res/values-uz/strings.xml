@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Toʻliq ekranli taymer</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Bekor qilish</string>
+
+    <string name="label_clock">soat</string>
+    <string name="label_stopwatch">sekundomer</string>
+    <string name="label_timer">taymer</string>
+
+    <string name="action_start">Boshlash</string>
+    <string name="action_pause">Pauza</string>
+    <string name="action_reset">Qayta oʻrnatish</string>
+    <string name="action_set_timer">Taymerni sozlash</string>
+    <string name="action_open_settings">Sozlamalarni ochish</string>
+    <string name="action_toggle_timer_state">Boshlash yoki pauza</string>
+
+    <string name="menu_title_foreground_color">Matn rangi</string>
+    <string name="menu_description_foreground_color">Soat matnining rangini sozlash</string>
+    <string name="menu_title_background_color">Fon rangi</string>
+    <string name="menu_description_background_color">Soat fonining rangini sozlash</string>
+    <string name="menu_title_button_opacity">Tugmalarning noshaffofligi</string>
+    <string name="menu_title_volume">Ovoz effektlari balandligi</string>
+    <string name="menu_title_hour_enabled">Soatni koʻrsatish</string>
+    <string name="menu_description_hour_enabled_on">Soatni koʻrsatish</string>
+    <string name="menu_description_hour_enabled_off">Soatni koʻrsatmaslik</string>
+    <string name="menu_title_hour_notation">24 soatlik format</string>
+    <string name="menu_description_hour_notation_on">24 soatlik format</string>
+    <string name="menu_description_hour_notation_off">12 soatlik format</string>
+    <string name="menu_title_millisecond_enabled">Soniyaning kasr qismini koʻrsatish</string>
+    <string name="menu_description_millisecond_enabled_on">Soniyaning kasr qismini koʻrsatish</string>
+    <string name="menu_description_millisecond_enabled_off">Soniyaning kasr qismini koʻrsatmaslik</string>
+    <string name="menu_title_second_enabled">Soniyalarni koʻrsatish</string>
+    <string name="menu_description_second_enabled_on">Soniyalarni koʻrsatish</string>
+    <string name="menu_description_second_enabled_off">Soniyalarni koʻrsatmaslik</string>
+    <string name="menu_title_fullscreen">Asosiy ekranda toʻliq ekran</string>
+    <string name="menu_description_fullscreen_on">Toʻliq ekranda koʻrsatish</string>
+    <string name="menu_description_fullscreen_off">Toʻliq ekranda koʻrsatmaslik</string>
+    <string name="menu_title_font">Shrift</string>
+    <string name="menu_description_font_led_7segment">7seg-LED</string>
+    <string name="menu_description_font_roboto">Roboto</string>
+    <string name="menu_title_orientation">Ekran yoʻnalishi</string>
+    <string name="menu_description_unspecified">Ilova ekran yoʻnalishini belgilamaydi. Yoʻnalishni tizim tanlaydi</string>
+    <string name="menu_description_portrait">Tik holatda qulflash</string>
+    <string name="menu_description_landscape">Yotiq holatda qulflash</string>
+    <string name="menu_description_reverse_portrait">Teskari tik holatda qulflash</string>
+    <string name="menu_description_reverse_landscape">Teskari yotiq holatda qulflash</string>
+    <string name="menu_title_version">Versiya</string>
+
+    <string name="timer_time_hour">Soat</string>
+    <string name="timer_time_minute">Daqiqa</string>
+    <string name="timer_time_second">Soniya</string>
+    <string name="timer_time_value_range">0 dan %1$d gacha kiriting</string>
+    <string name="timer_time_decrease">%1$s ni kamaytirish</string>
+    <string name="timer_time_increase">%1$s ni oshirish</string>
+    <string name="timer_time_preset_minutes">%1$d daqiqa</string>
+
+    <string name="reset">Qayta oʻrnatish</string>
+
+    <string name="options_menu_license">Ochiq kodli litsenziyalar</string>
+    <string name="options_menu_source_code">Manba kodi</string>
+    <string name="options_menu_privacy_policy">Maxfiylik siyosati</string>
+    <string name="options_menu_play_store">Google Play doʻkoni</string>
+    <string name="options_menu_privacy_options">Maxfiylik parametrlari</string>
+</resources>
