@@ -85,7 +85,6 @@ dependencies {
     implementation(libs.androidxCore)
     implementation(libs.androidxActivity)
     implementation(libs.androidxComposeActivity)
-    implementation(libs.androidxComposeAnimation)
     implementation(libs.androidxComposeFoundation)
     implementation(libs.androidxComposeMaterial3)
     implementation(libs.androidxComposeMaterialIconsExtended)

@@ -8,14 +8,14 @@
 package net.mm2d.timer.util
 
 import android.graphics.Color
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @Suppress("NonAsciiCharacters")
-@RunWith(RobolectricTestRunner::class)
+@RunWith(AndroidJUnit4::class)
 @Config(sdk = [35])
 class ColorExtensionsTest {
     @Test

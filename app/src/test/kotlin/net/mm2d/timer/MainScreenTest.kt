@@ -18,6 +18,7 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import net.mm2d.timer.MainViewModel.UiEvent
 import net.mm2d.timer.MainViewModel.UiState
@@ -26,12 +27,11 @@ import net.mm2d.timer.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.util.Calendar
 
 @Suppress("NonAsciiCharacters")
-@RunWith(RobolectricTestRunner::class)
+@RunWith(AndroidJUnit4::class)
 @Config(sdk = [35], qualifiers = "w800dp-h360dp-land")
 class MainScreenTest {
     @get:Rule

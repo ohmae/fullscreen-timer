@@ -46,7 +46,6 @@ androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-v
 androidxHiltLifecycleViewModelCompose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
 androidxComposeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidxComposeActivity = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
-androidxComposeAnimation = { group = "androidx.compose.animation", name = "animation" }
 androidxComposeFoundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidxComposeMaterial3 = { group = "androidx.compose.material3", name = "material3" }
 androidxComposeMaterialIconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
