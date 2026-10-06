@@ -127,7 +127,7 @@ com.squareup.okio:okio-jvm:3.9.1
 com.squareup.okio:okio:3.9.1
 jakarta.inject:jakarta.inject-api:2.0.1
 javax.inject:javax.inject:1
-net.mm2d.color-chooser:color-chooser-compose:0.2.1
+net.mm2d.color-chooser:color-chooser-compose:0.2.2
 org.jetbrains.kotlin:kotlin-stdlib-common:2.4.20
 org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0
 org.jetbrains.kotlin:kotlin-stdlib:2.4.20

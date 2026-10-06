@@ -113,7 +113,6 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.androidxJunit)
     testImplementation(libs.kotlinxCoroutinesTest)
-    testImplementation(platform(libs.androidxComposeBom))
     testImplementation(libs.androidxComposeUiTestJunit4)
 
     // for release
