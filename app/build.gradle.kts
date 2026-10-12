@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kover)
+    alias(libs.plugins.baselineProfile)
     alias(libs.plugins.dependencyGuard)
 
     // for release
@@ -105,6 +106,8 @@ dependencies {
     ksp(libs.hiltAndroidCompiler)
 
     implementation(libs.colorChooser)
+    implementation(libs.androidxProfileinstaller)
+    baselineProfile(projects.baselineProfile)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
