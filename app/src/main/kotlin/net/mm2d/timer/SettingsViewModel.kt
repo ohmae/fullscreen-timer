@@ -7,8 +7,6 @@
 
 package net.mm2d.timer
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -79,22 +77,6 @@ class SettingsViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             settingsRepository.updateMode(mode)
-        }
-    }
-
-    private fun updateForegroundColor(
-        color: Int,
-    ) {
-        viewModelScope.launch {
-            settingsRepository.updateForegroundColor(color)
-        }
-    }
-
-    private fun updateBackgroundColor(
-        color: Int,
-    ) {
-        viewModelScope.launch {
-            settingsRepository.updateBackgroundColor(color)
         }
     }
 
@@ -178,24 +160,6 @@ class SettingsViewModel @Inject constructor(
         dialogUiStateFlow.value = DialogUiState.Dismiss
     }
 
-    private fun requestForegroundColorDialog(
-        color: Color,
-    ) {
-        dialogUiStateFlow.value =
-            DialogUiState.ForegroundColorSelect(
-                color = color,
-            )
-    }
-
-    private fun requestBackgroundColorDialog(
-        color: Color,
-    ) {
-        dialogUiStateFlow.value =
-            DialogUiState.BackgroundColorSelect(
-                color = color,
-            )
-    }
-
     private fun requestFontDialog(
         font: Font,
     ) {
@@ -216,14 +180,6 @@ class SettingsViewModel @Inject constructor(
 
     sealed interface DialogUiState {
         data object Dismiss : DialogUiState
-
-        data class ForegroundColorSelect(
-            val color: Color,
-        ) : DialogUiState
-
-        data class BackgroundColorSelect(
-            val color: Color,
-        ) : DialogUiState
 
         data class FontSelect(
             val font: Font,
@@ -256,11 +212,8 @@ class SettingsViewModel @Inject constructor(
             is UiEvent.SelectMode ->
                 updateMode(event.mode)
 
-            is UiEvent.ClickForegroundColor ->
-                requestForegroundColorDialog(event.color)
-
-            is UiEvent.ClickBackgroundColor ->
-                requestBackgroundColorDialog(event.color)
+            is UiEvent.ClickColor ->
+                uiEffectChannel.trySend(UiEffect.ToColorSelect(event.target))
 
             is UiEvent.SelectButtonOpacity ->
                 updateButtonOpacity(event.opacity)
@@ -289,16 +242,6 @@ class SettingsViewModel @Inject constructor(
             is UiEvent.ClickOrientationMenu ->
                 requestOrientationDialog(event.orientation)
 
-            is UiEvent.SelectForegroundColor -> {
-                updateForegroundColor(event.color.toArgb())
-                dismissDialog()
-            }
-
-            is UiEvent.SelectBackgroundColor -> {
-                updateBackgroundColor(event.color.toArgb())
-                dismissDialog()
-            }
-
             is UiEvent.SelectFont -> {
                 updateFont(event.font)
                 dismissDialog()
@@ -323,12 +266,8 @@ class SettingsViewModel @Inject constructor(
             val mode: Mode,
         ) : UiEvent
 
-        data class ClickForegroundColor(
-            val color: Color,
-        ) : UiEvent
-
-        data class ClickBackgroundColor(
-            val color: Color,
+        data class ClickColor(
+            val target: ColorTarget,
         ) : UiEvent
 
         data class SelectButtonOpacity(
@@ -367,14 +306,6 @@ class SettingsViewModel @Inject constructor(
             val orientation: Orientation,
         ) : UiEvent
 
-        data class SelectForegroundColor(
-            val color: Color,
-        ) : UiEvent
-
-        data class SelectBackgroundColor(
-            val color: Color,
-        ) : UiEvent
-
         data class SelectFont(
             val font: Font,
         ) : UiEvent
@@ -395,5 +326,8 @@ class SettingsViewModel @Inject constructor(
         data object ToSourceCode : UiEffect
         data object ToPrivacyPolicy : UiEffect
         data object ToPlayStore : UiEffect
+        data class ToColorSelect(
+            val target: ColorTarget,
+        ) : UiEffect
     }
 }

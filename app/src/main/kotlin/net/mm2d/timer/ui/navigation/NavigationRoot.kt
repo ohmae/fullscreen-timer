@@ -12,9 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.entryProvider
+import net.mm2d.timer.ColorSelectScreen
 import net.mm2d.timer.LicenseScreen
 import net.mm2d.timer.MainScreen
 import net.mm2d.timer.SettingsScreen
+import net.mm2d.timer.ui.navigation.MainNavKey.ColorSelect
 import net.mm2d.timer.ui.navigation.MainNavKey.License
 import net.mm2d.timer.ui.navigation.MainNavKey.Main
 import net.mm2d.timer.ui.navigation.MainNavKey.Settings
@@ -25,6 +27,7 @@ private val navGraph: NavGraph<MainNavKey> = navGraph {
     }
     from<Settings> {
         to<License>()
+        to<ColorSelect>()
     }
 }
 
@@ -57,6 +60,9 @@ private fun mainEntryProvider(
                 navigateToLicense = {
                     navigator.navigate(License)
                 },
+                navigateToColorSelect = { target ->
+                    navigator.navigate(ColorSelect(target))
+                },
                 goBack = {
                     navigator.goBack(navKey)
                 },
@@ -65,6 +71,14 @@ private fun mainEntryProvider(
         entry<License> { navKey ->
             LicenseScreen(
                 onBackClick = {
+                    navigator.goBack(navKey)
+                },
+            )
+        }
+        entry<ColorSelect> { navKey ->
+            ColorSelectScreen(
+                target = navKey.target,
+                goBack = {
                     navigator.goBack(navKey)
                 },
             )

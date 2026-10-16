@@ -9,6 +9,7 @@ package net.mm2d.timer.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
+import net.mm2d.timer.ColorTarget
 
 @Serializable
 internal sealed interface MainNavKey : NavKey {
@@ -20,4 +21,9 @@ internal sealed interface MainNavKey : NavKey {
 
     @Serializable
     data object License : MainNavKey
+
+    @Serializable
+    data class ColorSelect(
+        val target: ColorTarget,
+    ) : MainNavKey
 }

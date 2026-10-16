@@ -69,8 +69,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import net.mm2d.color.chooser.compose.ColorChooserDialog
 import net.mm2d.timer.SettingsViewModel.DialogUiState
+import net.mm2d.timer.SettingsViewModel.UiEffect.ToColorSelect
 import net.mm2d.timer.SettingsViewModel.UiEffect.ToLicense
 import net.mm2d.timer.SettingsViewModel.UiEffect.ToPlayStore
 import net.mm2d.timer.SettingsViewModel.UiEffect.ToPrivacyPolicy
@@ -89,10 +89,12 @@ import net.mm2d.timer.util.Launcher
 @Composable
 fun SettingsScreen(
     navigateToLicense: () -> Unit,
+    navigateToColorSelect: (ColorTarget) -> Unit,
     goBack: () -> Unit,
 ) {
     val viewModel: SettingsViewModel = hiltViewModel()
     val currentNavigateToLicense by rememberUpdatedState(navigateToLicense)
+    val currentNavigateToColorSelect by rememberUpdatedState(navigateToColorSelect)
     val currentGoBack by rememberUpdatedState(goBack)
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -115,6 +117,9 @@ fun SettingsScreen(
 
                     ToPlayStore ->
                         Launcher.openGooglePlay(context)
+
+                    is ToColorSelect ->
+                        currentNavigateToColorSelect(effect.target)
                 }
             }
     }
@@ -139,18 +144,6 @@ private fun DialogContent(
 ) {
     when (dialogUiState) {
         is DialogUiState.Dismiss -> Unit
-
-        is DialogUiState.BackgroundColorSelect -> ColorChooserDialog(
-            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
-            onConfirm = { onEvent(UiEvent.SelectBackgroundColor(it)) },
-            initialColor = dialogUiState.color,
-        )
-
-        is DialogUiState.ForegroundColorSelect -> ColorChooserDialog(
-            onDismissRequest = { onEvent(UiEvent.DismissDialog) },
-            onConfirm = { onEvent(UiEvent.SelectForegroundColor(it)) },
-            initialColor = dialogUiState.color,
-        )
 
         is DialogUiState.FontSelect -> FontDialog(
             selectedFont = dialogUiState.font,
@@ -210,7 +203,7 @@ private fun LazyListScope.settingsItems(
             titleRes = R.string.menu_title_foreground_color,
             descriptionRes = R.string.menu_description_foreground_color,
             color = color,
-            onClick = { onEvent(UiEvent.ClickForegroundColor(it)) },
+            onClick = { onEvent(UiEvent.ClickColor(ColorTarget.FOREGROUND)) },
         )
     }
     item(key = "background_color") {
@@ -220,7 +213,7 @@ private fun LazyListScope.settingsItems(
             titleRes = R.string.menu_title_background_color,
             descriptionRes = R.string.menu_description_background_color,
             color = color,
-            onClick = { onEvent(UiEvent.ClickBackgroundColor(it)) },
+            onClick = { onEvent(UiEvent.ClickColor(ColorTarget.BACKGROUND)) },
         )
     }
     item(key = "button_opacity") {
@@ -495,11 +488,11 @@ private fun ColorMenuRow(
     @StringRes titleRes: Int,
     @StringRes descriptionRes: Int,
     color: Color,
-    onClick: (Color) -> Unit,
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
-            .clickable(onClick = { onClick(color) })
+            .clickable(onClick = onClick)
             .fillMaxWidth()
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
