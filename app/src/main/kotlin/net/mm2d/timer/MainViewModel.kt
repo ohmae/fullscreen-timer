@@ -547,7 +547,7 @@ class MainViewModel @Inject constructor(
 
                 Mode.STOPWATCH,
                 Mode.TIMER,
-                    -> if (started) Button.PAUSE else Button.START
+                -> if (started) Button.PAUSE else Button.START
             }
 
         val secondButton: Button

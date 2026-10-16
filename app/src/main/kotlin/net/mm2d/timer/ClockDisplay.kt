@@ -283,7 +283,7 @@ private data class DisplayValue(
 
                 Mode.STOPWATCH,
                 Mode.TIMER,
-                    -> fromElapsedTime(uiState)
+                -> fromElapsedTime(uiState)
             }
 
         private fun fromClock(

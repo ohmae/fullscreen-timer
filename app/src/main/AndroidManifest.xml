@@ -41,18 +41,6 @@
             android:exported="false"
             android:launchMode="singleTask"
             />
-
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:screenOrientation="behind"
-            />
-
-        <activity
-            android:name=".LicenseActivity"
-            android:exported="false"
-            android:screenOrientation="behind"
-            />
     </application>
 
 </manifest>

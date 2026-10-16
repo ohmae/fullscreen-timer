@@ -75,6 +75,9 @@ fun LicenseScreen(
                         }
                     }
                 },
+                onRelease = {
+                    it.destroy()
+                },
             )
         }
     }
@@ -103,7 +106,6 @@ private fun setUpWebView(
             detail: RenderProcessGoneDetail,
         ): Boolean {
             (view.parent as? ViewGroup)?.removeView(view)
-            view.destroy()
             onRenderProcessGone()
             return true
         }

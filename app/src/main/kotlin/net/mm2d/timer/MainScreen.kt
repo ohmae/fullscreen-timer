@@ -8,8 +8,12 @@
 package net.mm2d.timer
 
 import android.content.res.Configuration
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,23 +30,129 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import net.mm2d.timer.MainViewModel.Button
+import net.mm2d.timer.MainViewModel.UiEffect
 import net.mm2d.timer.MainViewModel.UiEvent
 import net.mm2d.timer.MainViewModel.UiState
+import net.mm2d.timer.dialog.TimeDialog
 import net.mm2d.timer.settings.Mode
+import net.mm2d.timer.sound.rememberSoundEffect
 import net.mm2d.timer.ui.theme.AppTheme
+import net.mm2d.timer.util.FullscreenHelper
+
+@Composable
+fun MainScreen(
+    navigateToSettings: () -> Unit,
+) {
+    val activity = LocalActivity.current as? ComponentActivity ?: return
+    val fullscreenHelper = remember(activity.window) { FullscreenHelper(activity.window) }
+    val viewModel: MainViewModel = hiltViewModel(activity)
+    val soundEffect = rememberSoundEffect()
+    val currentNavigateToSettings by rememberUpdatedState(navigateToSettings)
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(viewModel, lifecycleOwner) {
+        viewModel.getUiEffectStream()
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { effect ->
+                when (effect) {
+                    UiEffect.OpenSettings ->
+                        currentNavigateToSettings()
+
+                    UiEffect.PlaySound ->
+                        soundEffect.play()
+
+                    UiEffect.PlayStopSound ->
+                        soundEffect.playStop()
+                }
+            }
+    }
+    val uiState by viewModel.getUiStateStream().collectAsStateWithLifecycle()
+    val initialized = uiState.initialized
+    val fullscreen = uiState.fullscreen
+    LifecycleResumeEffect(fullscreenHelper, initialized, fullscreen) {
+        if (initialized) {
+            fullscreenHelper.invoke(fullscreen)
+        }
+        onPauseOrDispose {
+            if (initialized && fullscreen) {
+                fullscreenHelper.invoke(false)
+            }
+        }
+    }
+    CompositionLocalProvider(
+        LocalLayoutDirection provides LayoutDirection.Ltr,
+    ) {
+        MainScreenRoute(
+            uiState = uiState,
+            onEvent = viewModel::onEvent,
+        )
+    }
+}
+
+@Composable
+private fun MainScreenRoute(
+    uiState: UiState,
+    onEvent: (UiEvent) -> Unit,
+) {
+    val animatedButtonOpacity = remember { Animatable(1f) }
+    var animationRequest by remember { mutableIntStateOf(0) }
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        animationRequest++
+    }
+    LaunchedEffect(uiState.buttonOpacity, animationRequest) {
+        animatedButtonOpacity.snapTo(1f)
+        animatedButtonOpacity.animateTo(
+            targetValue = uiState.buttonOpacity.coerceIn(0f, 1f),
+            animationSpec = tween(BUTTON_ANIMATION_DURATION_MILLIS),
+        )
+    }
+    MainScreen(
+        uiState = uiState.copy(buttonOpacity = animatedButtonOpacity.value),
+        onEvent = { event ->
+            onEvent(event)
+            if (event.animatesButtonOpacity) animationRequest++
+        },
+    )
+    uiState.timerDialog?.let {
+        TimeDialog(
+            timeMillis = it.timeMillis,
+            hourEnabled = it.hourEnabled,
+            onSelectTime = { timeMillis ->
+                onEvent(UiEvent.SelectTimerTime(timeMillis))
+            },
+            onDismissRequest = {
+                onEvent(UiEvent.DismissTimerDialog)
+            },
+        )
+    }
+}
 
 @Composable
 fun MainScreen(
@@ -213,6 +323,12 @@ private fun MainScreenPreview() {
     }
 }
 
+private val UiEvent.animatesButtonOpacity: Boolean
+    get() = this == UiEvent.ClickFirstButton ||
+        this == UiEvent.ClickSecondButton ||
+        this == UiEvent.ClickTime
+
+private const val BUTTON_ANIMATION_DURATION_MILLIS = 1_500
 private val CLOCK_PADDING = 8.dp
 private val CONTROLS_HORIZONTAL_PADDING = 16.dp
 private val CONTROLS_BOTTOM_PADDING = 8.dp

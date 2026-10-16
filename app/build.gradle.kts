@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinCompose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kover)
     alias(libs.plugins.baselineProfile)
@@ -82,6 +83,7 @@ androidComponents {
 dependencies {
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
+    implementation(libs.kotlinxSerializationCore)
     implementation(platform(libs.androidxComposeBom))
     implementation(libs.androidxCore)
     implementation(libs.androidxActivity)
@@ -96,6 +98,9 @@ dependencies {
     implementation(libs.androidxLifecycleRuntime)
     implementation(libs.androidxLifecycleRuntimeCompose)
     implementation(libs.androidxLifecycleViewModel)
+    implementation(libs.androidxLifecycleViewModelNavigation3)
+    implementation(libs.androidxNavigation3Runtime)
+    implementation(libs.androidxNavigation3Ui)
     implementation(libs.androidxHiltLifecycleViewModelCompose)
     implementation(libs.androidxDatastorePreferences)
     implementation(libs.playAppUpdate)

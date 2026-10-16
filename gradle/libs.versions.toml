@@ -6,6 +6,7 @@ ksp = "2.3.12"
 hilt = "2.60.1"
 kover = "0.9.11"
 kotlinxCoroutines = "1.11.0"
+kotlinxSerialization = "1.11.0"
 dependencyGuard = "0.5.0"
 versionCatalogUpdate = "1.1.1"
 
@@ -14,6 +15,7 @@ androidxActivity = "1.13.0"
 androidxBrowser = "1.10.0"
 androidxDatastore = "1.2.1"
 androidxLifecycle = "2.11.0"
+androidxNavigation3 = "1.2.0"
 androidxHilt = "1.4.0"
 androidxComposeBom = "2026.09.00"
 playAppUpdate = "2.1.0"
@@ -39,6 +41,7 @@ ktlint = "1.8.0"
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
+kotlinxSerializationCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
 
 androidxCore = { group = "androidx.core", name = "core", version.ref = "androidxCore" }
 androidxActivity = { group = "androidx.activity", name = "activity", version.ref = "androidxActivity" }
@@ -48,6 +51,9 @@ androidxLifecycleProcess = { group = "androidx.lifecycle", name = "lifecycle-pro
 androidxLifecycleRuntime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "androidxLifecycle" }
 androidxLifecycleRuntimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycle" }
+androidxLifecycleViewModelNavigation3 = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-navigation3", version.ref = "androidxLifecycle" }
+androidxNavigation3Runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "androidxNavigation3" }
+androidxNavigation3Ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "androidxNavigation3" }
 androidxHiltLifecycleViewModelCompose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
 androidxComposeBom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidxComposeActivity = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -84,6 +90,7 @@ ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "k
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 androidTest = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

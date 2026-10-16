@@ -88,9 +88,11 @@ import net.mm2d.timer.util.Launcher
 
 @Composable
 fun SettingsScreen(
+    navigateToLicense: () -> Unit,
     goBack: () -> Unit,
 ) {
     val viewModel: SettingsViewModel = hiltViewModel()
+    val currentNavigateToLicense by rememberUpdatedState(navigateToLicense)
     val currentGoBack by rememberUpdatedState(goBack)
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -103,7 +105,7 @@ fun SettingsScreen(
                         currentGoBack()
 
                     ToLicense ->
-                        LicenseActivity.start(context)
+                        currentNavigateToLicense()
 
                     ToPrivacyPolicy ->
                         Launcher.openPrivacyPolicy(context)

@@ -18,7 +18,7 @@
 - **言語**: Kotlin
 - **SDK**: `minSdk` = 26, `compileSdk` = 37, `targetSdk` = 37
 - **ビルド**: Gradle Kotlin DSL、AGPの組み込みKotlin、JDK toolchain 21、Java/Kotlinの出力ターゲット11
-- **UIツールキット**: Jetpack Compose / Material 3。メイン・設定・ライセンス画面とダイアログはComposeで実装済み
+- **UIツールキット**: Jetpack Compose / Material 3、Navigation 3。Single-Activity構成（`MainActivity`）でメイン・設定・ライセンス画面とダイアログをComposeで実装
 - **Viewとの相互運用**: ライセンス本文は `AndroidView` 内の `NestedScrollingWebView` で表示。XMLの画面レイアウトや独自テーマ定義はなく、文字列・DrawableなどのXMLリソースは継続利用
 - **DI**: Hilt + KSP
 - **非同期処理**: Kotlin Coroutines & Flow
@@ -31,9 +31,10 @@
 - **アーキテクチャパターン**: MVVM + MVI
 - **状態管理**: `MainViewModel` / `SettingsViewModel` が `UiState` を `StateFlow` で公開する。Composeでは `collectAsStateWithLifecycle()` で監視すること
 - **イベントと副作用**: 操作は `UiEvent` を `onEvent()` に渡し、画面遷移や音の再生などは `UiEffect` のFlow経由でUI側が処理する。Flowの収集はライフサイクルに合わせること
+- **画面遷移**: `ui/navigation/` の `MainNavKey`・`NavigationRoot`・`Navigator`・`NavigationDisplay` によるNavigation 3ベースの遷移制御を使用する
 - **責務分担**: ViewModelは状態と処理の調整を担当し、時間計算・開始停止・復元は `main/TimerController` / `StopwatchController` に集約する。時刻取得は注入可能な `TimeProvider` を利用すること
 - **永続化**: `settings/` のRepositoryを通じてDataStoreを読み書きする。保存キー・ファイル名・データ形式の変更時は既存データとの互換性とマイグレーションを確認すること
-- **UI実装**: 既存の `MainScreen`、`ClockDisplay`、`SettingsScreen`、`dialog/`、`ui/theme/AppTheme` に合わせる。Window操作・画面方向・画面点灯維持などはActivityや既存のヘルパーで扱うこと
+- **UI実装**: 既存の `MainScreen`、`ClockDisplay`、`SettingsScreen`、`LicenseScreen`、`dialog/`、`ui/theme/AppTheme` に合わせる。Window操作・画面方向・画面点灯維持などはActivityや既存のヘルパーで扱うこと
 - **外部Intent**: `MainLaunchRequestParser` / `MainCommandParser` で解析し、ViewModelへ渡す。`README.md` に記載された `EXTRA_MODE`・`EXTRA_COMMAND`・`EXTRA_TIME`（Long、ミリ秒）の公開仕様を維持すること
 
 ## コーディング規約

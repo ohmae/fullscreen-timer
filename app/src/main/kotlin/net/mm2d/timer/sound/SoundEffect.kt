@@ -9,6 +9,13 @@ package net.mm2d.timer.sound
 
 import android.media.AudioManager
 import android.media.ToneGenerator
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,6 +26,23 @@ import net.mm2d.timer.settings.SettingsRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
+
+@EntryPoint
+@InstallIn(SingletonComponent::class)
+internal interface SoundEffectEntryPoint {
+    fun soundEffect(): SoundEffect
+}
+
+@Composable
+internal fun rememberSoundEffect(): SoundEffect {
+    val context = LocalContext.current
+    return remember(context) {
+        EntryPointAccessors.fromApplication(
+            context.applicationContext,
+            SoundEffectEntryPoint::class.java,
+        ).soundEffect()
+    }
+}
 
 @Singleton
 class SoundEffect @Inject constructor(
