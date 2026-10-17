@@ -8,6 +8,8 @@
 package net.mm2d.timer
 
 import android.content.res.Configuration
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.annotation.DrawableRes
@@ -93,6 +95,9 @@ fun MainScreen(
                 }
             }
     }
+    LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
+        viewModel.onEvent(UiEvent.PersistRunningState)
+    }
     val uiState by viewModel.getUiStateStream().collectAsStateWithLifecycle()
     val initialized = uiState.initialized
     val fullscreen = uiState.fullscreen
@@ -106,6 +111,24 @@ fun MainScreen(
             }
         }
     }
+    val orientation = uiState.orientation
+    LifecycleResumeEffect(activity, initialized, orientation) {
+        if (initialized && activity.requestedOrientation != orientation.value) {
+            activity.requestedOrientation = orientation.value
+        }
+        onPauseOrDispose {}
+    }
+    val keepScreenOn = uiState.keepScreenOn
+    LifecycleResumeEffect(activity.window, initialized, keepScreenOn) {
+        if (initialized) {
+            activity.window.setKeepScreenOn(keepScreenOn)
+        }
+        onPauseOrDispose {
+            if (initialized && keepScreenOn) {
+                activity.window.setKeepScreenOn(false)
+            }
+        }
+    }
     CompositionLocalProvider(
         LocalLayoutDirection provides LayoutDirection.Ltr,
     ) {
@@ -113,6 +136,16 @@ fun MainScreen(
             uiState = uiState,
             onEvent = viewModel::onEvent,
         )
+    }
+}
+
+private fun Window.setKeepScreenOn(
+    keepScreenOn: Boolean,
+) {
+    if (keepScreenOn) {
+        addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    } else {
+        clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 }
 
