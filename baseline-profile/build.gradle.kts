@@ -61,5 +61,11 @@ androidComponents {
             "targetAppId",
             v.testedApks.map { artifactsLoader.load(it)!!.applicationId },
         )
+        if (v.name == "nonMinifiedRelease") {
+            v.instrumentationRunnerArguments.put(
+                "class",
+                "net.mm2d.timer.baseline.profile.BaselineProfileGenerator",
+            )
+        }
     }
 }

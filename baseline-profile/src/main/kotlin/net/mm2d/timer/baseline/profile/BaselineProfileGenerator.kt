@@ -55,29 +55,37 @@ class BaselineProfileGenerator {
     }
 
     private fun MacrobenchmarkScope.openSettingsFromMain() {
-        clickObject(By.desc("Open settings"))
+        clickAndWait(By.desc("Open settings"), Until.hasObject(By.text(SETTINGS_ANCHOR_TEXT)))
         device.wait(Until.gone(By.desc("Open settings")), TIMEOUT)
-        waitForObject(By.text(SETTINGS_ANCHOR_TEXT))
+        device.waitForIdle()
     }
 
     private fun MacrobenchmarkScope.exerciseLicenseFromSettings() {
-        val overflowButton = device.findObjects(By.clazz("android.widget.Button"))
-            .maxByOrNull { it.visibleBounds.centerX() }
-            ?: return
-        overflowButton.click()
-        device.waitForIdle()
-        clickObject(By.text("Open source licenses"))
-        device.wait(Until.gone(By.text(SETTINGS_ANCHOR_TEXT)), TIMEOUT)
+        openOverflowMenuInSettings()
+        clickAndWait(By.text("Open source licenses"), Until.gone(By.text(SETTINGS_ANCHOR_TEXT)))
         waitForObject(By.text("Open source licenses"))
         device.pressBack()
         device.wait(Until.gone(By.text("Open source licenses")), TIMEOUT)
         waitForObject(By.text(SETTINGS_ANCHOR_TEXT))
     }
 
+    private fun MacrobenchmarkScope.openOverflowMenuInSettings() {
+        repeat(MAX_CLICK_ATTEMPTS) {
+            val overflowButton = device.findObjects(By.clazz("android.widget.Button"))
+                .maxByOrNull { it.visibleBounds.centerX() }
+                ?: return
+            overflowButton.click()
+            if (device.wait(Until.hasObject(By.text("Open source licenses")), RETRY_TIMEOUT)) {
+                device.waitForIdle()
+                return
+            }
+        }
+        error("Failed to open overflow menu in Settings")
+    }
+
     private fun MacrobenchmarkScope.exerciseColorSelectFromSettings() {
-        clickObject(By.text("Foreground color"))
+        clickAndWait(By.text("Foreground color"), Until.hasObject(By.text("Cancel")))
         device.wait(Until.gone(By.text(SETTINGS_ANCHOR_TEXT)), TIMEOUT)
-        waitForObject(By.text("Cancel"))
         device.findObject(By.text("HSV"))?.let {
             it.click()
             device.waitForIdle()
@@ -86,9 +94,8 @@ class BaselineProfileGenerator {
             it.click()
             device.waitForIdle()
         }
-        clickObject(By.text("Cancel"))
+        clickAndWait(By.text("Cancel"), Until.hasObject(By.text(SETTINGS_ANCHOR_TEXT)))
         device.wait(Until.gone(By.text("Cancel")), TIMEOUT)
-        waitForObject(By.text(SETTINGS_ANCHOR_TEXT))
     }
 
     private fun MacrobenchmarkScope.exerciseModeSwitchInSettings() {
@@ -97,27 +104,25 @@ class BaselineProfileGenerator {
     }
 
     private fun MacrobenchmarkScope.exerciseDialogsInSettings() {
-        scrollSettingsDown()
-        clickAndWait(By.text("Font"), Until.hasObject(By.text("Roboto")))
-        clickObject(By.text("Roboto"))
-        device.wait(Until.gone(By.text("Cancel")), TIMEOUT)
+        ensureVisible(By.text("Font"))
+        clickAndWait(By.text("Font"), Until.hasObject(By.text("Cancel")))
+        clickAndWait(By.text("Roboto"), Until.gone(By.text("Cancel")))
+        ensureVisible(By.text("Screen Orientation"))
         clickAndWait(By.text("Screen Orientation"), Until.hasObject(By.text("Cancel")))
-        clickObject(By.text("Cancel"))
-        device.wait(Until.gone(By.text("Cancel")), TIMEOUT)
+        clickAndWait(By.text("Cancel"), Until.gone(By.text("Cancel")))
     }
 
     private fun MacrobenchmarkScope.returnToMainFromSettings() {
         device.pressBack()
-        device.wait(Until.gone(By.text("Screen Orientation")), TIMEOUT)
         waitForObject(By.desc("Open settings"))
+        device.wait(Until.gone(By.text(SETTINGS_ANCHOR_TEXT)), TIMEOUT)
     }
 
     private fun MacrobenchmarkScope.exerciseTimerOnMain() {
         clickAndWait(By.desc("Set timer"), Until.hasObject(By.text("3 min")))
         clickObject(By.text("3 min"))
         clickObject(By.text("1 min"))
-        clickObject(By.text("OK"))
-        device.wait(Until.gone(By.text("OK")), TIMEOUT)
+        clickAndWait(By.text("OK"), Until.gone(By.text("OK")))
         clickAndWait(By.desc("Start"), Until.hasObject(By.desc("Pause")))
         clickAndWait(By.desc("Pause"), Until.hasObject(By.desc("Start")))
     }
@@ -125,27 +130,27 @@ class BaselineProfileGenerator {
     private fun MacrobenchmarkScope.restoreDefaultSettings() {
         openSettingsFromMain()
         clickAndWait(By.text("clock"), Until.hasObject(By.text("Use 24-hour format")))
-        device.pressBack()
-        device.wait(Until.gone(By.text(SETTINGS_ANCHOR_TEXT)), TIMEOUT)
-        waitForObject(By.desc("Open settings"))
+        returnToMainFromSettings()
 
         openSettingsFromMain()
         clickAndWait(By.text("stopwatch"), Until.hasObject(By.text("Display of \"hour\"")))
-        scrollSettingsDown()
-        clickAndWait(By.text("Font"), Until.hasObject(By.text("7seg-LED")))
-        clickObject(By.text("7seg-LED"))
-        device.wait(Until.gone(By.text("Cancel")), TIMEOUT)
+        ensureVisible(By.text("Font"))
+        clickAndWait(By.text("Font"), Until.hasObject(By.text("Cancel")))
+        clickAndWait(By.text("7seg-LED"), Until.gone(By.text("Cancel")))
         returnToMainFromSettings()
         waitForObject(By.desc("Reset"))
     }
 
-    private fun MacrobenchmarkScope.scrollSettingsDown() {
+    private fun MacrobenchmarkScope.ensureVisible(
+        selector: BySelector,
+    ) {
+        if (device.hasObject(selector)) return
         device.swipe(
             device.displayWidth / 2,
             device.displayHeight * 3 / 4,
             device.displayWidth / 2,
             device.displayHeight / 4,
-            10,
+            SWIPE_STEPS,
         )
         device.waitForIdle()
     }
@@ -173,16 +178,22 @@ class BaselineProfileGenerator {
         selector: BySelector,
         condition: SearchCondition<Boolean>,
     ) {
-        clickObject(selector)
-        check(device.wait(condition, TIMEOUT)) {
-            "Condition not met after clicking: $selector"
+        repeat(MAX_CLICK_ATTEMPTS) {
+            clickObject(selector)
+            if (device.wait(condition, RETRY_TIMEOUT)) {
+                device.waitForIdle()
+                return
+            }
         }
-        device.waitForIdle()
+        error("Condition not met after clicking: $selector")
     }
 
     private companion object {
         private const val DEFAULT_PACKAGE_NAME = "net.mm2d.timer"
         private const val SETTINGS_ANCHOR_TEXT = "Set the color of the clock text"
         private const val TIMEOUT = 5_000L
+        private const val RETRY_TIMEOUT = 2_500L
+        private const val MAX_CLICK_ATTEMPTS = 3
+        private const val SWIPE_STEPS = 30
     }
 }
