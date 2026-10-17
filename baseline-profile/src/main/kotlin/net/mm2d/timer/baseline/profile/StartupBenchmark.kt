@@ -13,6 +13,9 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,15 +39,25 @@ class StartupBenchmark {
     private fun benchmark(
         compilationMode: CompilationMode,
     ) {
+        val packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
+            ?: DEFAULT_PACKAGE_NAME
         benchmarkRule.measureRepeated(
-            packageName = "net.mm2d.timer",
+            packageName = packageName,
             metrics = listOf(StartupTimingMetric()),
             compilationMode = compilationMode,
             iterations = 10,
             startupMode = StartupMode.COLD,
+            setupBlock = {
+                pressHome()
+            },
         ) {
-            pressHome()
             startActivityAndWait()
+            device.wait(Until.hasObject(By.desc("Open settings")), TIMEOUT)
         }
+    }
+
+    private companion object {
+        private const val DEFAULT_PACKAGE_NAME = "net.mm2d.timer"
+        private const val TIMEOUT = 5_000L
     }
 }
