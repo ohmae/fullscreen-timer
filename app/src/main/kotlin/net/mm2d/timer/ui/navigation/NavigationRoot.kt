@@ -48,20 +48,20 @@ private fun mainEntryProvider(
     navigator: Navigator<MainNavKey>,
 ): (MainNavKey) -> NavEntry<MainNavKey> =
     entryProvider {
-        entry<Main> {
+        entry<Main> { navKey ->
             MainScreen(
                 navigateToSettings = {
-                    navigator.navigate(Settings)
+                    navigator.navigate(from = navKey, to = Settings)
                 },
             )
         }
         entry<Settings> { navKey ->
             SettingsScreen(
                 navigateToLicense = {
-                    navigator.navigate(License)
+                    navigator.navigate(from = navKey, to = License)
                 },
                 navigateToColorSelect = { target ->
-                    navigator.navigate(ColorSelect(target))
+                    navigator.navigate(from = navKey, to = ColorSelect(target))
                 },
                 goBack = {
                     navigator.goBack(navKey)

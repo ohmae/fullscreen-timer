@@ -64,6 +64,94 @@ class NavigatorTest {
     }
 
     @Test
+    fun `navigate fromが最前面と一致する場合は正常に遷移すること`() {
+        val backStack = NavBackStack<TestNavKey>(TestNavKey.Main)
+        val navigator = createNavigator(backStack)
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.RESUMED))
+
+        navigator.navigate(from = TestNavKey.Main, to = TestNavKey.Details)
+
+        assertThat(backStack).containsExactly(TestNavKey.Main, TestNavKey.Details).inOrder()
+    }
+
+    @Test
+    fun `navigate fromが最前面と一致しない場合は即時でも実行されないこと`() {
+        val backStack = NavBackStack<TestNavKey>(TestNavKey.Main)
+        val navigator = Navigator(
+            backStack,
+            navGraph {
+                from<TestNavKey.Main> { to<TestNavKey.Child>() }
+                from<TestNavKey.Details> { to<TestNavKey.Child>() }
+            },
+            {},
+        )
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.RESUMED))
+
+        navigator.navigate(from = TestNavKey.Details, to = TestNavKey.Child)
+
+        assertThat(backStack).containsExactly(TestNavKey.Main)
+    }
+
+    @Test
+    fun `navigate fromが最前面と一致する場合は再開まで遷移を保留すること`() {
+        val backStack = NavBackStack<TestNavKey>(TestNavKey.Main)
+        val navigator = createNavigator(backStack)
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.STARTED))
+
+        navigator.navigate(from = TestNavKey.Main, to = TestNavKey.Details)
+
+        assertThat(backStack).containsExactly(TestNavKey.Main)
+
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.RESUMED))
+
+        assertThat(backStack).containsExactly(TestNavKey.Main, TestNavKey.Details).inOrder()
+    }
+
+    @Test
+    fun `navigate 最前面以外からの遷移要求は保留枠を消費しないこと`() {
+        val backStack = NavBackStack<TestNavKey>(TestNavKey.Main)
+        val navigator = Navigator(
+            backStack,
+            navGraph {
+                from<TestNavKey.Main> {
+                    to<TestNavKey.Details>()
+                    to<TestNavKey.Child>()
+                }
+                from<TestNavKey.Details> { to<TestNavKey.Child>() }
+            },
+            {},
+        )
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.STARTED))
+
+        navigator.navigate(from = TestNavKey.Details, to = TestNavKey.Child)
+        navigator.navigate(from = TestNavKey.Main, to = TestNavKey.Details)
+        navigator.attachLifecycle(TestNavKey.Main, lifecycle(Lifecycle.State.RESUMED))
+
+        assertThat(backStack).containsExactly(TestNavKey.Main, TestNavKey.Details).inOrder()
+    }
+
+    @Test
+    fun `navigate fromが同じ型でも引数が異なれば遷移せず同値なら遷移すること`() {
+        val current = TestNavKey.Item(1)
+        val destination = TestNavKey.Item(3)
+        val backStack = NavBackStack<TestNavKey>(current)
+        val navigator = Navigator(
+            backStack,
+            navGraph { from<TestNavKey.Item> { to<TestNavKey.Item>() } },
+            {},
+        )
+        navigator.attachLifecycle(current, lifecycle(Lifecycle.State.RESUMED))
+
+        navigator.navigate(from = TestNavKey.Item(2), to = destination)
+
+        assertThat(backStack).containsExactly(current)
+
+        navigator.navigate(from = TestNavKey.Item(1), to = destination)
+
+        assertThat(backStack).containsExactly(current, destination).inOrder()
+    }
+
+    @Test
     fun `navigate 遷移中の次の遷移を完了後に実行すること`() {
         val backStack = NavBackStack<TestNavKey>(TestNavKey.Main)
         val navigator = createNavigator(backStack)
@@ -571,6 +659,7 @@ class NavigatorTest {
         val navigator = createNavigator(backStack)
 
         navigator.navigate(TestNavKey.Main)
+        navigator.navigate(from = TestNavKey.Main, to = TestNavKey.Details)
 
         assertThat(backStack).isEmpty()
     }
