@@ -22,7 +22,9 @@ val versionPatch = 2
 android {
     namespace = "net.mm2d.timer"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 2
+        }
     }
 
     defaultConfig {
